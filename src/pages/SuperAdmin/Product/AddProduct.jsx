@@ -8,10 +8,14 @@ function AddProduct() {
       price: "",
       actualPrice: "",
       discountPrice: "", 
-      gallery: "",
       stock: "",
-      sku: ""
+      sku: "",
+      gallery: ""
     }
+  ]);
+
+  const [variantImages, setVariantImages] = useState([
+    [null, null, null, null]  // Initial state for images of each variant
   ]);
 
   const addAttribute = () => {
@@ -21,15 +25,19 @@ function AddProduct() {
       price: "",
       actualPrice: "",
       discountPrice: "",
-      gallery: "",
       stock: "",
-      sku: ""
+      sku: "",
+      gallery: ""
     };
     setAttributes([...attributes, newAttribute]);
+
+    // Add a new array for images for the new variant
+    setVariantImages([...variantImages, [null, null, null, null]]);
   };
 
   const deleteAttribute = (id) => {
     setAttributes(attributes.filter(attribute => attribute.id !== id));
+    setVariantImages(variantImages.filter((_, index) => index !== (id - 1))); // Remove images for deleted variant
   };
 
   const handleInputChange = (id, field, value) => {
@@ -42,52 +50,52 @@ function AddProduct() {
     setAttributes(updatedAttributes);
   };
 
-  //----------------Gallery----------------
-  const [images, setImages] = useState([null, null, null, null]);
-
-  const handleFileDrop = (e, boxIndex) => {
+  const handleFileDrop = (e, variantIndex, boxIndex) => {
     e.preventDefault();
     const file = e.dataTransfer.files[0];
     const reader = new FileReader();
     reader.onload = () => {
-      const newImages = [...images];
-      newImages[boxIndex] = {
-        url: reader.result, // URL of the uploaded image
-        name: file.name,    // Name of the file
-        file: file          // File object itself
+      const newVariantImages = [...variantImages];
+      newVariantImages[variantIndex][boxIndex] = {
+        url: reader.result,
+        name: file.name,
+        file: file
       };
-      setImages(newImages); // Update state with the new array
+      setVariantImages(newVariantImages);
     };
     reader.readAsDataURL(file);
   };
 
-  const handleFileInputChange = (e, boxIndex) => {
+  const handleFileInputChange = (e, variantIndex, boxIndex) => {
     const file = e.target.files[0];
     const reader = new FileReader();
 
     reader.onload = () => {
-      const newImages = [...images]; // Copy current state array
-      newImages[boxIndex] = {
-        url: reader.result, // URL of the uploaded image
-        name: file.name,    // Name of the file
-        file: file          // File object itself
+      const newVariantImages = [...variantImages];
+      newVariantImages[variantIndex][boxIndex] = {
+        url: reader.result,
+        name: file.name,
+        file: file
       };
-      setImages(newImages);
+      setVariantImages(newVariantImages);
     };
     reader.readAsDataURL(file);
   };
 
-  const handleDelete = (boxIndex) => {
-    const newImages = [...images]; // Copy current state array
-    newImages[boxIndex] = null; // Set the corresponding box to null
-    setImages(newImages); // Update state with the new array
+  const handleDelete = (variantIndex, boxIndex) => {
+    const newVariantImages = [...variantImages];
+    newVariantImages[variantIndex][boxIndex] = null;
+    setVariantImages(newVariantImages);
   };
+
   const handleDragOver = (e) => {
     e.preventDefault();
   };
-  const openFileInput = (boxIndex) => {
-    document.getElementById(`file-input-${boxIndex}`).click();
+
+  const openFileInput = (variantIndex, boxIndex) => {
+    document.getElementById(`file-input-${variantIndex}-${boxIndex}`).click();
   };
+
 
   return (
     <div>
@@ -294,7 +302,7 @@ function AddProduct() {
               {/* <!-- Gallery End --> */}
 
               {/* <!-- History Start --> */}
-              <div className="mb-5">
+              {/* <div className="mb-5">
                 <h2 className="small-title">History</h2>
                 <div className="card">
                   <div className="card-body mb-n3">
@@ -316,13 +324,13 @@ function AddProduct() {
                     </div>
                   </div>
                 </div>
-              </div>
+              </div> */}
               {/* <!-- History End --> */}
 
               
             </div>
           </div>
-          {attributes.map(attribute => (
+          {attributes.map((attribute, index) => (
           <div className="row">
           <div className="col-xl-8">
             {/* <!-- Attributes Start --> */}
@@ -381,7 +389,7 @@ function AddProduct() {
                           </div>
                           <div className="">
                             <div className="mb-3">
-                              <label className="form-label">SKU</label>
+                              <label className="form-label">SKU (optional)</label>
                               <input type="text" className="form-control" value={attribute.sku} onChange={(e) => handleInputChange(attribute.id, "discountPrice", e.target.value)} />
                             </div>
                           </div>
@@ -397,50 +405,50 @@ function AddProduct() {
           <div className="card mt-5">
             <div className="card-body">
               <div className="row">
-                {[0, 1, 2, 3].map((boxIndex) => (
-                  <div key={boxIndex} className="col-md-6">
-                    <form>
-                      <div>
-                        {!images[boxIndex] && (
-                          <div
-                            className="dropzone mb-5"
-                            onClick={() => openFileInput(boxIndex)}
-                            onDrop={(e) => handleFileDrop(e, boxIndex)}
-                            onDragOver={handleDragOver}
-                          >
-                            <input
-                              id={`file-input-${boxIndex}`}
-                              type="file"
-                              className="form-control d-none"
-                              onChange={(e) => handleFileInputChange(e, boxIndex)}
-                            />
-                            <p className="small-title">Click here to Upload</p>
-                          </div>
-                        )}
-                        {images[boxIndex] && (
-                          <div className="mt-3" style={{ position: 'relative' }}>
-                            <div style={{ position: 'relative', maxWidth: '100%', maxHeight: '200px', overflow: 'hidden' }}>
-                              <img
-                                src={images[boxIndex].url}
-                                className="mb-3"
-                                alt={images[boxIndex].name}
-                                style={{ width: '100%', height: 'auto' }}
+              {[0, 1, 2, 3].map((boxIndex) => (
+                    <div key={boxIndex} className="col-md-6">
+                      <form>
+                        <div>
+                          {!variantImages[index][boxIndex] && (
+                            <div
+                              className="dropzone mb-5"
+                              onClick={() => openFileInput(index, boxIndex)}
+                              onDrop={(e) => handleFileDrop(e, index, boxIndex)}
+                              onDragOver={handleDragOver}
+                            >
+                              <input
+                                id={`file-input-${index}-${boxIndex}`}
+                                type="file"
+                                className="form-control d-none"
+                                onChange={(e) => handleFileInputChange(e, index, boxIndex)}
                               />
-                              <button
-                                type="button"
-                                className="btn btn-outline-danger"
-                                onClick={() => handleDelete(boxIndex)}
-                                style={{ position: 'absolute', bottom: '15px', right: '0px' }}
-                              >
-                                <i className="fa-solid fa-trash" />
-                              </button>
+                              <i className="fa-solid fa-upload text-primary"></i>
                             </div>
-                          </div>
-                        )}
-                      </div>
-                    </form>
-                  </div>
-                ))}
+                          )}
+                          {variantImages[index][boxIndex] && (
+                            <div className="mt-3" style={{ position: 'relative' }}>
+                              <div style={{ position: 'relative', maxWidth: '100%', maxHeight: '200px', overflow: 'hidden' }}>
+                                <img
+                                  src={variantImages[index][boxIndex].url}
+                                  className="mb-3"
+                                  alt={variantImages[index][boxIndex].name}
+                                  style={{ width: '100%', height: 'auto' }}
+                                />
+                                <button
+                                  type="button"
+                                  className="btn btn-outline-danger"
+                                  onClick={() => handleDelete(index, boxIndex)}
+                                  style={{ position: 'absolute', bottom: '15px', right: '0px' }}
+                                >
+                                  <i className="fa-solid fa-trash" />
+                                </button>
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                      </form>
+                    </div>
+                  ))}
               </div>
             </div>
           </div>
