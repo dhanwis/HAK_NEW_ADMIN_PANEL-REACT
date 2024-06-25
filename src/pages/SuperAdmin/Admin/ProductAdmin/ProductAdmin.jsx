@@ -14,17 +14,18 @@ function ProductAdmin() {
               console.error('Error fetching admins:', error);
           });
   }, []);
-const deleteUser = (userId) =>{
-  axios.delete(`http://localhost:8000/auth/product-admins-edit/${userId}`)
-  .then(response =>{ 
-    setUsers(users.filter(user => user.id !== userId));
 
-  } )
-  .catch(error => {
-    console.error('Error deleting user:',error);
-  });
-};
-
+  const deleteUser = (userId) => {
+    axios.delete(`http://localhost:8000/auth/product-admins-edit/${userId}`)
+      .then(response => {
+        // Filter out the deleted user from the state
+        setUsers(users.filter(user => user.id !== userId));
+        alert('User deleted success');
+      })
+      .catch(error => {
+        console.error('Error deleting user:', error);
+      });
+  };
 
   return (
     <div>
@@ -36,7 +37,7 @@ const deleteUser = (userId) =>{
               {/* <!-- Title Start --> */}
               <div className="col-auto mb-3 mb-md-0 me-auto">
                 <div className="w-auto sw-md-30">
-                  <a href="/" className="muted-link pb-1 d-inline-block breadcrumb-back">
+                  <a href="/admin-dashboard" className="muted-link pb-1 d-inline-block breadcrumb-back">
                     <i data-acorn-icon="chevron-left" data-acorn-size="13"></i>
                     <span className="text-medium align-middle">Home</span>
                   </a>
@@ -145,8 +146,9 @@ const deleteUser = (userId) =>{
               {users.map(user => (
                 <div key={user.id} className="card mb-3">
                   <div className="row g-0 h-100 sh-lg-9 position-relative">
-                    <a href={`/productadmin-view/${user.id}`}  className="col-auto position-relative">
-                      <img src={`http://localhost:8000${user.image}`} alt="image" className="card-img card-img-horizontal sw-11 h-100 sh-lg-9" />
+                    <a href={`/productadmin-view/${user.id}`} className="col-auto position-relative">
+                      <div className="card-img card-img-horizontal sw-11 h-100 sh-lg-9" style={{backgroundImage: `url(http://localhost:8000${user.image})`,backgroundRepeat: 'no-repeat', backgroundSize: '100% 100%'}}></div>
+                      {/* <img src={`http://localhost:8000${user.image}`} alt="image" className="card-img card-img-horizontal sw-11 h-100 sh-lg-9" /> */}
                     </a>
                     <div className="col py-4 py-lg-0">
                       <div className="ps-5 pe-4 h-100">
@@ -169,7 +171,6 @@ const deleteUser = (userId) =>{
                           <div className="col-12 col-lg-1 d-flex flex-column pe-1 mb-2 mb-lg-0 align-items-start justify-content-center">
                             <a href={`/productadmin-update/${user.id}`} className="col-11 col-lg-1 d-flex flex-column mb-lg-0 mb-3 pe-3 d-flex order-1 h-lg-100 justify-content-center"><i className='fa-solid fa-pen'/></a>
                           </div>
-                         
                           <div className="col-12 col-lg-1 d-flex flex-column pe-1 mb-2 mb-lg-0 align-items-start justify-content-center ">
                             <a href="#" className="col-11 col-lg-1 d-flex flex-column mb-lg-0 mb-3 pe-3 d-flex  h-lg-100 justify-content-center" onClick={() => deleteUser(user.id)}><i className='fa-solid fa-trash'/></a>
                           </div>

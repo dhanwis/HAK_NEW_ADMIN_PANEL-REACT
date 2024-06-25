@@ -63,16 +63,16 @@ function AdminLogin() {
         const user = a.data.user;
         console.log(user);
         if (user.is_product_admin) {
-          alert("Productadmin login success");
+          // alert("Productadmin login success");
           window.location.href = '/productadmin-dashboard';
         } 
         else if (user.is_order_admin) {
-          alert("Orderadmin login success");
+          // alert("Orderadmin login success");
           window.location.href = '/orderadmin-dashboard';
         }   
         else {
-          alert("Superadmin login success");
-          window.location.href = '/';
+          // alert("Superadmin login success");
+          window.location.href = '/admin-dashboard';
         }
       } 
      }
@@ -97,7 +97,7 @@ function AdminLogin() {
             <div className='login_top2'></div>
                     <div className='login_center'>
                       <form onSubmit={handleSubmit}>
-                        <img className='login_image' src={logo}/>
+                        <img className='login_image' src={logo} alt="logo"/>
                         {/* <h2>Welcome, Sign In</h2>  */}
                         <div className='form-control login_input' style={{marginTop:'10px',borderColor:usernameError?'red':''}}><i className='fa-solid fa-envelope icon'/><input className='form-control login_email' type="text" placeholder="Enter Your Email" name='username' onChange={handleInputChange}/></div>
                         <div><label className='form-label' style={{marginLeft:'10px',color:'red'}}>{usernameError}</label></div>
@@ -116,4 +116,3 @@ function AdminLogin() {
 }
 
 export default AdminLogin
-

@@ -1,5 +1,5 @@
 import React from 'react'
-import logo from './logo1.png'
+import logo from '../../../images/logo/logo1-black.png'
 function OrderDetails() {
 
   const handlePrint = () => {
@@ -290,11 +290,12 @@ function OrderDetails() {
           {
             window.print()
           }
-         var currentDate = new Date();
-         var options ={ year:'numeric',month: 'short',day: '2-digit'};
-         var dateString = currentDate.toLocaleDateString('en-US',options);
-         dateString = dateString.replace(/,/g,'');
-         document.getElementById("currentDate").innerHTML = dateString;
+
+          var currentDate = new Date();
+          var options = { year: 'numeric', month: 'short', day: '2-digit'};
+          var dateString = currentDate.toLocaleDateString('en-US', options);
+          dateString = dateString.replace(/,/g,'');
+          document.getElementById("currentDate").innerHTML = dateString;
 
         </script>
       </body>
@@ -403,7 +404,7 @@ function OrderDetails() {
             </div>
             <div class="dispatch-info">
                 <label>Date:</label>
-                <p>June 4, 2024</p>
+                <span id="currentDate" style="color:black"></span>
             </div>
             <div class="dispatch-info">
                 <label>Recipient Name:</label>
@@ -433,6 +434,11 @@ function OrderDetails() {
           {
             window.print();
           }
+          var currentDate = new Date();
+          var options = { year: 'numeric', month: 'short', day: '2-digit'};
+          var dateString = currentDate.toLocaleDateString('en-US', options);
+          dateString = dateString.replace(/,/g,'');
+          document.getElementById("currentDate").innerHTML = dateString;
         </script>
     </body>
     </html>
@@ -465,9 +471,9 @@ function OrderDetails() {
                 <div className="w-auto sw-md-30">
                   <a href="/orderlist" className="muted-link pb-1 d-inline-block breadcrumb-back">
                     <i data-acorn-icon="chevron-left" data-acorn-size="13"></i>
-                    <span className="text-small align-middle">Back</span>
+                    <span className="text-medium align-middle">Back</span>
                   </a>
-                  <h1 className="mb-0 pb-0 display-4" id="title">Order Detail</h1>
+                  <h1 className="mb-0 pb-0 display-4 sw-40" id="title">Order Detail: #order_id</h1>
                 </div>
               </div>
               {/* <!-- Title End --> */}
@@ -966,3 +972,4 @@ function OrderDetails() {
 }
 
 export default OrderDetails
+

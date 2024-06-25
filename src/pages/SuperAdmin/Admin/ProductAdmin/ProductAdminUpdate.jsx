@@ -40,7 +40,7 @@ function ProductAdminUpdate() {
           image: response.data.image,
         });
         setEditImage({
-          url: `http://localhost:8000${response.data.image}`,
+          url: response.data.image ? `http://localhost:8000${response.data.image}` : null,
           file: null
         });
       })
@@ -169,16 +169,18 @@ function ProductAdminUpdate() {
                 <div className="card">
                   <div className="card-body">
                     <form>
-                      {editImage && (
+                      {editImage && editImage.url ? (
                         <div className="mt-1 text-center">
                           <img src={editImage.url} className="mb-3" alt={editImage.name} style={{ maxWidth: '100%', maxHeight: '200px' }} />
                           <div>
                             <button type="button" className="btn btn-danger" onClick={handleEditDelete}><i className='fa-solid fa-trash' /></button>
                           </div>
                         </div>
-                      )}
-                      {!editImage && (
-                        <input type="file" name="image" className="form-control" onChange={handleEditFileChange} />
+                      ) : (
+                        <div className="mt-1 text-center">
+                          <p>No Image</p>
+                          <input type="file" name="image" className="form-control" onChange={handleEditFileChange} />
+                        </div>
                       )}
                     </form>
                   </div>

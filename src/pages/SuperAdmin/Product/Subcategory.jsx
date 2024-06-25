@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
@@ -259,7 +258,7 @@ function SubCategory() {
             </div>
             <div className="col-sm-12 col-md-7 col-lg-9 col-xxl-10 text-end mb-1">
               <div className="d-inline-block">
-                {/* Status Button Start */}
+                {/* Filter Button Start */}
                 <div className="dropdown-as-select w-100 w-md-auto">
                     <button
                       className="btn btn btn-outline-primary w-100 w-md-auto dropdown-toggle"
@@ -277,7 +276,7 @@ function SubCategory() {
                       ))}
                     </div>
                   </div>
-                {/* Status Button End */}
+                {/* Filter Button End */}
               </div>
             </div>
           </div>

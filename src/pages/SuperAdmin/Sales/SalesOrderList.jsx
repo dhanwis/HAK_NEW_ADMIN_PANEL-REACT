@@ -11,7 +11,7 @@ function SalesOrderList() {
               {/* <!-- Title Start --> */}
               <div className="col-auto mb-3 mb-md-0 me-auto">
                 <div className="w-auto sw-md-30">
-                  <a href="/" className="muted-link pb-1 d-inline-block breadcrumb-back">
+                  <a href="/admin-dashboard" className="muted-link pb-1 d-inline-block breadcrumb-back">
                     <i data-acorn-icon="chevron-left" data-acorn-size="13"></i>
                     <span className="text-small align-middle">Home</span>
                   </a>

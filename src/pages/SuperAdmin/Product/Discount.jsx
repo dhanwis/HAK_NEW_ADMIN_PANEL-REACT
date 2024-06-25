@@ -1,4 +1,3 @@
-
 import React from 'react'
 
 function Discount() {
@@ -133,11 +132,11 @@ function Discount() {
                       </div>
                       <div className="col-6 col-lg-2 d-flex flex-column justify-content-center mb-2 mb-lg-0 order-3 order-lg-2">
                         <div className="text-muted text-small d-lg-none">Type</div>
-                        <div className="text-alternate">Fixed Amount</div>
+                        <div className="text-muted">Fixed Amount</div>
                       </div>
                       <div className="col-6 col-lg-4 d-flex flex-column justify-content-center mb-2 mb-lg-0 order-4 order-lg-3">
                         <div className="text-muted text-small d-lg-none">Date</div>
-                        <div className="text-alternate">01.06.2021 - 01.07.2021</div>
+                        <div className="text-muted">01.06.2021 - 01.07.2021</div>
                       </div>
                       <div className="col-6 col-lg-2 d-flex flex-column justify-content-center mb-2 mb-lg-0 order-last order-lg-5">
                         <div className="text-muted text-small d-lg-none">Status</div>
@@ -161,7 +160,7 @@ function Discount() {
                         <div className="text-muted text-small d-lg-none">Code</div>
                         <a
                           href="/viewdiscount"
-                          className="text-truncate h-100 d-flex align-items-center muted-link"
+                          className="text-truncate h-100 d-flex align-items-center"
                         >
                           15OFF
                         </a>
@@ -196,7 +195,7 @@ function Discount() {
                         <div className="text-muted text-small d-lg-none">Code</div>
                         <a
                           href="/viewdiscount"
-                          className="text-truncate h-100 d-flex align-items-center muted-link"
+                          className="text-truncate h-100 d-flex align-items-center"
                           >
                           25OFF
                         </a>
@@ -231,7 +230,7 @@ function Discount() {
                         <div className="text-muted text-small d-lg-none">Code</div>
                         <a
                           href="/viewdiscount"
-                          className="text-truncate h-100 d-flex align-items-center muted-link"
+                          className="text-truncate h-100 d-flex align-items-center"
                         >
                           NEWYEAR
                         </a>

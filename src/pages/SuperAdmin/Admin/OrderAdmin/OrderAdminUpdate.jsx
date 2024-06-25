@@ -1,83 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import React, { useState } from 'react';
 
 function OrderAdminUpdate() {
-  const [editData, setEditData] = useState({
-    first_name: "",
-    password: "",
-    email: "",
-    phone_number: "",
-    username: "",
-    image: ""
-  });
 
-  const { id } = useParams();
-  const [editImage, setEditImage] = useState(null);
+  const [image, setImage] = useState(null);
 
-  useEffect(() => {
-    handleEditData(id);
-  }, [id]);
-
-  const handleEditOnchange = (x) => {
-    const { name, value } = x.target;
-    setEditData({
-      ...editData,
-      [name]: value
-    });
-  };
-
-  const handleEditData = (userId) => {
-    axios.get(`http://localhost:8000/auth/order-admins-edit/${userId}`)
-      .then(response => {
-        setEditData({
-          id: response.data.id,
-          first_name: response.data.first_name,
-          password: response.data.password,
-          email: response.data.email,
-          phone_number: response.data.phone_number,
-          username: response.data.username,
-          image: response.data.image,
-        });
-        setEditImage({
-          url: `http://localhost:8000${response.data.image}`,
-          file: null
-        });
-      })
-      .catch(error => {
-        console.error('Error fetching order admin:', error);
-      });
-  };
-
-  const handleEditSubmit = async () => {
-    try {
-      let formData = new FormData();
-      formData.append('id', editData.id);
-      formData.append('first_name', editData.first_name);
-      formData.append('email', editData.email);
-      formData.append('phone_number', editData.phone_number);
-      formData.append('username', editData.username);
-      formData.append('password', editData.password);
-      if (editImage && editImage.file) {
-        formData.append('image', editImage.file); // Append file directly
-      }
-      let order_admin = await axios.patch(`http://localhost:8000/auth/order-admins-edit/${id}`, formData, {
-        headers: { 'Content-Type': 'multipart/form-data' }
-      });
-      console.log("Response:", order_admin);
-      alert('Form Submitted Successfully');
-    } catch (err) {
-      console.error(err);
-      alert('Failed!!!')
-    }
-  };
-
-  const handleEditFileChange = (event) => {
+  const handleFileChange = (event) => {
     const file = event.target.files[0];
+  
     if (file) {
       const reader = new FileReader();
-      reader.onload = function (e) {
-        setEditImage({
+      reader.onload = function(e) {
+        setImage({
           file: file, // Store the file object itself
           url: e.target.result,
           name: file.name,
@@ -86,34 +19,45 @@ function OrderAdminUpdate() {
       };
       reader.readAsDataURL(file);
     } else {
-      setEditImage(null);
+      setImage(null);
     }
   };
+  
 
-  const handleEditDelete = () => {
-    setEditImage(null);
+  const handleDelete = () => {
+    setImage(null);
+  };
+
+  const formatSize = (bytes) => {
+    const megabytes = bytes / (1024 * 1024);
+    return megabytes.toFixed(2) + " MB";
   };
 
   return (
     <div>
       <main>
         <div className="container">
+          {/* <!-- Title and Top Buttons Start --> */}
           <div className="page-title-container">
             <div className="row g-0">
+              {/* <!-- Title Start --> */}
               <div className="col-auto mb-3 mb-md-0 me-auto">
                 <div className="w-auto sw-md-40">
                   <a href="/orderadmin" className="muted-link pb-1 d-inline-block breadcrumb-back">
                     <i data-acorn-icon="chevron-left" data-acorn-size="13"></i>
                     <span className="text-medium align-middle">Back</span>
                   </a>
-                  <h1 className="mb-0 pb-0 display-4" id="title">order Admin Update</h1>
+                  <h1 className="mb-0 pb-0 display-4" id="title">Order Admin Update</h1>
                 </div>
               </div>
-              <div className="w-100 d-md-none"></div>
+              {/* <!-- Title End --> */}
+
+               {/* <!-- Top Buttons Start --> */}
+             <div className="w-100 d-md-none"></div>
               <div className="col-12 col-sm-6 col-md-auto d-flex align-items-end justify-content-end mb-2 mb-sm-0 order-sm-3">
-                <button type="button" className="btn btn-outline-primary btn-icon btn-icon-start ms-0 ms-sm-1 w-100 w-md-auto" onClick={handleEditSubmit}>
+                <a href="#" className="btn btn-outline-primary btn-icon btn-icon-start ms-0 ms-sm-1 w-100 w-md-auto">
                   <span>Update</span>
-                </button>
+                </a>
                 <div className="dropdown d-inline-block d-lg-none">
                   <button
                     type="button"
@@ -127,63 +71,78 @@ function OrderAdminUpdate() {
                   </button>
                 </div>
               </div>
+              {/* <!-- Top Buttons End --> */}
             </div>
           </div>
+          {/* <!-- Title and Top Buttons End --> */}
 
           <div className="row">
             <div className="col-xl-8">
+              {/* <!-- Product Info Start --> */}
               <div className="mb-5">
-                <h2 className="small-title">order Admin View</h2>
+                <h2 className="small-title">Order Admin Update</h2>
                 <div className="card">
                   <div className="card-body">
                     <form>
                       <div className="mb-3">
                         <label className="form-label">Name</label>
-                        <input type="text" name='first_name' className="form-control" value={editData.first_name} onChange={handleEditOnchange} />
+                        <input type="text" name='first_name' className="form-control"/>
+                      </div>
+                      {/* <div className="mb-3 w-100">
+                        <label className="form-label">Gender</label>
+                        <input type="text" className="form-control"/>
                       </div>
                       <div className="mb-3">
+                        <label className="form-label">Address</label>
+                        <textarea className="form-control html-editor-bubble html-editor sh-13" id="quillEditorBubble" style={{overflowY: 'scroll',padding:'10px 10px' }} ="Kannur, Kerala, 670014">
+                          Kannur, Kerala, 670014, India
+                        </textarea>
+                      </div> */}
+                      <div className="mb-3">
                         <label className="form-label">Mobile</label>
-                        <input type="tel" name='phone_number' className="form-control" value={editData.phone_number} onChange={handleEditOnchange} />
+                        <input type="tel" name='phone_number' className="form-control" />
                       </div>
                       <div className="mb-3">
                         <label className="form-label">Email</label>
-                        <input type="email" name='email' className="form-control" value={editData.email} onChange={handleEditOnchange} />
+                        <input type="email" name='email' className="form-control" />
                       </div>
                       <div className="mb-3">
                         <label className="form-label">Username</label>
-                        <input type="text" name='username' className="form-control" value={editData.username} onChange={handleEditOnchange} />
+                        <input type="tel" name='username' className="form-control" />
                       </div>
                       <div className="mb-3">
                         <label className="form-label">Password</label>
-                        <input type="text" name='password' className="form-control" value={editData.password} onChange={handleEditOnchange} />
+                        <input type="text" name='password' className="form-control" />
                       </div>
                     </form>
                   </div>
                 </div>
               </div>
+              {/* <!-- Product Info End --> */}
             </div>
 
             <div className="col-xl-4 mb-n5">
+                {/* <!-- Image Start --> */}
               <div className="mb-5">
                 <h2 className="small-title">Image</h2>
                 <div className="card">
                   <div className="card-body">
                     <form>
-                      {editImage && (
-                        <div className="mt-1 text-center">
-                          <img src={editImage.url} className="mb-3" alt={editImage.name} style={{ maxWidth: '100%', maxHeight: '200px' }} />
-                          <div>
-                            <button type="button" className="btn btn-danger" onClick={handleEditDelete}><i className='fa-solid fa-trash' /></button>
+                      {!image && <input type="file" name="image" className="form-control" onChange={handleFileChange} />}
+                        {image && (
+                          <div className="mt-3">
+                            <img src={image.url} className="mb-3" alt={image.name} style={{ maxWidth: '100%', maxHeight: '200px', justifyContent: 'center' }} />
+                            <p>Name: {image.name}</p>
+                            <p>Size: {formatSize(image.size)}</p>
+                            <center><button type="button" className="btn btn-danger" onClick={handleDelete}>Delete</button></center>
                           </div>
-                        </div>
-                      )}
-                      {!editImage && (
-                        <input type="file" name="image" className="form-control" onChange={handleEditFileChange} />
                       )}
                     </form>
                   </div>
                 </div>
               </div>
+              {/* <!-- Image End --> */}
+              {/* <!-- History Start --> */}
               <div className="mb-5">
                 <h2 className="small-title">History</h2>
                 <div className="card">
@@ -211,12 +170,32 @@ function OrderAdminUpdate() {
                   </div>
                 </div>
               </div>
+              {/* <!-- History End --> */}
+
+              {/* <!-- Gallery Start --> */}
+              {/* <div className="mb-5">
+                <h2 className="small-title">Gallery</h2>
+                <div className="card">
+                  <div className="card-body">
+                    <form className="mb-3">
+                      <div className="dropzone dropzone-columns row g-2 row-cols-1 row-cols-md-4 row-cols-xl-2 border-0 p-0" id="dropzoneProductGallery"></div>
+                    </form>
+                    <div className="text-center">
+                      <button type="button" className="btn btn-foreground hover-outline btn-icon btn-icon-start mt-2" id="dropzoneProductGalleryButton">
+                        <i data-acorn-icon="plus"></i>
+                        <span>Add Files</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div> */}
+              {/* <!-- Gallery End --> */}
             </div>
           </div>
         </div>
       </main>
     </div>
-  );
+  )
 }
 
-export default OrderAdminUpdate;
+export default OrderAdminUpdate

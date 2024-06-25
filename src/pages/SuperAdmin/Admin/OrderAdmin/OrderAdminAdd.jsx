@@ -4,9 +4,6 @@ import axios from 'axios';
 function OrderAdminAdd() {
   const[userData, setuserData] = useState({
     first_name: "",
-    last_name: "",
-    gender: "",
-    address: "",
     password: "",
     email: "",
     phone_number: "",
@@ -124,19 +121,19 @@ function OrderAdminAdd() {
                 <h2 className="small-title">Order Admin Add</h2>
                 <div className="card">
                   <div className="card-body">
-                    <form>
+                  <form>
                     <div className="mb-3">
-                        <label className="form-label">First name</label>
-                        <input type="text" name='first_name' className="form-control" onChange={handleOnchange} />
+                        <label className="form-label">Name</label>
+                        <input type="text" name='first_name' className="form-control" onChange={handleOnchange} value={userData.first_name}/>
                       </div>
-                      <div className="mb-3">
+                      {/* <div className="mb-3">
                         <label className="form-label">Last name</label>
                         <input type="text" name='last_name' className="form-control" onChange={handleOnchange} />
-                      </div>
-                      <div className="mb-3">
+                      </div> */}
+                      {/* <div className="mb-3">
                         <label className="form-label">Gender</label>
                         <input type="text" name='gender' className="form-control" onChange={handleOnchange} />
-                      </div>
+                      </div> */}
                       {/* <div className="mb-3 w-100">
                         <label className="form-label">Gender</label>
                         <select name="gender" className="form-select select-single-no-search" onChange={handleOnchange}>
@@ -152,10 +149,10 @@ function OrderAdminAdd() {
                           Kannur, Kerala, 670014, India
                         </textarea>
                       </div> */}
-                      <div className="mb-3">
+                      {/* <div className="mb-3">
                         <label className="form-label">Address</label>
                         <input type="text" name='address' className="form-control" onChange={handleOnchange} />
-                      </div>
+                      </div> */}
                       <div className="mb-3">
                         <label className="form-label">Mobile</label>
                         <input type="tel" name='phone_number' className="form-control" onChange={handleOnchange} />
