@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react'
 
 function AddProduct() {
@@ -188,12 +189,12 @@ function AddProduct() {
                         </select>
                       </div>
                       <div className="mb-3 w-100">
-                        <label className="form-label">Product Category</label>
+                        <label className="form-label">Product SubCategory</label>
                         <select className="form-select select-single-no-search">
                           <option label="--Category--"></option>
-                          <option value="Breadstick">SALWAR</option>
-                          <option value="Biscotti">SAREE</option>
-                          <option value="Fougasse">TOP</option>
+                          <option value="Breadstick">PLAZZO SALWAR</option>
+                          <option value="Biscotti">KANCHIPURAM SAREE</option>
+                          <option value="Fougasse">DENIM TOP</option>
                         </select>
                       </div>
                     </form>
@@ -411,6 +412,7 @@ function AddProduct() {
                         <div>
                           {!variantImages[index][boxIndex] && (
                             <div
+                            style={{cursor:"pointer"}}
                               className="dropzone mb-5"
                               onClick={() => openFileInput(index, boxIndex)}
                               onDrop={(e) => handleFileDrop(e, index, boxIndex)}
@@ -422,12 +424,13 @@ function AddProduct() {
                                 className="form-control d-none"
                                 onChange={(e) => handleFileInputChange(e, index, boxIndex)}
                               />
-                              <i className="fa-solid fa-upload text-primary"></i>
+                              <i className="fa-solid fa-upload text-primary mt-3" style={{ marginLeft:"-7px"}}></i>
+                              <label className='form-label ms-1 mt-3'  style={{cursor:"pointer"}} onMouseOver={(e)=> e.target.style.color = 'var(--primary)'} onMouseOut={(e)=> e.target.style.color = ''}>Upload Image</label>
                             </div>
                           )}
                           {variantImages[index][boxIndex] && (
                             <div className="mt-3" style={{ position: 'relative' }}>
-                              <div style={{ position: 'relative', maxWidth: '100%', maxHeight: '200px', overflow: 'hidden' }}>
+                              <div style={{ position: 'relative', maxWidth: '100%', maxHeight: '100%', overflow: 'hidden' }}>
                                 <img
                                   src={variantImages[index][boxIndex].url}
                                   className="mb-3"

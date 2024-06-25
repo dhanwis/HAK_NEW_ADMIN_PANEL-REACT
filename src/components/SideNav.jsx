@@ -237,7 +237,7 @@ function SideNav() {
                     </Link>
                   </li>
                   <li>
-                    <Link to="/customerlist">
+                    <Link to="/review">
                       <span className="label">Reviews</span>
                     </Link>
                   </li>

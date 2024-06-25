@@ -80,6 +80,7 @@ import SalesAdminProfileAdminView from './pages/SalesAdmin/Profile/SalesAdminPro
 import SalesAdminProfileUpdate from './pages/SalesAdmin/Profile/SalesAdminProfileUpdate';
 import AdminLogin from './components/Login/AdminLogin';
 import Subcategory from './pages/SuperAdmin/Product/Subcategory';
+import Review from "./pages/SuperAdmin/Customer/Review";
 
 
 
@@ -124,6 +125,7 @@ function App() {
           <Route path="/sales-customerdetails"element={<><SideNav /><SalesCustomerDetails /><Search /><Footer /></>}/>
           <Route path="/sales-orderlist" element={<><SideNav /><SalesOrderList /><Search /><Footer /></>} />
           <Route path="/sales-orderdetails"belement={<><SideNav /><SalesOrderDetails /><Search /><Footer /></>} />
+          <Route path="/review" element={<><SideNav /><Review /><Search /><Footer /></>} />
           {/* ------------------------ SUPER-ADMIN-END----------------------------- */}
 
 
