@@ -1,7 +1,9 @@
-import React from 'react'
-
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { useParams } from 'react-router-dom';
 
 function Dashboard() {
+
   return (
     <div>
       <main>
@@ -14,7 +16,7 @@ function Dashboard() {
                 <a className="muted-link pb-2 d-inline-block hidden" href="#">
                   <span className="align-middle lh-1 text-small">&nbsp;</span>
                 </a>
-                <h1 className="mb-0 pb-0 display-4" id="title">Welcome, Super Admin!</h1>
+                <h1 className="mb-0 pb-0 display-4" id="title">Welcome Super Admin!</h1>
               </div>
               {/* <!-- Title End --> */}
             </div>
@@ -350,16 +352,16 @@ function Dashboard() {
                 <div className="scroll-by-count" data-count="4">
                   <div className="card mb-2">
                     <div className="row g-0 sh-14 sh-md-10">
-                      <div className="col-auto sh-md-10">
+                      <div className="col-auto">
                         <a href="Products.Detail.html">
-                          <img src="img/product/small/pro1.webp" alt="alternate text" className="card-img card-img-horizontal sw-11" />
+                          <img src="img/product/Salwar.webp" alt="alternate text" className="card-img card-img-horizontal sw-11 sh-md-10" />
                         </a>
                       </div>
                       <div className="col">
                         <div className="card-body pt-0 pb-0 h-100">
                           <div className="row g-0 h-100 align-content-center">
                             <div className="col-12 col-md-9 d-flex align-items-center mb-2 mb-md-0">
-                              <a href="Products.Detail.html">Anarkali Churidhar</a>
+                              <a href="Products.Detail.html">Salwar</a>
                             </div>
                             <div className="col-12 col-md-3 d-flex align-items-center justify-content-md-end text-muted text-medium">4.024 Sales</div>
                           </div>
@@ -369,16 +371,16 @@ function Dashboard() {
                   </div>
                   <div className="card mb-2">
                     <div className="row g-0 sh-14 sh-md-10">
-                      <div className="col-auto sh-md-10">
+                      <div className="col-auto">
                         <a href="Products.Detail.html">
-                          <img src="img/product/small/saree1.webp" alt="alternate text" className="card-img card-img-horizontal sw-11" />
+                          <img src="img/product/plazzo-salwar-suit.webp" alt="alternate text" className="card-img card-img-horizontal sw-11 sh-md-10" />
                         </a>
                       </div>
                       <div className="col">
                         <div className="card-body pt-0 pb-0 h-100">
                           <div className="row g-0 h-100 align-content-center">
                             <div className="col-12 col-md-9 d-flex align-items-center mb-2 mb-md-0">
-                              <a href="Products.Detail.html">Saree</a>
+                              <a href="Products.Detail.html">Plazzo Salwar</a>
                             </div>
                             <div className="col-12 col-md-3 d-flex align-items-center justify-content-md-end text-muted text-medium">2.701 Sales</div>
                           </div>
@@ -388,16 +390,16 @@ function Dashboard() {
                   </div>
                   <div className="card mb-2">
                     <div className="row g-0 sh-14 sh-md-10">
-                      <div className="col-auto sh-md-10">
+                      <div className="col-auto">
                         <a href="Products.Detail.html">
-                          <img src="img/product/small/kurthi.jpg" alt="alternate text" className="card-img card-img-horizontal sw-11" />
+                          <img src="img/product/Punjabi-salwar-suit-4-.webp" alt="alternate text" className="card-img card-img-horizontal sw-11 sh-md-10" />
                         </a>
                       </div>
                       <div className="col">
                         <div className="card-body pt-0 pb-0 h-100">
                           <div className="row g-0 h-100 align-content-center">
                             <div className="col-12 col-md-9 d-flex align-items-center mb-2 mb-md-0">
-                              <a href="Products.Detail.html">Kurthi</a>
+                              <a href="Products.Detail.html">Punjabi Salwar</a>
                             </div>
                             <div className="col-12 col-md-3 d-flex align-items-center justify-content-md-end text-muted text-medium">1.972 Sales</div>
                           </div>
@@ -407,16 +409,16 @@ function Dashboard() {
                   </div>
                   <div className="card mb-2">
                     <div className="row g-0 sh-14 sh-md-10">
-                      <div className="col-auto sh-md-10">
+                      <div className="col-auto">
                         <a href="Products.Detail.html">
-                          <img src="img/product/small/palazo.jpeg" alt="alternate text" className="card-img card-img-horizontal sw-11" />
+                          <img src="img/product/Georgette-And-Satin-Designer-Saree-In-Dark-Pink-Colour-SR1542337-A.webp" alt="alternate text" className="card-img card-img-horizontal sw-11 sh-md-10" />
                         </a>
                       </div>
                       <div className="col">
                         <div className="card-body pt-0 pb-0 h-100">
                           <div className="row g-0 h-100 align-content-center">
                             <div className="col-12 col-md-9 d-flex align-items-center mb-2 mb-md-0">
-                              <a href="Products.Detail.html">Palazo Salwar Suit</a>
+                              <a href="Products.Detail.html">Saree</a>
                             </div>
                             <div className="col-12 col-md-3 d-flex align-items-center justify-content-md-end text-muted text-medium">1.543 Sales</div>
                           </div>
@@ -428,14 +430,14 @@ function Dashboard() {
                     <div className="row g-0 sh-14 sh-md-10">
                       <div className="col-auto">
                         <a href="Products.Detail.html">
-                          <img src="img/product/small/shalwar.avif" alt="alternate text" className="card-img card-img-horizontal sw-11" />
+                          <img src="img/product/small/product-8.webp" alt="alternate text" className="card-img card-img-horizontal sw-11" />
                         </a>
                       </div>
                       <div className="col">
                         <div className="card-body pt-0 pb-0 h-100">
                           <div className="row g-0 h-100 align-content-center">
                             <div className="col-12 col-md-9 d-flex align-items-center mb-2 mb-md-0">
-                              <a href="Products.Detail.html">Shalwar </a>
+                              <a href="Products.Detail.html">Geometric Chandelier</a>
                             </div>
                             <div className="col-12 col-md-3 d-flex align-items-center justify-content-md-end text-muted text-medium">1.352 Sales</div>
                           </div>
@@ -456,7 +458,7 @@ function Dashboard() {
                   <div className="scroll h-100">
                     <div className="d-flex flex-row align-items-center justify-content-between mb-2">
                       <div className="d-flex flex-column">
-                        <div>Tank Top</div>
+                        <div>Anarkali salwar suit</div>
                       </div>
                       <div className="d-flex">
                         <span className="badge bg-outline-secondary">847</span>
@@ -464,7 +466,7 @@ function Dashboard() {
                     </div>
                     <div className="d-flex flex-row align-items-center justify-content-between mb-2">
                       <div className="d-flex flex-column">
-                        <div>Crop Top</div>
+                        <div>Sharara Suit</div>
                       </div>
                       <div className="d-flex">
                         <span className="badge bg-outline-secondary">753</span>
@@ -472,7 +474,7 @@ function Dashboard() {
                     </div>
                     <div className="d-flex flex-row align-items-center justify-content-between mb-2">
                       <div className="d-flex flex-column">
-                        <div>Jeans</div>
+                        <div>Palazzo Salwar Suit</div>
                       </div>
                       <div className="d-flex">
                         <span className="badge bg-outline-secondary">721</span>
@@ -480,7 +482,7 @@ function Dashboard() {
                     </div>
                     <div className="d-flex flex-row align-items-center justify-content-between mb-2">
                       <div className="d-flex flex-column">
-                        <div>Kurti</div>
+                        <div>Afghani salwars</div>
                       </div>
                       <div className="d-flex">
                         <span className="badge bg-outline-secondary">693</span>
@@ -488,7 +490,7 @@ function Dashboard() {
                     </div>
                     <div className="d-flex flex-row align-items-center justify-content-between mb-2">
                       <div className="d-flex flex-column">
-                        <div>Joggers</div>
+                        <div>Sharara Suit</div>
                       </div>
                       <div className="d-flex">
                         <span className="badge bg-outline-secondary">431</span>
@@ -496,7 +498,7 @@ function Dashboard() {
                     </div>
                     <div className="d-flex flex-row align-items-center justify-content-between mb-2">
                       <div className="d-flex flex-column">
-                        <div>Shirts</div>
+                        <div>Kanjivaram Silk Saree</div>
                       </div>
                       <div className="d-flex">
                         <span className="badge bg-outline-secondary">381</span>
@@ -504,7 +506,7 @@ function Dashboard() {
                     </div>
                     <div className="d-flex flex-row align-items-center justify-content-between mb-2">
                       <div className="d-flex flex-column">
-                        <div>T shirt</div>
+                        <div>Banarasi Saree</div>
                       </div>
                       <div className="d-flex">
                         <span className="badge bg-outline-secondary">310</span>
@@ -512,7 +514,7 @@ function Dashboard() {
                     </div>
                     <div className="d-flex flex-row align-items-center justify-content-between mb-2">
                       <div className="d-flex flex-column">
-                        <div>Churidhar</div>
+                        <div>Bomkai Saree</div>
                       </div>
                       <div className="d-flex">
                         <span className="badge bg-outline-secondary">301</span>
@@ -520,7 +522,7 @@ function Dashboard() {
                     </div>
                     <div className="d-flex flex-row align-items-center justify-content-between mb-2">
                       <div className="d-flex flex-column">
-                        <div>Saree</div>
+                        <div>Chanderi Saree</div>
                       </div>
                       <div className="d-flex">
                         <span className="badge bg-outline-secondary">288</span>
@@ -528,7 +530,7 @@ function Dashboard() {
                     </div>
                     <div className="d-flex flex-row align-items-center justify-content-between mb-2">
                       <div className="d-flex flex-column">
-                        <div>Accessories</div>
+                        <div>Nauvari Saree</div>
                       </div>
                       <div className="d-flex">
                         <span className="badge bg-outline-secondary">219</span>
@@ -605,7 +607,7 @@ function Dashboard() {
                               <div className="d-flex flex-column">
                                 <div className="text-alternate mt-n1 lh-1-25">
                                   Product out of stock:
-                                  <a href="#" className="alternate-link underline-link">Breadstick</a>
+                                  <a href="#" className="alternate-link underline-link">Nauvari Saree</a>
                                 </div>
                               </div>
                             </div>
@@ -671,7 +673,7 @@ function Dashboard() {
                               <div className="d-flex flex-column">
                                 <div className="text-alternate mt-n1 lh-1-25">
                                   New sale:
-                                  <a href="#" className="alternate-link underline-link">Steirer Brot</a>
+                                  <a href="#" className="alternate-link underline-link">Plazzo salwar</a>
                                 </div>
                               </div>
                             </div>
@@ -695,7 +697,7 @@ function Dashboard() {
                               <div className="d-flex flex-column">
                                 <div className="text-alternate mt-n1 lh-1-25">
                                   New sale:
-                                  <a href="#" className="alternate-link underline-link">Soda Bread</a>
+                                  <a href="#" className="alternate-link underline-link">Anarakali Salwar</a>
                                 </div>
                               </div>
                             </div>
@@ -740,7 +742,7 @@ function Dashboard() {
                               <div className="d-flex flex-column">
                                 <div className="text-alternate mt-n1 lh-1-25">
                                   New sale:
-                                  <a href="#" className="alternate-link underline-link">Cholermüs</a>
+                                  <a href="#" className="alternate-link underline-link">Punjabi Salwar</a>
                                 </div>
                               </div>
                             </div>
@@ -764,7 +766,7 @@ function Dashboard() {
                               <div className="d-flex flex-column">
                                 <div className="text-alternate mt-n1 lh-1-25">
                                   New sale:
-                                  <a href="#" className="alternate-link underline-link">Bazlama</a>
+                                  <a href="#" className="alternate-link underline-link">Kalankari Saree</a>
                                 </div>
                               </div>
                             </div>
@@ -830,7 +832,7 @@ function Dashboard() {
                               <div className="d-flex flex-column">
                                 <div className="text-alternate mt-n1 lh-1-25">
                                   New sale:
-                                  <a href="#" className="alternate-link underline-link">Bazlama</a>
+                                  <a href="#" className="alternate-link underline-link">Kanjipuram Saree</a>
                                 </div>
                               </div>
                             </div>
@@ -875,20 +877,19 @@ function Dashboard() {
                     <div className="card-body mb-n2 scroll-out h-100">
                       <div className="scroll h-100">
                         <div className="row g-0 sh-10 mb-3">
-                          <div className="col-auto sh-10 mb-3">
+                          <div className="col-auto">
                             <a href="Products.Detail.html">
-                              <img src="img/product/small/crop.webp" className="card-img rounded-md h-100 sw-8" alt="thumb" />
+                              <img src="img/product/Salwar.webp" className="card-img rounded-md h-100 sw-8" alt="thumb" />
                             </a>
                           </div>
                           <div className="col">
                             <div className="card-body d-flex flex-column pt-0 pb-0 ps-3 pe-0 h-100 justify-content-center">
                               <div className="d-flex flex-column">
                                 <div className="mb-1">
-                                  <a href="Customers.Detail.html" className="body-link">Crop Top</a>
+                                  <a href="Customers.Detail.html" className="body-link">Achara</a>
                                 </div>
                                 <div className="text-small text-muted text-truncate mb-1">
-                                  Chocolate bar marzipan marzipan carrot cake gingerbread pastry ice cream. Ice cream danish sugar plum biscuit pudding powder
-                                  soufflé donut macaroon.
+                                  Amazing product..
                                 </div>
                                 <div className="br-wrapper br-theme-cs-icon">
                                   <select className="rating" name="rating" autocomplete="off" data-readonly="true" data-initial-rating="5">
@@ -904,20 +905,20 @@ function Dashboard() {
                           </div>
                         </div>
                         <div className="row g-0 sh-10 mb-3">
-                          <div className="col-auto sh-10 mb-3">
+                          <div className="col-auto">
                             <a href="Products.Detail.html">
-                              <img src="img/product/small/korean.jpg" className="card-img rounded-md h-100 sw-8" alt="thumb" />
+                              <img src="img/product/plazzo-salwar-suit.webp" className="card-img rounded-md h-100 sw-8" alt="thumb" />
                             </a>
                           </div>
                           <div className="col">
                             <div className="card-body d-flex flex-column pt-0 pb-0 ps-3 pe-0 h-100 justify-content-center">
                               <div className="d-flex flex-column">
                                 <div className="mb-1">
-                                  <a href="Customers.Detail.html" className="body-link">Korean Pants</a>
+                                  <a href="Customers.Detail.html" className="body-link">Kathleen Bertha</a>
                                 </div>
-                                <div className="text-small text-muted text-truncate mb-1">Bear claw sweet liquorice jujubes. Muffin gingerbread bear claw.</div>
+                                <div className="text-small text-muted text-truncate mb-1">Nice product, i loved it</div>
                                 <div className="br-wrapper br-theme-cs-icon">
-                                  <select className="rating" name="rating" autocomplete="off" data-readonly="true" data-initial-rating="4">
+                                  <select className="rating" name="rating" autocomplete="off" data-readonly="true" data-initial-rating="5">
                                     <option value="1">1</option>
                                     <option value="2">2</option>
                                     <option value="3">3</option>
@@ -930,16 +931,16 @@ function Dashboard() {
                           </div>
                         </div>
                         <div className="row g-0 sh-10 mb-3">
-                          <div className="col-auto sh-10 mb-3">
+                          <div className="col-auto">
                             <a href="Products.Detail.html">
-                              <img src="img/product/small/skirt.avif" className="card-img rounded-md h-100 sw-8" alt="thumb" />
+                              <img src="img/product/Punjabi-salwar-suit-4-.webp" className="card-img rounded-md h-100 sw-8" alt="thumb" />
                             </a>
                           </div>
                           <div className="col">
                             <div className="card-body d-flex flex-column pt-0 pb-0 ps-3 pe-0 h-100 justify-content-center">
                               <div className="d-flex flex-column">
                                 <div className="mb-1">
-                                  <a href="Customers.Detail.html" className="body-link">Skirt</a>
+                                  <a href="Customers.Detail.html" className="body-link">Olli Hawkins</a>
                                 </div>
                                 <div className="text-small text-muted text-truncate mb-1">Bear claw sweet liquorice jujubes. Muffin gingerbread bear claw.</div>
                                 <div className="br-wrapper br-theme-cs-icon">
@@ -958,18 +959,18 @@ function Dashboard() {
                         <div className="row g-0 sh-10">
                           <div className="col-auto">
                             <a href="Products.Detail.html">
-                              <img src="img/product/small/party.webp" className="card-img rounded-md h-100 sw-8" alt="thumb" />
+                              <img src="img/product/Salwar.webp" className="card-img rounded-md h-100 sw-8" alt="thumb" />
                             </a>
                           </div>
                           <div className="col">
                             <div className="card-body d-flex flex-column pt-0 pb-0 ps-3 pe-0 h-100 justify-content-center">
                               <div className="d-flex flex-column">
                                 <div className="mb-1">
-                                  <a href="Customers.Detail.html" className="body-link">Party Ware Saree</a>
+                                  <a href="Customers.Detail.html" className="body-link">Zayn Hammond</a>
                                 </div>
                                 <div className="text-small text-muted text-truncate mb-1">Chupa chups candy canes.</div>
                                 <div className="br-wrapper br-theme-cs-icon">
-                                  <select className="rating" name="rating" autocomplete="off" data-readonly="true" data-initial-rating="3">
+                                  <select className="rating" name="rating" autocomplete="off" data-readonly="true" data-initial-rating="5">
                                     <option value="1">1</option>
                                     <option value="2">2</option>
                                     <option value="3">3</option>
@@ -1004,7 +1005,7 @@ function Dashboard() {
                         Oat cake lemon drops gummi pie cake cotton.
                       </div>
                     </div>
-                    <a href="/productadmin-add" className="btn btn-icon btn-icon-start btn-outline-primary stretched-link">
+                    <a href="Products.List.html" className="btn btn-icon btn-icon-start btn-outline-primary stretched-link">
                       <i data-acorn-icon="plus"></i>
                       <span>Add Products</span>
                     </a>

@@ -15,16 +15,17 @@ function OrderAdmin() {
           });
   }, []);
 
-  const deleteUser = (userId) =>{
+  const deleteUser = (userId) => {
     axios.delete(`http://localhost:8000/auth/order-admins-edit/${userId}`)
-    .then(response =>{ 
-      setUsers(users.filter(user => user.id !== userId));
-  
-    } )
-    .catch(error => {
-      console.error('Error deleting user:',error);
-    });
-  };  
+      .then(response => {
+        // Filter out the deleted user from the state
+        setUsers(users.filter(user => user.id !== userId));
+        alert('User deleted success');
+      })
+      .catch(error => {
+        console.error('Error deleting user:', error);
+      });
+  };
 
   return (
     <div>
@@ -36,7 +37,7 @@ function OrderAdmin() {
               {/* <!-- Title Start --> */}
               <div className="col-auto mb-3 mb-md-0 me-auto">
                 <div className="w-auto sw-md-30">
-                  <a href="/" className="muted-link pb-1 d-inline-block breadcrumb-back">
+                  <a href="/admin-dashboard" className="muted-link pb-1 d-inline-block breadcrumb-back">
                     <i data-acorn-icon="chevron-left" data-acorn-size="13"></i>
                     <span className="text-medium align-middle">Home</span>
                   </a>
@@ -117,14 +118,17 @@ function OrderAdmin() {
             <div className="col-12 mb-5">
               {/* <!-- List Items Start --> */}
               <div id="checkboxTable">
-                <div className="mb-4 mb-lg-3 bg-transparent no-shadow d-none d-lg-block">
+              <div className="mb-4 mb-lg-3 bg-transparent no-shadow d-none d-lg-block">
                   <div className="row g-0">
                     <div className="col-auto sw-11 d-none d-lg-flex"></div>
                     <div className="col">
                       <div className="ps-5 pe-4 h-100">
                         <div className="row g-0 h-100 align-content-center custom-sort">
-                          <div className="col-lg-3 d-flex flex-column mb-lg-0 pe-3 d-flex">
-                            <div className="text-muted text-medium cursor-pointer" data-sort="name">NAME</div>
+                          {/* <div className="col-lg-4 d-flex flex-column mb-lg-0 pe-3 d-flex">
+                            <div className="text-muted text-medium cursor-pointer" data-sort="name">USERNAME</div>
+                          </div> */}
+                          <div className="col-lg-3 d-flex flex-column pe-1 justify-content-center">
+                            <div className="text-muted text-medium cursor-pointer" data-sort="email">NAME</div>
                           </div>
                           <div className="col-lg-3 d-flex flex-column pe-1 justify-content-center">
                             <div className="text-muted text-medium cursor-pointer" data-sort="email">EMAIL</div>
@@ -132,7 +136,6 @@ function OrderAdmin() {
                           <div className="col-lg-3 d-flex flex-column pe-1 justify-content-center">
                             <div className="text-muted text-medium cursor-pointer" data-sort="group">PHONE</div>
                           </div>
-                         
                         </div>
                       </div>
                     </div>
@@ -140,16 +143,15 @@ function OrderAdmin() {
                 </div>
 
                 {/* <!-- Items Container Start --> */}
-
                 {users.map(user => (
-                <div key={user.id} className="card mb-5">
+                <div key={user.id} className="card mb-3">
                   <div className="row g-0 h-100 sh-lg-9 position-relative">
-                    <a href="/orderadmin-view" className="col-auto position-relative">
+                    <a href={`/orderadmin-view/${user.id}`} className="col-auto position-relative">
                       <img src={`http://localhost:8000${user.image}`} alt="image" className="card-img card-img-horizontal sw-11 h-100 sh-lg-9" />
                     </a>
                     <div className="col py-4 py-lg-0">
                       <div className="ps-5 pe-4 h-100">
-                      <div className="row g-0 h-100 align-content-center">
+                        <div className="row g-0 h-100 align-content-center">
                           <a href={`/orderadmin-view/${user.id}`} className="col-12 col-lg-3 d-flex flex-column pe-1 mb-2 mb-lg-0 align-items-start justify-content-center">
                           {user.first_name}
                           </a>
@@ -166,20 +168,17 @@ function OrderAdmin() {
                             <input type="checkbox" class="form-check-input" id="StatusSwitch"/>
                           </div>
                           <div className="col-12 col-lg-1 d-flex flex-column pe-1 mb-2 mb-lg-0 align-items-start justify-content-center">
-                            <a href={`/orderadmin-update/${user.id}`}   className="col-11 col-lg-1 d-flex flex-column mb-lg-0 mb-3 pe-3 d-flex order-1 h-lg-100 justify-content-center"><i className='fa-solid fa-pen'/></a>
+                            <a href={`/productadmin-update/${user.id}`} className="col-11 col-lg-1 d-flex flex-column mb-lg-0 mb-3 pe-3 d-flex order-1 h-lg-100 justify-content-center"><i className='fa-solid fa-pen'/></a>
                           </div>
-                         
-                          <div className="col-12 col-lg-1 d-flex flex-column pe-1 mb-2 mb-lg-0 align-items-start justify-content-center ">
-                            <a href="#" className="col-11 col-lg-1 d-flex flex-column mb-lg-0 mb-3 pe-3 d-flex  h-lg-100 justify-content-center" onClick={() => deleteUser(user.id)}><i className='fa-solid fa-trash'/></a>
+                          <div className="col-12 col-lg-1 d-flex flex-column pe-1 mb-2 mb-lg-0 align-items-start justify-content-center">
+                            <a href="#" className="col-11 col-lg-1 d-flex flex-column mb-lg-0 mb-3 pe-3 d-flex order-1 h-lg-100 justify-content-center" onClick={() => deleteUser(user.id)}><i className='fa-solid fa-trash'/></a>
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
-                ))}   
-                         
-                
+                ))}                  
                 {/* <!-- Items Container Start --> */}
 
                 {/* <!-- List Items End --> */}

@@ -102,7 +102,7 @@ class ProductsDetail {
   _initDropzone() {
     if (document.getElementById('dropzoneProductImage')) {
       new Dropzone('#dropzoneProductImage', {
-        url: 'http://127.0.0.1:8000/login/productadmin-signup/',
+        url: 'https://httpbin.org/post',
         thumbnailWidth: 600,
         thumbnailHeight: 430,
         previewTemplate: DropzoneTemplates.columnPreviewImageTemplate,
@@ -127,17 +127,17 @@ class ProductsDetail {
 
           // If you only have access to the original image sizes on your server,
           // and want to resize them in the browser:
-          let mockFile1 = {name: 'cake.webp', size: 203100};
-          this.displayExistingFile(mockFile1, 'img/product/small/product-10.webp');
+          let mockFile1 = {name: 'img1.jpg', size: 203100};
+          this.displayExistingFile(mockFile1, 'img/product/dress/saree4.jpg');
 
-          let mockFile2 = {name: 'bread.webp', size: 267140};
-          this.displayExistingFile(mockFile2, 'img/product/small/product-4.webp');
+          let mockFile2 = {name: 'img2.jpg', size: 267140};
+          this.displayExistingFile(mockFile2, 'img/product/dress/saree2.jpg');
 
-          let mockFile3 = {name: 'cupcake.webp', size: 267140};
-          this.displayExistingFile(mockFile3, 'img/product/small/product-1.webp');
+          let mockFile3 = {name: 'img3.jpg', size: 267140};
+          this.displayExistingFile(mockFile3, 'img/product/dress/saree1.jpg');
 
-          let mockFile4 = {name: 'pastry.webp', size: 267140};
-          this.displayExistingFile(mockFile4, 'img/product/small/product-7.webp');
+          let mockFile4 = {name: 'img4.jpg', size: 267140};
+          this.displayExistingFile(mockFile4, 'img/product/dress/saree3.jpg');
 
           // Adding dz-started class to remove drop message
           this.element.classList.add('dz-started');

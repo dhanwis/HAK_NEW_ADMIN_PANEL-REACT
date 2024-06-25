@@ -57,6 +57,7 @@ import PAAddDiscount from "./pages/ProductAdmin/Product/PAAddDiscount";
 import PAViewDiscount from "./pages/ProductAdmin/Product/PAViewDiscount";
 import PAUpdateDiscount from "./pages/ProductAdmin/Product/PAUpdateDiscount";
 import PACategory from "./pages/ProductAdmin/Product/PACategory";
+import PASubCategory from "./pages/ProductAdmin/Product/PASubCategory";
 import PAProduct from "./pages/ProductAdmin/Product/PAProduct";
 import PAAddProduct from "./pages/ProductAdmin/Product/PAAddProduct";
 import PAViewProduct from "./pages/ProductAdmin/Product/PAViewProduct";
@@ -78,9 +79,9 @@ import SalesAdminCustomerList from './pages/SalesAdmin/Sales/SalesAdminCustomerL
 import SalesAdminCustomerdetails from './pages/SalesAdmin/Sales/SalesAdminCustomerdetails';
 import SalesAdminProfileAdminView from './pages/SalesAdmin/Profile/SalesAdminProfileView';
 import SalesAdminProfileUpdate from './pages/SalesAdmin/Profile/SalesAdminProfileUpdate';
-import AdminLogin from './components/Login/AdminLogin';
-import Subcategory from './pages/SuperAdmin/Product/Subcategory';
-
+import AdminLogin from './components/Login/AdminLogin'
+import SubCategory from "./pages/SuperAdmin/Product/SubCategory";
+import Review from "./pages/SuperAdmin/Customer/Review";
 
 
 function App() {
@@ -88,10 +89,13 @@ function App() {
     <div className="App">
       <Router>
         <Routes>
+
+          <Route path="/" element={<AdminLogin/>} />
+
           {/* ----------------------SUPER-ADMIN---------------------------- */}
-          <Route path="/" element={<><SideNav /> <Dashboard /><Search /><Footer /></>}/>
+          <Route path="/admin-dashboard/" element={<><SideNav /> <Dashboard /><Search /><Footer /></>}/>
           <Route path="/superadminprofile-view/" element={<><SideNav /><SuperAdminProfileView /><Search /><Footer /></>}/>
-          <Route path="/superadminprofile-update" element={<><SideNav /><SuperAdminProfileUpdate /><Search /><Footer /></>}/>
+          <Route path="/superadminprofile-update/" element={<><SideNav /><SuperAdminProfileUpdate /><Search /><Footer /></>}/>
           <Route path="/productadmin" element={<><SideNav /><ProductAdmin /><Search /><Footer /></>} />
           <Route path="/productadmin-add" element={<><SideNav /><ProductAdminAdd /><Search /><Footer /></>} />
           <Route path="/productadmin-update/:id" element={<><SideNav /><ProductAdminUpdate /><Search /><Footer /></>} />
@@ -106,7 +110,7 @@ function App() {
           <Route path="/salesadmin-view" element={<><SideNav /><SalesAdminView /><Search /><Footer /></>} />
           <Route path="/products" element={<><SideNav /><Product /><Search /><Footer /></>} />
           <Route path="/categories" element={<><SideNav /><Category /><Search /><Footer /></>} />
-          <Route path="/subcategories" element={<><SideNav /><Subcategory /><Search /><Footer /></>} />
+          <Route path="/subcategories" element={<><SideNav/><SubCategory/><Search/><Footer/></>} />
           <Route path="/discount" element={<><SideNav /><Discount /><Search /><Footer /></>} />
           <Route path="/addproduct" element={<><SideNav /><AddProduct /><Search /><Footer /></>} />
           <Route path="/viewproduct" element={<><SideNav /><ViewProduct /><Search /><Footer /></>} />
@@ -116,10 +120,10 @@ function App() {
           <Route path="/adddiscount" element={<><SideNav /><AddDiscount /><Search /><Footer /></>} />
           <Route path="/orderlist" element={<><SideNav /><OrderList /><Search /><Footer /></>} />
           <Route path="/orderdetails" element={<><SideNav /><OrderDetails /><Search /><Footer /></>} />
-          
           <Route path="/shipping" element={<><SideNav /><Shipping /><Search /><Footer /></>} />
           <Route path="/customerlist" element={<><SideNav /><CustomerList /><Search /><Footer /></>} />
           <Route path="/customerdetails" element={<><SideNav /><CustomerDetails /><Search /><Footer /></>} />
+          <Route path="/reviews" element={<><SideNav /><Review /><Search /><Footer /></>} />
           <Route path="/sales-customerlist" element={<><SideNav /><SalesCustomerList /><Search /><Footer /></>} />
           <Route path="/sales-customerdetails"element={<><SideNav /><SalesCustomerDetails /><Search /><Footer /></>}/>
           <Route path="/sales-orderlist" element={<><SideNav /><SalesOrderList /><Search /><Footer /></>} />
@@ -127,7 +131,7 @@ function App() {
           {/* ------------------------ SUPER-ADMIN-END----------------------------- */}
 
 
-          {/* --------------------------PRODUCT-ADMIN------------------------------- */}
+        {/* --------------------------PRODUCT-ADMIN------------------------------- */}
           <Route path="/productadmin-dashboard" element={<><ProductSideNav /><ProductAdminDashboard /><Search /><Footer /></>}/>
           <Route path="/productadminprofile-view"element={<><ProductSideNav /><ProductAdminProfileView /><Search /><Footer /></>}/>
           <Route path="/productadminprofile-update" element={<><ProductSideNav /><ProductAdminProfileUpdate /><Search /><Footer /></>}/>
@@ -135,7 +139,8 @@ function App() {
           <Route path="/productadmin-add-discount" element={<><ProductSideNav/><PAAddDiscount/><Search /><Footer /></>}/>
           <Route path="/productadmin-view-discount" element={<><ProductSideNav/><PAViewDiscount/><Search /><Footer /></>}/>
           <Route path="/productadmin-update-discount" element={<><ProductSideNav/><PAUpdateDiscount/><Search /><Footer /></>}/>
-          <Route path="/productadmin-category" element={<><ProductSideNav/><PACategory/><Search /><Footer /></>}/>         
+          <Route path="/productadmin-category" element={<><ProductSideNav/><PACategory/><Search /><Footer /></>}/>  
+          <Route path="/productadmin-subcategory" element={<><ProductSideNav/><PASubCategory/><Search /><Footer /></>}/>         
           <Route path="/productadmin-products" element={<><ProductSideNav/><PAProduct/><Search /><Footer /></>}/>
           <Route path="/productadmin-add-products" element={<><ProductSideNav/><PAAddProduct/><Search /><Footer /></>}/>
           <Route path="/productadmin-view-products" element={<><ProductSideNav/><PAViewProduct/><Search /><Footer /></>}/>
@@ -145,10 +150,10 @@ function App() {
 
         {/* ---------------------------------ORDER-ADMIN------------------------- */}
           <Route path="/orderadmin-dashboard" element={<><OrderSideNav/> <OrderAdminDashboard/><Search /><Footer /></>} />
-          <Route path="/orderadmin-view" element={<><OrderSideNav/> <OrderAdminProfileView/><Search /><Footer /></>} />
-          <Route path="/orderadmin-update" element={<><OrderSideNav/> <OrderAdminProfileUpdate/><Search /><Footer /></>} />
+          <Route path="/orderadmin-profileview" element={<><OrderSideNav/> <OrderAdminProfileView/><Search /><Footer /></>} />
+          <Route path="/orderadmin-profileupdate" element={<><OrderSideNav/> <OrderAdminProfileUpdate/><Search /><Footer /></>} />
           <Route path="/orderadmin-order" element={<><OrderSideNav/> <OrderAdminOrder/><Search /><Footer /></>} />
-          <Route path="/orderadmin-view-order" element={<><OrderSideNav/> <OrderAdminViewOrder/><Search /><Footer /></>} />
+          <Route path="/orderadmin-view-order" element={<><OrderSideNav/> <OrderAdminViewOrder/><Search /><Footer /></>} />                                                                                                                   
           <Route path="/orderadmin-shipping" element={<><OrderSideNav/> <OrderAdminShipping/><Search /><Footer /></>} />
         {/* ------------------------------ORDER-ADMIN-END------------------------ */}
 
@@ -163,8 +168,6 @@ function App() {
           <Route path="/salesadmin-profileupdate" element={<><SalesSideNav/><SalesAdminProfileUpdate /><Search /><Footer /></>} />
         {/* -------------------------------SALES-ADMIN-END------------------------ */}
 
-          <Route path="/login" element={<AdminLogin/>} />
-          
         </Routes>
       </Router>
     </div>

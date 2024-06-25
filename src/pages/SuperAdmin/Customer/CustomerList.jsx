@@ -11,9 +11,9 @@ function CustomerList() {
               {/* <!-- Title Start --> */}
               <div class="col-auto mb-3 mb-md-0 me-auto">
                 <div class="w-auto sw-md-30">
-                  <a href="/" class="muted-link pb-1 d-inline-block breadcrumb-back">
+                  <a href="/admin-dashboard" class="muted-link pb-1 d-inline-block breadcrumb-back">
                     <i data-acorn-icon="chevron-left" data-acorn-size="13"></i>
-                    <span class="text-small align-middle">Home</span>
+                    <span class="text-medium align-middle">Home</span>
                   </a>
                   <h1 class="mb-0 pb-0 display-4" id="title">Customer List</h1>
                 </div>
@@ -60,12 +60,12 @@ function CustomerList() {
                   <div class="col">
                     <div class="card-body pt-0 pb-0 h-100">
                       <div class="row g-0 h-100 align-content-center">
-                        <div class="col-lg-1 d-flex align-items-center mb-2 mb-lg-0 text-muted text-small">ID</div>
-                        <div class="col-lg-2 d-flex align-items-center text-muted text-small">NAME</div>
-                        <div class="col-lg-2 d-flex align-items-center text-muted text-small">LOCATION</div>
-                        <div class="col-lg-2 d-flex align-items-center text-muted text-small">SPENT</div>
-                        <div class="col-lg-2 d-flex align-items-center text-muted text-small">LAST ORDER</div>
-                        <div class="col-lg-2 d-flex align-items-center text-muted text-small">STATUS</div>
+                        <div class="col-lg-1 d-flex align-items-center mb-2 mb-lg-0 text-muted text-medium">ID</div>
+                        <div class="col-lg-2 d-flex align-items-center text-muted text-medium">NAME</div>
+                        <div class="col-lg-2 d-flex align-items-center text-muted text-medium">LOCATION</div>
+                        <div class="col-lg-2 d-flex align-items-center text-muted text-medium">SPENT</div>
+                        <div class="col-lg-2 d-flex align-items-center text-muted text-medium">LAST ORDER</div>
+                        <div class="col-lg-2 d-flex align-items-center text-muted text-medium">STATUS</div>
                       </div>
                     </div>
                   </div>

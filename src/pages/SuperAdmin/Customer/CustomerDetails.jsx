@@ -13,7 +13,7 @@ function CustomerDetails() {
                 <div className="w-auto sw-md-30">
                   <a href="/customerlist" className="muted-link pb-1 d-inline-block breadcrumb-back">
                     <i data-acorn-icon="chevron-left" data-acorn-size="13"></i>
-                    <span className="text-small align-middle">Back</span>
+                    <span className="text-medium align-middle">Back</span>
                   </a>
                   <h1 className="mb-0 pb-0 display-4" id="title">Customer Detail</h1>
                 </div>
@@ -73,7 +73,7 @@ function CustomerDetails() {
                   </div>
                   <div className="d-flex justify-content-center">
                     <div className="d-flex flex-row justify-content-between w-100 w-sm-50 w-xl-100 mb-5">
-                      {/* <button type="button" className="btn btn-primary w-100 me-2">Edit</button> */}
+                      <button type="button" className="btn btn-primary w-100 me-2">Delete</button>
                       <button type="button" className="btn btn-outline-primary w-100 me-2">Block</button>
                       {/* <button className="btn btn-icon btn-icon-only btn-outline-primary" type="button">
                         <i data-acorn-icon="more-horizontal"></i>

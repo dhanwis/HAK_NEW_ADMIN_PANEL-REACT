@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import logo from './images/logo/logo1.png'
-import profile from './images/profile/profile-6.webp';
+import logo from '../images/logo/logo1.png'
+import profile from '../images/profile/IMG_6430.JPEG'
 
 function SideNav() {
   return (
@@ -29,7 +29,7 @@ function SideNav() {
             <div className="dropdown-menu dropdown-menu-end user-menu wide">
               <div className="row mb-3 ms-0 me-0">
                 <div className="col-12 ps-1 mb-2">
-                  <div className="text-extra-small text-primary">INFO</div>
+                  <div className="text-small text-primary">INFO</div>
                 </div>
                 <div className="col-6 ps-1 pe-1">
                   <table>
@@ -51,15 +51,15 @@ function SideNav() {
                     </tr>
                   </table>
 
-                  <ul className="list-unstyled mt-4" style={{display:'flexbox'}}>
+                  <ul className="list-unstyled mt-4">
                     <li >
                       <a href="/superadminprofile-view/"  style={{display:'flex'}}>
-                        <i className="fa-solid fa-gear"/>
-                        <p style={{cursor:"pointer"}}>User Info</p>
+                        <i className="fa-solid fa-gear pe-1"/>
+                        <label style={{cursor:"pointer"}}>User Info</label>
                       </a>
                       <a href="/login"  style={{display:'flex'}}>
-                        <i className="fa-solid fa-sign-out"/>
-                        <p style={{cursor:"pointer"}}>Logout</p>
+                        <i className="fa-solid fa-sign-out pe-1"/>
+                        <label style={{cursor:"pointer"}}>Logout</label>
                       </a>
                     </li>
                   </ul>
@@ -133,7 +133,7 @@ function SideNav() {
           <div className="menu-container flex-grow-1">
             <ul id="menu" className="menu">
               <li>
-                <Link to="/">
+                <Link to="/admin-dashboard">
                   <i className="fa-solid fa-home icon" data-acorn-size="18"></i>
                   <span className="label">Dashboard</span>
                 </Link>
@@ -174,7 +174,7 @@ function SideNav() {
                   </li>
                   <li>
                     <Link to="/subcategories">
-                      <span className="label"> SubCategory</span>
+                      <span className="label">Sub Category</span>
                     </Link>
                   </li>
                   <li>
@@ -184,7 +184,7 @@ function SideNav() {
                   </li>
                   <li>
                     <Link to="/discount">
-                      <span className="label">Discount</span>
+                      <span className="label">Offers</span>
                     </Link>
                   </li>
                 </ul>
@@ -237,7 +237,7 @@ function SideNav() {
                     </Link>
                   </li>
                   <li>
-                    <Link to="/customerlist">
+                    <Link to="/reviews">
                       <span className="label">Reviews</span>
                     </Link>
                   </li>

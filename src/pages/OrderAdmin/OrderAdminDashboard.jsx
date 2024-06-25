@@ -349,16 +349,16 @@ function OrderAdminDashboard() {
                 <div className="scroll-by-count" data-count="4">
                   <div className="card mb-2">
                     <div className="row g-0 sh-14 sh-md-10">
-                      <div className="col-auto sh-md-10">
+                      <div className="col-auto">
                         <a href="Products.Detail.html">
-                          <img src="img/product/small/pro1.webp" alt="alternate text" className="card-img card-img-horizontal sw-11" />
+                          <img src="img/product/small/product-3.webp" alt="alternate text" className="card-img card-img-horizontal sw-11" />
                         </a>
                       </div>
                       <div className="col">
                         <div className="card-body pt-0 pb-0 h-100">
                           <div className="row g-0 h-100 align-content-center">
                             <div className="col-12 col-md-9 d-flex align-items-center mb-2 mb-md-0">
-                              <a href="Products.Detail.html">Anarkali Churidhar</a>
+                              <a href="Products.Detail.html">Good Glass Teapot</a>
                             </div>
                             <div className="col-12 col-md-3 d-flex align-items-center justify-content-md-end text-muted text-medium">4.024 Sales</div>
                           </div>
@@ -368,16 +368,16 @@ function OrderAdminDashboard() {
                   </div>
                   <div className="card mb-2">
                     <div className="row g-0 sh-14 sh-md-10">
-                      <div className="col-auto sh-md-10">
+                      <div className="col-auto">
                         <a href="Products.Detail.html">
-                          <img src="img/product/small/saree1.webp" alt="alternate text" className="card-img card-img-horizontal sw-11" />
+                          <img src="img/product/small/product-2.webp" alt="alternate text" className="card-img card-img-horizontal sw-11" />
                         </a>
                       </div>
                       <div className="col">
                         <div className="card-body pt-0 pb-0 h-100">
                           <div className="row g-0 h-100 align-content-center">
                             <div className="col-12 col-md-9 d-flex align-items-center mb-2 mb-md-0">
-                              <a href="Products.Detail.html">Saree</a>
+                              <a href="Products.Detail.html">Aromatic Green Candle</a>
                             </div>
                             <div className="col-12 col-md-3 d-flex align-items-center justify-content-md-end text-muted text-medium">2.701 Sales</div>
                           </div>
@@ -387,16 +387,16 @@ function OrderAdminDashboard() {
                   </div>
                   <div className="card mb-2">
                     <div className="row g-0 sh-14 sh-md-10">
-                      <div className="col-auto sh-md-10">
+                      <div className="col-auto">
                         <a href="Products.Detail.html">
-                          <img src="img/product/small/skirt.avif" alt="alternate text" className="card-img card-img-horizontal sw-11" />
+                          <img src="img/product/small/product-7.webp" alt="alternate text" className="card-img card-img-horizontal sw-11" />
                         </a>
                       </div>
                       <div className="col">
                         <div className="card-body pt-0 pb-0 h-100">
                           <div className="row g-0 h-100 align-content-center">
                             <div className="col-12 col-md-9 d-flex align-items-center mb-2 mb-md-0">
-                              <a href="Products.Detail.html">Skirt  </a>
+                              <a href="Products.Detail.html">White Coffee Mug</a>
                             </div>
                             <div className="col-12 col-md-3 d-flex align-items-center justify-content-md-end text-muted text-medium">1.972 Sales</div>
                           </div>
@@ -406,16 +406,16 @@ function OrderAdminDashboard() {
                   </div>
                   <div className="card mb-2">
                     <div className="row g-0 sh-14 sh-md-10">
-                      <div className="col-auto sh-md-10">
+                      <div className="col-auto">
                         <a href="Products.Detail.html">
-                          <img src="img/product/small/shalwar.avif" alt="alternate text" className="card-img card-img-horizontal sw-11" />
+                          <img src="img/product/small/product-6.webp" alt="alternate text" className="card-img card-img-horizontal sw-11" />
                         </a>
                       </div>
                       <div className="col">
                         <div className="card-body pt-0 pb-0 h-100">
                           <div className="row g-0 h-100 align-content-center">
                             <div className="col-12 col-md-9 d-flex align-items-center mb-2 mb-md-0">
-                              <a href="Products.Detail.html">Shalwar</a>
+                              <a href="Products.Detail.html">Wireless On-Ear Headphones</a>
                             </div>
                             <div className="col-12 col-md-3 d-flex align-items-center justify-content-md-end text-muted text-medium">1.543 Sales</div>
                           </div>
@@ -425,16 +425,16 @@ function OrderAdminDashboard() {
                   </div>
                   <div className="card mb-2">
                     <div className="row g-0 sh-14 sh-md-10">
-                      <div className="col-auto sh-md-10">
+                      <div className="col-auto">
                         <a href="Products.Detail.html">
-                          <img src="img/product/small/kurthi.jpg" alt="alternate text" className="card-img card-img-horizontal sw-11" />
+                          <img src="img/product/small/product-8.webp" alt="alternate text" className="card-img card-img-horizontal sw-11" />
                         </a>
                       </div>
                       <div className="col">
                         <div className="card-body pt-0 pb-0 h-100">
                           <div className="row g-0 h-100 align-content-center">
                             <div className="col-12 col-md-9 d-flex align-items-center mb-2 mb-md-0">
-                              <a href="Products.Detail.html">Kurti</a>
+                              <a href="Products.Detail.html">Geometric Chandelier</a>
                             </div>
                             <div className="col-12 col-md-3 d-flex align-items-center justify-content-md-end text-muted text-medium">1.352 Sales</div>
                           </div>
@@ -455,7 +455,7 @@ function OrderAdminDashboard() {
                   <div className="scroll h-100">
                     <div className="d-flex flex-row align-items-center justify-content-between mb-2">
                       <div className="d-flex flex-column">
-                        <div>Tank Top  </div>
+                        <div>Whole wheat bread</div>
                       </div>
                       <div className="d-flex">
                         <span className="badge bg-outline-secondary">847</span>
@@ -463,7 +463,7 @@ function OrderAdminDashboard() {
                     </div>
                     <div className="d-flex flex-row align-items-center justify-content-between mb-2">
                       <div className="d-flex flex-column">
-                        <div>Crop Top</div>
+                        <div>White bread</div>
                       </div>
                       <div className="d-flex">
                         <span className="badge bg-outline-secondary">753</span>
@@ -471,7 +471,7 @@ function OrderAdminDashboard() {
                     </div>
                     <div className="d-flex flex-row align-items-center justify-content-between mb-2">
                       <div className="d-flex flex-column">
-                        <div>Korean Pants</div>
+                        <div>Sourdough bread</div>
                       </div>
                       <div className="d-flex">
                         <span className="badge bg-outline-secondary">721</span>
@@ -479,7 +479,7 @@ function OrderAdminDashboard() {
                     </div>
                     <div className="d-flex flex-row align-items-center justify-content-between mb-2">
                       <div className="d-flex flex-column">
-                        <div>Shirts</div>
+                        <div>Melonpan bread</div>
                       </div>
                       <div className="d-flex">
                         <span className="badge bg-outline-secondary">693</span>
@@ -487,7 +487,7 @@ function OrderAdminDashboard() {
                     </div>
                     <div className="d-flex flex-row align-items-center justify-content-between mb-2">
                       <div className="d-flex flex-column">
-                        <div>Saree</div>
+                        <div>Gluten free bread</div>
                       </div>
                       <div className="d-flex">
                         <span className="badge bg-outline-secondary">431</span>
@@ -495,7 +495,7 @@ function OrderAdminDashboard() {
                     </div>
                     <div className="d-flex flex-row align-items-center justify-content-between mb-2">
                       <div className="d-flex flex-column">
-                        <div>Kurti</div>
+                        <div>sliced whole wheat bread</div>
                       </div>
                       <div className="d-flex">
                         <span className="badge bg-outline-secondary">381</span>
@@ -503,7 +503,7 @@ function OrderAdminDashboard() {
                     </div>
                     <div className="d-flex flex-row align-items-center justify-content-between mb-2">
                       <div className="d-flex flex-column">
-                        <div>Shalwar</div>
+                        <div>Packaged Zopf bread</div>
                       </div>
                       <div className="d-flex">
                         <span className="badge bg-outline-secondary">310</span>
@@ -511,7 +511,7 @@ function OrderAdminDashboard() {
                     </div>
                     <div className="d-flex flex-row align-items-center justify-content-between mb-2">
                       <div className="d-flex flex-column">
-                        <div>Skirt </div>
+                        <div>Barm cake</div>
                       </div>
                       <div className="d-flex">
                         <span className="badge bg-outline-secondary">301</span>
@@ -519,7 +519,7 @@ function OrderAdminDashboard() {
                     </div>
                     <div className="d-flex flex-row align-items-center justify-content-between mb-2">
                       <div className="d-flex flex-column">
-                        <div>Palazo Salwar Suit</div>
+                        <div>Pita bread</div>
                       </div>
                       <div className="d-flex">
                         <span className="badge bg-outline-secondary">288</span>
@@ -527,7 +527,7 @@ function OrderAdminDashboard() {
                     </div>
                     <div className="d-flex flex-row align-items-center justify-content-between mb-2">
                       <div className="d-flex flex-column">
-                        <div>T shirt</div>
+                        <div>Taftan cake</div>
                       </div>
                       <div className="d-flex">
                         <span className="badge bg-outline-secondary">219</span>
@@ -876,14 +876,14 @@ function OrderAdminDashboard() {
                         <div className="row g-0 sh-10 mb-3">
                           <div className="col-auto">
                             <a href="Products.Detail.html">
-                              <img src="img/product/small/kurthi.jpg" className="card-img rounded-md h-100 sw-8" alt="thumb" />
+                              <img src="img/product/small/product-2.webp" className="card-img rounded-md h-100 sw-8" alt="thumb" />
                             </a>
                           </div>
                           <div className="col">
                             <div className="card-body d-flex flex-column pt-0 pb-0 ps-3 pe-0 h-100 justify-content-center">
                               <div className="d-flex flex-column">
                                 <div className="mb-1">
-                                  <a href="Customers.Detail.html" className="body-link">Kurti</a>
+                                  <a href="Customers.Detail.html" className="body-link">Kathleen Bertha</a>
                                 </div>
                                 <div className="text-small text-muted text-truncate mb-1">
                                   Chocolate bar marzipan marzipan carrot cake gingerbread pastry ice cream. Ice cream danish sugar plum biscuit pudding powder
@@ -905,14 +905,14 @@ function OrderAdminDashboard() {
                         <div className="row g-0 sh-10 mb-3">
                           <div className="col-auto">
                             <a href="Products.Detail.html">
-                              <img src="img/product/small/crop.webp" className="card-img rounded-md h-100 sw-8" alt="thumb" />
+                              <img src="img/product/small/product-3.webp" className="card-img rounded-md h-100 sw-8" alt="thumb" />
                             </a>
                           </div>
                           <div className="col">
                             <div className="card-body d-flex flex-column pt-0 pb-0 ps-3 pe-0 h-100 justify-content-center">
                               <div className="d-flex flex-column">
                                 <div className="mb-1">
-                                  <a href="Customers.Detail.html" className="body-link">Crop Top</a>
+                                  <a href="Customers.Detail.html" className="body-link">Kathleen Bertha</a>
                                 </div>
                                 <div className="text-small text-muted text-truncate mb-1">Bear claw sweet liquorice jujubes. Muffin gingerbread bear claw.</div>
                                 <div className="br-wrapper br-theme-cs-icon">
@@ -931,14 +931,14 @@ function OrderAdminDashboard() {
                         <div className="row g-0 sh-10 mb-3">
                           <div className="col-auto">
                             <a href="Products.Detail.html">
-                              <img src="img/product/small/Korean.jpg" className="card-img rounded-md h-100 sw-8" alt="thumb" />
+                              <img src="img/product/small/product-1.webp" className="card-img rounded-md h-100 sw-8" alt="thumb" />
                             </a>
                           </div>
                           <div className="col">
                             <div className="card-body d-flex flex-column pt-0 pb-0 ps-3 pe-0 h-100 justify-content-center">
                               <div className="d-flex flex-column">
                                 <div className="mb-1">
-                                  <a href="Customers.Detail.html" className="body-link">Korean Pant </a>
+                                  <a href="Customers.Detail.html" className="body-link">Olli Hawkins</a>
                                 </div>
                                 <div className="text-small text-muted text-truncate mb-1">Bear claw sweet liquorice jujubes. Muffin gingerbread bear claw.</div>
                                 <div className="br-wrapper br-theme-cs-icon">
@@ -957,18 +957,18 @@ function OrderAdminDashboard() {
                         <div className="row g-0 sh-10">
                           <div className="col-auto">
                             <a href="Products.Detail.html">
-                              <img src="img/product/small/party.webp" className="card-img rounded-md h-100 sw-8" alt="thumb" />
+                              <img src="img/product/small/product-10.webp" className="card-img rounded-md h-100 sw-8" alt="thumb" />
                             </a>
                           </div>
                           <div className="col">
                             <div className="card-body d-flex flex-column pt-0 pb-0 ps-3 pe-0 h-100 justify-content-center">
                               <div className="d-flex flex-column">
                                 <div className="mb-1">
-                                  <a href="Customers.Detail.html" className="body-link">Part Ware </a>
+                                  <a href="Customers.Detail.html" className="body-link">Zayn Hammond</a>
                                 </div>
                                 <div className="text-small text-muted text-truncate mb-1">Chupa chups candy canes.</div>
                                 <div className="br-wrapper br-theme-cs-icon">
-                                  <select className="rating" name="rating" autocomplete="off" data-readonly="true" data-initial-rating="4">
+                                  <select className="rating" name="rating" autocomplete="off" data-readonly="true" data-initial-rating="5">
                                     <option value="1">1</option>
                                     <option value="2">2</option>
                                     <option value="3">3</option>

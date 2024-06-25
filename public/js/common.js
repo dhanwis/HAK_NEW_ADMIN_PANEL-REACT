@@ -154,7 +154,7 @@ class Common {
       if (element.getAttribute('data-childSelector')) {
         childSelector = ' ' + element.getAttribute('data-childSelector');
       }
-      element.querySelector('[data-bs-toggle="dropdown"]' + childSelector).innerHTML = element.querySelector('.dropdown-menu a.active').textContent;
+      element.querySelector('[data-bs-toggle="dropdown"]' + childSelector).innerHTML = element.querySelector('.dropdown-menu a.active').textContent ;
     });
   }
 

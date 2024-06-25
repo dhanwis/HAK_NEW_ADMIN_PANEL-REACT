@@ -1,6 +1,24 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { useParams } from 'react-router-dom';
 
 function SuperAdminProfileView() {
+
+  const [user, setUser] = useState([]);
+  const {id} = useParams()
+  console.log(id)
+
+  useEffect(() => {
+      axios.get(`http://localhost:8000/auth/superadmin-profile/${id}`)
+          .then(response => {
+            console.log(response.data)
+              setUser(response.data);
+          })
+          .catch(error => {
+              console.error('Error fetching admins:', error);
+          });
+  }, []);
+
   return (
     <div>
        <main>
@@ -11,7 +29,7 @@ function SuperAdminProfileView() {
               {/* <!-- Title Start --> */}
               <div className="col-auto mb-3 mb-md-0 me-auto">
                 <div className="w-auto sw-md-40">
-                  <a href="/" className="muted-link pb-1 d-inline-block breadcrumb-back">
+                  <a href="/admin-dashboard" className="muted-link pb-1 d-inline-block breadcrumb-back">
                     <i data-acorn-icon="chevron-left" data-acorn-size="13"></i>
                     <span className="text-small align-middle">Back</span>
                   </a>
@@ -51,9 +69,9 @@ function SuperAdminProfileView() {
                     <form>
                       <div className="mb-3">
                         <label className="form-label">Name</label>
-                        <input type="text" className="form-control" value="Vyshanv" readOnly/>
+                        <input type="text" className="form-control" value={user.first_name} readOnly/>
                       </div>
-                      <div className="mb-3 w-100">
+                      {/* <div className="mb-3 w-100">
                         <label className="form-label">Gender</label>
                         <input type="text" className="form-control" value="Male" readOnly/>
                       </div>
@@ -62,18 +80,22 @@ function SuperAdminProfileView() {
                         <textarea className="form-control html-editor-bubble html-editor sh-13" id="quillEditorBubble" readOnly style={{overflowY: 'scroll',padding:'10px 10px' }} value="Kannur, Kerala, 670014">
                           Kannur, Kerala, 670014, India
                         </textarea>
-                      </div>
+                      </div> */}
                       <div className="mb-3">
                         <label className="form-label">Mobile</label>
-                        <input type="tel" className="form-control" value="+91 9455332676" readOnly/>
+                        <input type="tel" className="form-control" value={user.phone_number} readOnly/>
                       </div>
                       <div className="mb-3">
                         <label className="form-label">Email</label>
-                        <input type="email" className="form-control" value="Vyshnav@gmail.com" readOnly/>
+                        <input type="email" className="form-control" value={user.email} readOnly/>
                       </div>
                       <div className="mb-3">
-                        <label className="form-label">Email</label>
-                        <input type="text" className="form-control" value="Vyshnav@123" readOnly/>
+                        <label className="form-label">Username</label>
+                        <input type="text" className="form-control" value={user.username} readOnly/>
+                      </div>
+                      <div className="mb-3">
+                        <label className="form-label">Password</label>
+                        <input type="text" className="form-control" value={user.password} readOnly/>
                       </div>
                     </form>
                   </div>
@@ -88,9 +110,9 @@ function SuperAdminProfileView() {
                 <h2 className="small-title">Image</h2>
                 <div className="card">
                   <div className="card-body">
-                    <form>
-                      <div className="dropzone dropzone-columns row g-2 row-cols-1 row-cols-md-1 border-0 p-0" id="dropzoneProductImage"></div>
-                    </form>
+                    {/* <form> */}
+                      <div className="dropzone dropzone-columns row g-2 row-cols-1 row-cols-md-1 border-0 p-0" ><img src={`http://localhost:8000${user.image}`} alt="user"/></div>
+                    {/* </form> */}
                   </div>
                 </div>
               </div>
