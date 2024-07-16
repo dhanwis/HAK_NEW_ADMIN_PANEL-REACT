@@ -113,7 +113,7 @@ function PACategory() {
       if (editImage.file) {
         formData.append('image', editImage.file); // Append file directly
       }
-      let category = await axios.patch(`http://127.0.0.1:8000/productadmin/categories/${editCategory.id}`, formData, {
+      let category = await axios.patch(`http://127.0.0.1:8000/productadmin/categories/${editCategory.id}/`, formData, {
         headers: { 'Content-Type': 'multipart/form-data' }
       });
       console.log("Response:", category);
@@ -127,7 +127,7 @@ function PACategory() {
 
   // -----------------------Category-delete-------------------
   const deleteCategory = (categoryId) => {
-    axios.delete(`http://127.0.0.1:8000/productadmin/categories/${categoryId}`)
+    axios.delete(`http://127.0.0.1:8000/productadmin/categories/${categoryId}/`)
       .then(response => {
         // Filter out the deleted category from the state
         setCategorys(categorys.filter(category => category.id !== categoryId));

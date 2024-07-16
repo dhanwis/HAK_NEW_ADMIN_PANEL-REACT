@@ -60,7 +60,8 @@ function AdminLogin() {
       if (a.status === 200) {
         console.log('abcd', a.data)
         const user = a.data.user;
-        console.log(a);
+        console.log(user);
+
 
 
         sessionStorage.setItem('token',a.data.access)
@@ -80,9 +81,12 @@ function AdminLogin() {
           window.location.href = '/admin-dashboard';
         }
       }
+      else{
+        alert(a.response.data)
+      }
     }
     catch (error) {
-      alert(error.response);
+      alert(error.response.data);
       console.log(error.response);
     }
     finally {

@@ -5,7 +5,7 @@ function ProductAdmin() {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-      axios.get('http://localhost:8000/auth/product-admins/')
+      axios.get('http://127.0.0.1:8000/auth/admin/productadminview/')
           .then(response => {
             console.log(response.data)
               setUsers(response.data);
@@ -16,7 +16,8 @@ function ProductAdmin() {
   }, []);
 
   const deleteUser = (userId) => {
-    axios.delete(`http://localhost:8000/auth/product-admins-edit/${userId}`)
+console.log(userId)
+    axios.delete(`http://127.0.0.1:8000/superadmin/product-admin-profile/${userId}/`)
       .then(response => {
         // Filter out the deleted user from the state
         setUsers(users.filter(user => user.id !== userId));
@@ -154,7 +155,7 @@ function ProductAdmin() {
                       <div className="ps-5 pe-4 h-100">
                         <div className="row g-0 h-100 align-content-center">
                           <a href={`/productadmin-view/${user.id}`} className="col-12 col-lg-3 d-flex flex-column pe-1 mb-2 mb-lg-0 align-items-start justify-content-center">
-                          {user.first_name}
+                          {user.name}
                           </a>
                           {/* <div className="col-12 col-lg-3 d-flex flex-column pe-1 mb-2 mb-lg-0 align-items-start justify-content-center">
                             <div className="lh-1 text-alternate">{user.username}</div>
