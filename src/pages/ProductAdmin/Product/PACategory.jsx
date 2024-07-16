@@ -84,8 +84,11 @@ function PACategory() {
     });
   };
 
+  const token= sessionStorage.getItem("token")
+  console.log(token);
+
   const handleEditCategory = (id) => {
-    axios.get(`http://127.0.0.1:8000/productadmin/categories/${id}`)
+    axios.get(`http://127.0.0.1:8000/productadmin/categories/${id}/`)
       .then(response => {
         setEditCategory({
           id: response.data.id,

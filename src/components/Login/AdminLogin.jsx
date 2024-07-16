@@ -58,7 +58,11 @@ function AdminLogin() {
       if (a.status === 200) {
         console.log('abcd', a.data)
         const user = a.data.user;
-        console.log(user);
+        console.log(a);
+
+
+        sessionStorage.setItem('token',a.data.access)
+
         if (user.product_admin) {
           // alert("Productadmin login success");
           window.location.href = '/productadmin-dashboard';
