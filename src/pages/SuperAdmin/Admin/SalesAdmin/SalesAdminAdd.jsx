@@ -3,13 +3,13 @@ import axios from 'axios';
 
 function SalesAdminAdd() {
   const[userData, setuserData] = useState({
-    first_name: "",
-    last_name: "",
+    name: "",
     password: "",
     email: "",
     phone_number: "",
-    username: ""
+    username: "",
   })
+  console.log(userData);
 
   const handleOnchange = (x) => {
     const { name, value } = x.target
@@ -21,7 +21,7 @@ function SalesAdminAdd() {
 
   const handleSubmit = async () => {
     try{
-      let product_admin = await axios.post('http://127.0.0.1:8000/login/salesadmin-signup/', userData, {method: {"Content-Type": "application/json"}});
+      let product_admin = await axios.post('http://127.0.0.1:8000/superadmin/create/salesadmin/', userData, {method: {"Content-Type": "application/json"}});
       console.log(product_admin);
       alert('Form Submitted Successfully');
     }catch(err) {
@@ -81,11 +81,11 @@ function SalesAdminAdd() {
                     <form>
                     <div className="mb-3">
                         <label className="form-label">First name</label>
-                        <input type="text" name='first_name' className="form-control" onChange={handleOnchange} />
+                        <input type="text" name='first_name' className="form-control" value={userData.name} onChange={(e)=>setuserData({...userData,name:e.target.value})} />
                       </div>
-                      <div className="mb-3">
+                      {/* <div className="mb-3">
                         <label className="form-label">Last name</label>
-                        <input type="text" name='last_name' className="form-control" onChange={handleOnchange} />
+                        <input type="text" name='last_name' className="form-control"  onChange={handleOnchange} />
                       </div>
                       <div className="mb-3 w-100">
                         <label className="form-label">Gender</label>
@@ -101,22 +101,22 @@ function SalesAdminAdd() {
                         <textarea className="form-control html-editor-bubble html-editor sh-13" id="quillEditorBubble" style={{overflowY: 'scroll',padding:'10px 10px' }}>
                           Kannur, Kerala, 670014, India
                         </textarea>
-                      </div>
+                      </div> */}
                       <div className="mb-3">
                         <label className="form-label">Mobile</label>
-                        <input type="tel" name='phone_number' className="form-control" onChange={handleOnchange} />
+                        <input type="tel" name='phone_number' className="form-control"  value={userData.phone_number} onChange={handleOnchange} />
                       </div>
                       <div className="mb-3">
                         <label className="form-label">Email</label>
-                        <input type="email" name='email' className="form-control" onChange={handleOnchange} />
+                        <input type="email" name='email' className="form-control" value={userData.email} onChange={handleOnchange} />
                       </div>
                       <div className="mb-3">
                         <label className="form-label">User name</label>
-                        <input type="text" name='username' className="form-control" onChange={handleOnchange} />
+                        <input type="text" name='username' className="form-control" value={userData.username} onChange={handleOnchange} />
                       </div>
                       <div className="mb-3">
                         <label className="form-label">Password</label>
-                        <input type="text" name='password' className="form-control" onChange={handleOnchange} />
+                        <input type="text" name='password' className="form-control" value={userData.password} onChange={handleOnchange} />
                       </div>
                     </form>
                   </div>

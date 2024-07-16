@@ -3,13 +3,14 @@ import axios from 'axios';
 
 function ProductAdminAdd() {
   const[userData, setuserData] = useState({
-    first_name: "",
+     name: "",
     password: "",
     email: "",
     phone_number: "",
     username: "",
-    image: ""
+    // image: ""
   })
+  console.log(userData);
 
   const handleOnchange = (x) => {
     const { name, value } = x.target
@@ -25,11 +26,12 @@ function ProductAdminAdd() {
       for (let key in userData) {
         formData.append(key, userData[key]);
       }
-      if (image) {
-        formData.append('image', image.file); // Append file directly
-      }
-      let product_admin = await axios.post('http://127.0.0.1:8000/auth/product-admins/', formData, {
-        headers: { 'Content-Type': 'multipart/form-data' }
+      // if (image) {
+      //   formData.append('image', image.file); // Append file directly
+      // }
+
+      let product_admin = await axios.post('http://127.0.0.1:8000/superadmin/create/productadmin/', formData, {
+        headers: { 'Content-Type': 'application/json' }
       });
       console.log("Response:", product_admin);
       alert('Form Submitted Successfully');
@@ -126,7 +128,7 @@ function ProductAdminAdd() {
                     <form>
                     <div className="mb-3">
                         <label className="form-label">Name</label>
-                        <input type="text" name='first_name' className="form-control" onChange={handleOnchange} value={userData.first_name} />
+                        <input type="text" name='first_name' className="form-control" onChange={(e)=>setuserData({...userData,name:e.target.value})} value={userData.name} />
                       </div>
                       {/* <div className="mb-3">
                         <label className="form-label">Last name</label>

@@ -7,9 +7,9 @@ function Category() {
   // --------------------Category-list-view----------------
   const [categorys, setCategorys] = useState([]);
   useEffect(() => {
-      axios.get('http://localhost:8000/auth/category/')
+      axios.get('http://127.0.0.1:8000/productadmin/categories/')
           .then(response => {
-            console.log(response.data)
+            console.log('resp',response.data)
               setCategorys(response.data);
           })
           .catch(error => {
@@ -35,8 +35,9 @@ function Category() {
   // ---------------------Category-Add---------------------
   const[categoryData, setcategoryData] = useState({
     name: "",
-    image: ""
+    image: "" 
   })
+  console.log(categoryData);
   const handleOnchange = (x) => {
     const { name, value } = x.target
     setcategoryData({
@@ -50,10 +51,10 @@ function Category() {
       for (let key in categoryData) {
         formData.append(key, categoryData[key]);
       }
-      if (image) {
-        formData.append('image', image.file); // Append file directly
+      if (iimage) {
+        formData.append('image', iimage.file); // Append file directly
       }
-      let category = await axios.post('http://127.0.0.1:8000/auth/category/', formData, {
+      let category = await axios.post('http://127.0.0.1:8000/productadmin/categories/', formData, {
         headers: { 'Content-Type': 'multipart/form-data' }
       });
       console.log("Response:", category);
@@ -120,7 +121,7 @@ function Category() {
 
   // -----------------------Category-delete-------------------
   const deleteCategory = (categoryId) => {
-    axios.delete(`http://localhost:8000/auth/category-edit/${categoryId}`)
+    axios.delete(`http://127.0.0.1:8000/productadmin/categories/${categoryId}`)
       .then(response => {
         // Filter out the deleted category from the state
         setCategorys(categorys.filter(category => category.id !== categoryId));
@@ -132,7 +133,7 @@ function Category() {
   };
 
 
-  const [image, setImage] = useState(null);
+  const [iimage, setImage] = useState(null);
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     if (file) {
@@ -158,7 +159,7 @@ function Category() {
     return megabytes.toFixed(2) + " MB";
   };
 
-  // State to manage the image during edit
+  // State to manage the i during edit
   const [editImage, setEditImage] = useState(null);
   const handleEditFileChange = (event) => {
     const file = event.target.files[0];
@@ -297,8 +298,11 @@ function Category() {
                <div key={category.id} className="card mb-2">
                   <div className="row g-0 h-100 sh-lg-9 position-relative">
                     <a href="#" className="col-auto position-relative" data-bs-toggle="modal" data-bs-target="#categoryViewModal" onClick={() => handleViewCategory(category.id)}>
-                      <img src={`http://localhost:8000${category.image}`} alt="product" className="card-img card-img-horizontal sw-11 h-100 sh-lg-9"/>
-                    </a>
+  <img
+    src={`http://localhost:8000/img/category-image/${category.image}`}
+    alt="product123"
+    className="card-img card-img-horizontal sw-11 h-100 sh-lg-9"
+  />                    </a>
                     <div className="col py-4 py-lg-0">
                       <div className="ps-5 pe-4 h-100">
                         <div className="row g-0 h-100 align-content-center">
@@ -335,7 +339,7 @@ function Category() {
                       <h2 className="small-title">Image</h2>
                       <div className="card">
                         <div className="card-body">
-                            <div className="dropzone dropzone-columns row g-2 row-cols-1 row-cols-md-1 border-0 p-0" ><img src={`http://localhost:8000${viewCategory.image}`} alt="user"/></div>
+                            <div className="dropzone dropzone-columns row g-2 row-cols-1 row-cols-md-1 border-0 p-0" ><img src={`http://localhost:8000${viewCategory.i}`} alt="user"/></div>
                         </div>
                       </div>
                     </div>
@@ -376,7 +380,7 @@ function Category() {
                                   </div>
                                 )}
                                 {!editImage && (
-                                  <input type="file" name="image" className="form-control" onChange={handleEditFileChange} />
+                                  <input type="file" name="i" className="form-control" onChange={handleEditFileChange} />
                                 )}
                               {/* </div> */}
                             </div>
@@ -408,12 +412,12 @@ function Category() {
                 <div className="modal-body">
                   <form>
                     <div className="mb-3">
-                      {!image && <input type="file" name="image" className="form-control" onChange={handleFileChange} />}
-                      {image && (
+                      {!iimage && <input type="file" name="image" className="form-control" onChange={handleFileChange} />}
+                      {iimage && (
                         <div className="mt-3">
-                          <center><img src={image.url} className="mb-3" alt={image.name} style={{ maxWidth: '100%', maxHeight: '200px' }} />
-                          <p>Name: {image.name}</p>
-                          <p>Size: {formatSize(image.size)}</p>
+                          <center><img src={iimage.url} className="mb-3" alt={iimage.name} style={{ maxWidth: '100%', maxHeight: '200px' }} />
+                          <p>Name: {iimage.name}</p>
+                          <p>Size: {formatSize(iimage.size)}</p>
                           <button type="button" className="btn btn-danger" onClick={handleDelete}><i className='fa-solid fa-trash'/></button></center>
                         </div>
                       )}

@@ -7,21 +7,21 @@ function PACategory() {
   // --------------------Category-list-view----------------
   const [categorys, setCategorys] = useState([]);
   useEffect(() => {
-      axios.get('http://localhost:8000/auth/category/')
-          .then(response => {
-            console.log(response.data)
-              setCategorys(response.data);
-          })
-          .catch(error => {
-              console.error('Error fetching categories:', error);
-          });
+    axios.get('http://127.0.0.1:8000/productadmin/categories/')
+      .then(response => {
+        console.log('first ', response.data)
+        setCategorys(response.data);
+      })
+      .catch(error => {
+        console.error('Error fetching categories:', error);
+      });
   }, []);
 
   // ---------------------Category-view-by-id--------------
   const [viewCategory, setViewCategory] = useState([]);
   const { id } = useParams();
   const handleViewCategory = (categoryId) => {
-    axios.get(`http://localhost:8000/auth/category-edit/${categoryId}`)
+    axios.get(`http://127.0.0.1:8000/productadmin/categories/${categoryId}`)
       .then(response => {
         console.log(response.data);
         setViewCategory(response.data);
@@ -31,12 +31,14 @@ function PACategory() {
       });
   };
 
-  
+
   // ---------------------Category-Add---------------------
-  const[categoryData, setcategoryData] = useState({
+  const [categoryData, setcategoryData] = useState({
     name: "",
     image: ""
   })
+
+  console.log(categoryData);
   const handleOnchange = (x) => {
     const { name, value } = x.target
     setcategoryData({
@@ -44,6 +46,7 @@ function PACategory() {
       [name]: value
     })
   };
+
   const handleSubmit = async () => {
     try {
       let formData = new FormData();
@@ -53,7 +56,7 @@ function PACategory() {
       if (image) {
         formData.append('image', image.file); // Append file directly
       }
-      let category = await axios.post('http://127.0.0.1:8000/auth/category/', formData, {
+      let category = await axios.post('http://127.0.0.1:8000/productadmin/categories/', formData, {
         headers: { 'Content-Type': 'multipart/form-data' }
       });
       console.log("Response:", category);
@@ -71,6 +74,7 @@ function PACategory() {
     name: "",
     image: ""
   });
+  console.log('hii',editCategory);
 
   const handleEditOnchange = (x) => {
     const { name, value } = x.target;
@@ -80,8 +84,8 @@ function PACategory() {
     });
   };
 
-  const handleEditCategory = (categoryId) => {
-    axios.get(`http://localhost:8000/auth/category-edit/${categoryId}`)
+  const handleEditCategory = (id) => {
+    axios.get(`http://127.0.0.1:8000/productadmin/categories/${id}`)
       .then(response => {
         setEditCategory({
           id: response.data.id,
@@ -106,7 +110,7 @@ function PACategory() {
       if (editImage.file) {
         formData.append('image', editImage.file); // Append file directly
       }
-      let category = await axios.patch(`http://127.0.0.1:8000/auth/category-edit/${editCategory.id}`, formData, {
+      let category = await axios.patch(`http://127.0.0.1:8000/productadmin/categories/${editCategory.id}`, formData, {
         headers: { 'Content-Type': 'multipart/form-data' }
       });
       console.log("Response:", category);
@@ -120,7 +124,7 @@ function PACategory() {
 
   // -----------------------Category-delete-------------------
   const deleteCategory = (categoryId) => {
-    axios.delete(`http://localhost:8000/auth/category-edit/${categoryId}`)
+    axios.delete(`http://127.0.0.1:8000/productadmin/categories/${categoryId}`)
       .then(response => {
         // Filter out the deleted category from the state
         setCategorys(categorys.filter(category => category.id !== categoryId));
@@ -137,7 +141,7 @@ function PACategory() {
     const file = event.target.files[0];
     if (file) {
       const reader = new FileReader();
-      reader.onload = function(e) {
+      reader.onload = function (e) {
         setImage({
           file: file, // Store the file object itself
           url: e.target.result,
@@ -164,7 +168,7 @@ function PACategory() {
     const file = event.target.files[0];
     if (file) {
       const reader = new FileReader();
-      reader.onload = function(e) {
+      reader.onload = function (e) {
         setEditImage({
           file: file, // Store the file object itself
           url: e.target.result,
@@ -183,7 +187,7 @@ function PACategory() {
 
   return (
     <div>
-       <main>
+      <main>
         <div className="container">
           {/* <!-- Title and Top Buttons Start --> */}
           <div className="page-title-container">
@@ -203,7 +207,7 @@ function PACategory() {
               {/* <!-- Top Buttons Start --> */}
               <div className="w-100 d-md-none"></div>
               <div className="col-12 col-sm-6 col-md-auto d-flex align-items-end justify-content-end mb-2 mb-sm-0 order-sm-3">
-              <button
+                <button
                   type="button"
                   className="btn btn-outline-primary btn-icon btn-icon-start ms-0 ms-sm-1 w-100 w-md-auto"
                   data-bs-toggle="modal"
@@ -294,65 +298,65 @@ function PACategory() {
 
                 {/* <!-- Items Container Start --> */}
                 {categorys.map(category => (
-               <div key={category.id} className="card mb-2">
-                  <div className="row g-0 h-100 sh-lg-9 position-relative">
-                    <a href="#" className="col-auto position-relative" data-bs-toggle="modal" data-bs-target="#categoryViewModal" onClick={() => handleViewCategory(category.id)}>
-                      <img src={`http://localhost:8000${category.image}`} alt="product" className="card-img card-img-horizontal sw-11 h-100 sh-lg-9"/>
-                    </a>
-                    <div className="col py-4 py-lg-0">
-                      <div className="ps-5 pe-4 h-100">
-                        <div className="row g-0 h-100 align-content-center">
-                          <a href="#" className="col-11 col-lg-10 d-flex flex-column mb-lg-0 mb-3 pe-3 d-flex order-1 h-lg-100 justify-content-center" data-bs-toggle="modal" data-bs-target="#categoryViewModal" onClick={() => handleViewCategory(category.id)}>
-                           {category.name}
-                          </a>
-                          <div className="col-12 col-lg-1 d-flex flex-column pe-1 mb-2 mb-lg-0 align-items-start justify-content-center order-5">
-                            <a href="#" className="col-11 col-lg-1 d-flex flex-column mb-lg-0 mb-3 pe-3 d-flex order-1 h-lg-100 justify-content-center" data-bs-toggle="modal" data-bs-target="#categoryUpdateModal" onClick={() => handleEditCategory(category.id)}><i className='fa-solid fa-pen'/></a>
-                          </div>
-                          <div className="col-12 col-lg-1 d-flex flex-column pe-1 mb-2 mb-lg-0 align-items-start justify-content-center order-5">
-                            <a href="#" className="col-11 col-lg-1 d-flex flex-column mb-lg-0 mb-3 pe-3 d-flex order-1 h-lg-100 justify-content-center" onClick={() => deleteCategory(category.id)}><i className='fa-solid fa-trash'/></a>
+                  <div key={category.id} className="card mb-2">
+                    <div className="row g-0 h-100 sh-lg-9 position-relative">
+                      <a href="#" className="col-auto position-relative" data-bs-toggle="modal" data-bs-target="#categoryViewModal" onClick={() => handleViewCategory(category.id)}>
+                        <img src={`http://localhost:8000${category.image}`} className="card-img card-img-horizontal sw-11 h-100 sh-lg-9" />
+                      </a>
+                      <div className="col py-4 py-lg-0">
+                        <div className="ps-5 pe-4 h-100">
+                          <div className="row g-0 h-100 align-content-center">
+                            <a href="#" className="col-11 col-lg-10 d-flex flex-column mb-lg-0 mb-3 pe-3 d-flex order-1 h-lg-100 justify-content-center" data-bs-toggle="modal" data-bs-target="#categoryViewModal" onClick={() => handleViewCategory(category.id)}>
+                              {category.name}
+                            </a>
+                            <div className="col-12 col-lg-1 d-flex flex-column pe-1 mb-2 mb-lg-0 align-items-start justify-content-center order-5">
+                              <a href="#" className="col-11 col-lg-1 d-flex flex-column mb-lg-0 mb-3 pe-3 d-flex order-1 h-lg-100 justify-content-center" data-bs-toggle="modal" data-bs-target="#categoryUpdateModal" onClick={() => handleEditCategory(category.id)}><i className='fa-solid fa-pen' /></a>
+                            </div>
+                            <div className="col-12 col-lg-1 d-flex flex-column pe-1 mb-2 mb-lg-0 align-items-start justify-content-center order-5">
+                              <a href="#" className="col-11 col-lg-1 d-flex flex-column mb-lg-0 mb-3 pe-3 d-flex order-1 h-lg-100 justify-content-center" onClick={() => deleteCategory(category.id)}><i className='fa-solid fa-trash' /></a>
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
-               </div>
-               ))}   
+                ))}
                 {/* <!-- Items Container Start --> */}
-          {/* <!-- List Items End --> */}
-      
-          {/* <!-- Category Detail Modal Start --> */}
-          <div className="modal modal-right fade" id="categoryViewModal" tabindex="-1" role="dialog" aria-hidden="true">
-            <div className="modal-dialog">
-              <div className="modal-content">
-                <div className="modal-header">
-                  <h5 className="modal-title text-primary">Category Detail</h5>
-                  <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div className="modal-body">
-                  {/* <form> */}
-                    {/* <!-- Image Start --> */}
-                    <div className="mb-5">
-                      <h2 className="small-title">Image</h2>
-                      <div className="card">
-                        <div className="card-body">
-                            <div className="dropzone dropzone-columns row g-2 row-cols-1 row-cols-md-1 border-0 p-0" ><img src={`http://localhost:8000${viewCategory.image}`} alt="user"/></div>
+                {/* <!-- List Items End --> */}
+
+                {/* <!-- Category Detail Modal Start --> */}
+                <div className="modal modal-right fade" id="categoryViewModal" tabindex="-1" role="dialog" aria-hidden="true">
+                  <div className="modal-dialog">
+                    <div className="modal-content">
+                      <div className="modal-header">
+                        <h5 className="modal-title text-primary">Category Detail</h5>
+                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div className="modal-body">
+                        {/* <form> */}
+                        {/* <!-- Image Start --> */}
+                        <div className="mb-5">
+                          <h2 className="small-title">Image</h2>
+                          <div className="card">
+                            <div className="card-body">
+                              <div className="dropzone dropzone-columns row g-2 row-cols-1 row-cols-md-1 border-0 p-0" ><img src={`http://localhost:8000${viewCategory.image}`} alt="user" /></div>
+                            </div>
+                          </div>
                         </div>
+                        {/* <!-- Image End --> */}
+                        <div className="mb-3">
+                          <label className="form-label text-primary">Name</label>
+                          <input type="text" className="form-control" value={viewCategory.name} readOnly />
+                        </div>
+                        {/* </form> */}
                       </div>
                     </div>
-                    {/* <!-- Image End --> */}
-                    <div className="mb-3">
-                      <label className="form-label text-primary">Name</label>
-                      <input type="text" className="form-control" value={viewCategory.name} readOnly/>
-                    </div>
-                  {/* </form> */}
+                  </div>
                 </div>
-              </div>
-            </div>
-          </div>
-          {/* <!-- Category Detail Modal End --> */}
+                {/* <!-- Category Detail Modal End --> */}
 
-          {/* <!-- Category Update Modal Start --> */}
-            <div className="modal modal-right fade" id="categoryUpdateModal" tabIndex="-1" role="dialog" aria-hidden="true">
+                {/* <!-- Category Update Modal Start --> */}
+                <div className="modal modal-right fade" id="categoryUpdateModal" tabIndex="-1" role="dialog" aria-hidden="true">
                   <div className="modal-dialog">
                     <div className="modal-content">
                       <div className="modal-header">
@@ -363,27 +367,30 @@ function PACategory() {
                         <form>
                           <div className="mb-3">
                             <div className="card">
-                            <h2 className="small-title">Image</h2>
+                              <h2 className="small-title">Image</h2>
                               {/* <div className="card-body"> */}
-                                {editImage && (
-                                  <div className="mt-1 text-center">
-                                    <img src={editImage.url} className="mb-3" alt={editImage.name} style={{ maxWidth: '100%', maxHeight: '200px' }} />
-                                    {/* <p>Name: {editImage.name}</p>
+                              {editImage && (
+                                <div className="mt-1 text-center">
+                                  <img src={editImage.url} className="mb-3" alt={editImage.name} style={{ maxWidth: '100%', maxHeight: '200px' }} />
+                                  {/* <p>Name: {editImage.name}</p>
                                     <p>Size: {formatSize(editImage.size)}</p> */}
-                                    <div>
-                                      <button type="button" className="btn btn-danger" onClick={handleEditDelete}><i className='fa-solid fa-trash' /></button>
-                                    </div>
+                                  <div>
+                                    <button type="button" className="btn btn-danger" onClick={handleEditDelete}><i className='fa-solid fa-trash' /></button>
                                   </div>
-                                )}
-                                {!editImage && (
-                                  <input type="file" name="image" className="form-control" onChange={handleEditFileChange} />
-                                )}
+                                </div>
+                              )}
+                              {!editImage && (
+                                <input type="file" name="image" className="form-control" onChange={handleEditFileChange} />
+                              )}
                               {/* </div> */}
                             </div>
                           </div>
                           <div className="mb-3">
-                            <label className="form-label text-primary">Name</label>
+                         
+                            <label className="form-label text-primary">byee</label>
+                           
                             <input type="text" className="form-control" name="name" value={editCategory.name} onChange={handleEditOnchange} />
+                          
                           </div>
                         </form>
                       </div>
@@ -394,45 +401,45 @@ function PACategory() {
                       </div>
                     </div>
                   </div>
-            </div>
-          {/* <!-- Category Update Modal End --> */}
+                </div>
+                {/* <!-- Category Update Modal End --> */}
 
-          {/* <!-- Category Add Modal Start --> */}
-          <div className="modal modal-right fade" id="categoryAddModal" tabindex="-1" role="dialog" aria-hidden="true">
-            <div className="modal-dialog">
-              <div className="modal-content">
-                <div className="modal-header">
-                  <h5 className="modal-title text-primary">Add New Category</h5>
-                  <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div className="modal-body">
-                  <form>
-                    <div className="mb-3">
-                      {!image && <input type="file" name="image" className="form-control" onChange={handleFileChange} />}
-                      {image && (
-                        <div className="mt-3">
-                          <center><img src={image.url} className="mb-3" alt={image.name} style={{ maxWidth: '100%', maxHeight: '200px' }} />
-                          <p>Name: {image.name}</p>
-                          <p>Size: {formatSize(image.size)}</p>
-                          <button type="button" className="btn btn-danger" onClick={handleDelete}><i className='fa-solid fa-trash'/></button></center>
-                        </div>
-                      )}
+                {/* <!-- Category Add Modal Start --> */}
+                <div className="modal modal-right fade" id="categoryAddModal" tabindex="-1" role="dialog" aria-hidden="true">
+                  <div className="modal-dialog">
+                    <div className="modal-content">
+                      <div className="modal-header">
+                        <h5 className="modal-title text-primary">Add New Category</h5>
+                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div className="modal-body">
+                        <form>
+                          <div className="mb-3">
+                            {!image && <input type="file" name="image" className="form-control" onChange={handleFileChange} />}
+                            {image && (
+                              <div className="mt-3">
+                                <center><img src={image.url} className="mb-3" alt={image.name} style={{ maxWidth: '100%', maxHeight: '200px' }} />
+                                  <p>Name: {image.name}</p>
+                                  <p>Size: {formatSize(image.size)}</p>
+                                  <button type="button" className="btn btn-danger" onClick={handleDelete}><i className='fa-solid fa-trash' /></button></center>
+                              </div>
+                            )}
+                          </div>
+                          <div className="mb-3">
+                            <label className="form-label text-primary">Name</label>
+                            <input type="text" className="form-control" name="name" onChange={handleOnchange} />
+                          </div>
+                        </form>
+                      </div>
+                      <div className="modal-footer border-0">
+                        <a href="#" className="btn btn-icon btn-icon-end btn-primary" data-bs-dismiss="modal" onClick={handleSubmit}>
+                          <span>Add +</span>
+                        </a>
+                      </div>
                     </div>
-                    <div className="mb-3">
-                      <label className="form-label text-primary">Name</label>
-                      <input type="text" className="form-control" name="name" onChange={handleOnchange}/>
-                    </div>
-                  </form>
+                  </div>
                 </div>
-                <div className="modal-footer border-0">
-                  <a href="#" className="btn btn-icon btn-icon-end btn-primary" data-bs-dismiss="modal" onClick={handleSubmit}> 
-                    <span>Add +</span>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-          {/* <!-- Category Add Modal End --> */}
+                {/* <!-- Category Add Modal End --> */}
 
               </div>
             </div>
