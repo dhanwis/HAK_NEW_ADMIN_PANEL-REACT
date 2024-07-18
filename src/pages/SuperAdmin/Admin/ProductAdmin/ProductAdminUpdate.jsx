@@ -4,16 +4,16 @@ import { useParams } from 'react-router-dom';
 
 function ProductAdminUpdate() {
   const [editData, setEditData] = useState({
-    first_name: "",
-    password: "",
+    name: "",
+   
     email: "",
     phone_number: "",
     username: "",
-    image: ""
+    // image: ""
   });
 
   const { id } = useParams();
-  const [editImage, setEditImage] = useState(null);
+   const [editImage, setEditImage] = useState(null);
 
   useEffect(() => {
     handleEditData(id);
@@ -28,21 +28,21 @@ function ProductAdminUpdate() {
   };
 
   const handleEditData = (userId) => {
-    axios.get(`http://localhost:8000/auth/product-admins-edit/${userId}`)
+    axios.get(`http://localhost:8000/superadmin/product-admin-profile/${userId}/`)
       .then(response => {
         setEditData({
           id: response.data.id,
-          first_name: response.data.first_name,
-          password: response.data.password,
+          name: response.data.name,
+         
           email: response.data.email,
           phone_number: response.data.phone_number,
           username: response.data.username,
-          image: response.data.image,
+          // image: response.data.image,
         });
-        setEditImage({
-          url: response.data.image ? `http://localhost:8000${response.data.image}` : null,
-          file: null
-        });
+        // setEditImage({
+        //   url: response.data.image ? `http://localhost:8000${response.data.image}` : null,
+        //   file: null
+        // });
       })
       .catch(error => {
         console.error('Error fetching product admin:', error);
@@ -53,16 +53,15 @@ function ProductAdminUpdate() {
     try {
       let formData = new FormData();
       formData.append('id', editData.id);
-      formData.append('first_name', editData.first_name);
+      formData.append('name', editData.name);
       formData.append('email', editData.email);
       formData.append('phone_number', editData.phone_number);
       formData.append('username', editData.username);
-      formData.append('password', editData.password);
-      if (editImage && editImage.file) {
-        formData.append('image', editImage.file); // Append file directly
-      }
-      let product_admin = await axios.patch(`http://localhost:8000/auth/product-admins-edit/${id}`, formData, {
-        headers: { 'Content-Type': 'multipart/form-data' }
+      // if (editImage && editImage.file) {
+      //   formData.append('image', editImage.file); // Append file directly
+      // }
+      let product_admin = await axios.patch(`http://localhost:8000/superadmin/product-admin-profile/${id}/`, formData, {
+        headers: { 'Content-Type': 'application/json' }
       });
       console.log("Response:", product_admin);
       alert('Form Submitted Successfully');
@@ -72,23 +71,23 @@ function ProductAdminUpdate() {
     }
   };
 
-  const handleEditFileChange = (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = function (e) {
-        setEditImage({
-          file: file, // Store the file object itself
-          url: e.target.result,
-          name: file.name,
-          size: file.size
-        });
-      };
-      reader.readAsDataURL(file);
-    } else {
-      setEditImage(null);
-    }
-  };
+  // const handleEditFileChange = (event) => {
+  //   const file = event.target.files[0];
+  //   if (file) {
+  //     const reader = new FileReader();
+  //     reader.onload = function (e) {
+  //       setEditImage({
+  //         file: file, // Store the file object itself
+  //         url: e.target.result,
+  //         name: file.name,
+  //         size: file.size
+  //       });
+  //     };
+  //     reader.readAsDataURL(file);
+  //   } else {
+  //     setEditImage(null);
+  //   }
+  // };
 
   const handleEditDelete = () => {
     setEditImage(null);
@@ -139,7 +138,7 @@ function ProductAdminUpdate() {
                     <form>
                       <div className="mb-3">
                         <label className="form-label">Name</label>
-                        <input type="text" name='first_name' className="form-control" value={editData.first_name} onChange={handleEditOnchange} />
+                        <input type="text" name='first_name' className="form-control" value={editData.name} onChange={(e)=>setEditData({...editData,name:e.target.value})} />
                       </div>
                       <div className="mb-3">
                         <label className="form-label">Mobile</label>
@@ -152,10 +151,6 @@ function ProductAdminUpdate() {
                       <div className="mb-3">
                         <label className="form-label">Username</label>
                         <input type="text" name='username' className="form-control" value={editData.username} onChange={handleEditOnchange} />
-                      </div>
-                      <div className="mb-3">
-                        <label className="form-label">Password</label>
-                        <input type="text" name='password' className="form-control" value={editData.password} onChange={handleEditOnchange} />
                       </div>
                     </form>
                   </div>
@@ -179,7 +174,7 @@ function ProductAdminUpdate() {
                       ) : (
                         <div className="mt-1 text-center">
                           <p>No Image</p>
-                          <input type="file" name="image" className="form-control" onChange={handleEditFileChange} />
+                          <input type="file" name="image" className="form-control" />
                         </div>
                       )}
                     </form>

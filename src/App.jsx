@@ -106,7 +106,7 @@ function App() {
           <Route path="/orderadmin-view/:id" element={<><SideNav /><OrderAdminView /><Search /><Footer /></>} />
           <Route path="/salesadmin" element={<><SideNav /><SalesAdmin /><Search /><Footer /></>} />
           <Route path="/salesadmin-add" element={<><SideNav /><SalesAdminAdd /><Search /><Footer /></>} />
-          <Route path="/salesadmin-update" element={<><SideNav /><SalesAdminUpdate /><Search /><Footer /></>} />
+          <Route path="/salesadmin-update/:id" element={<><SideNav /><SalesAdminUpdate /><Search /><Footer /></>} />
           <Route path="/salesadmin-view" element={<><SideNav /><SalesAdminView /><Search /><Footer /></>} />
           <Route path="/products" element={<><SideNav /><Product /><Search /><Footer /></>} />
           <Route path="/categories" element={<><SideNav /><Category /><Search /><Footer /></>} />

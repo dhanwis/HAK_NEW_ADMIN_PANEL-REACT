@@ -5,7 +5,7 @@ function OrderAdmin() {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-      axios.get('http://localhost:8000/auth/order-admins/')
+      axios.get('http://localhost:8000/auth/admin/orderadmin/')
           .then(response => {
             console.log(response.data)
               setUsers(response.data);
@@ -16,7 +16,7 @@ function OrderAdmin() {
   }, []);
 
   const deleteUser = (userId) => {
-    axios.delete(`http://localhost:8000/auth/order-admins-edit/${userId}`)
+    axios.delete(`http://localhost:8000/superadmin/order-admin-profile/${userId}`)
       .then(response => {
         // Filter out the deleted user from the state
         setUsers(users.filter(user => user.id !== userId));
@@ -146,14 +146,14 @@ function OrderAdmin() {
                 {users.map(user => (
                 <div key={user.id} className="card mb-3">
                   <div className="row g-0 h-100 sh-lg-9 position-relative">
-                    <a href={`/orderadmin-view/${user.id}`} className="col-auto position-relative">
+                    {/* <a href={`/orderadmin-view/${user.id}`} className="col-auto position-relative">
                       <img src={`http://localhost:8000${user.image}`} alt="image" className="card-img card-img-horizontal sw-11 h-100 sh-lg-9" />
-                    </a>
+                    </a> */}
                     <div className="col py-4 py-lg-0">
                       <div className="ps-5 pe-4 h-100">
                         <div className="row g-0 h-100 align-content-center">
                           <a href={`/orderadmin-view/${user.id}`} className="col-12 col-lg-3 d-flex flex-column pe-1 mb-2 mb-lg-0 align-items-start justify-content-center">
-                          {user.first_name}
+                          {user.name}
                           </a>
                           {/* <div className="col-12 col-lg-3 d-flex flex-column pe-1 mb-2 mb-lg-0 align-items-start justify-content-center">
                             <div className="lh-1 text-alternate">{user.username}</div>
@@ -168,7 +168,7 @@ function OrderAdmin() {
                             <input type="checkbox" class="form-check-input" id="StatusSwitch"/>
                           </div>
                           <div className="col-12 col-lg-1 d-flex flex-column pe-1 mb-2 mb-lg-0 align-items-start justify-content-center">
-                            <a href={`/productadmin-update/${user.id}`} className="col-11 col-lg-1 d-flex flex-column mb-lg-0 mb-3 pe-3 d-flex order-1 h-lg-100 justify-content-center"><i className='fa-solid fa-pen'/></a>
+                            <a href={`/orderadmin-update/${user.id}`} className="col-11 col-lg-1 d-flex flex-column mb-lg-0 mb-3 pe-3 d-flex order-1 h-lg-100 justify-content-center"><i className='fa-solid fa-pen'/></a>
                           </div>
                           <div className="col-12 col-lg-1 d-flex flex-column pe-1 mb-2 mb-lg-0 align-items-start justify-content-center">
                             <a href="#" className="col-11 col-lg-1 d-flex flex-column mb-lg-0 mb-3 pe-3 d-flex order-1 h-lg-100 justify-content-center" onClick={() => deleteUser(user.id)}><i className='fa-solid fa-trash'/></a>

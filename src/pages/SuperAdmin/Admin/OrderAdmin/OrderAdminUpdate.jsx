@@ -1,37 +1,98 @@
-import React, { useState } from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 
 function OrderAdminUpdate() {
 
-  const [image, setImage] = useState(null);
+  const [editData, setEditData] = useState({
+    name: "",
+    email: "",
+    phone_number: "",
+    username: "",
+    // image: ""
+  });
 
-  const handleFileChange = (event) => {
-    const file = event.target.files[0];
-  
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = function(e) {
-        setImage({
-          file: file, // Store the file object itself
-          url: e.target.result,
-          name: file.name,
-          size: file.size
+  const { id } = useParams();
+   const [editImage, setEditImage] = useState(null);
+
+  useEffect(() => {
+    handleEditData(id);
+  }, [id]);
+
+  const handleEditOnchange = (x) => {
+    const { name, value } = x.target;
+    setEditData({
+      ...editData,
+      [name]: value
+    });
+  };
+
+  const handleEditData = (userId) => {
+    axios.get(`http://localhost:8000/superadmin/order-admin-profile/${userId}`)
+      .then(response => {
+        setEditData({
+          id: response.data.id,
+          name: response.data.name,
+          email: response.data.email,
+          phone_number: response.data.phone_number,
+          username: response.data.username,
+          // image: response.data.image,
         });
-      };
-      reader.readAsDataURL(file);
-    } else {
-      setImage(null);
+        // setEditImage({
+        //   url: response.data.image ? `http://localhost:8000${response.data.image}` : null,
+        //   file: null
+        // });
+      })
+      .catch(error => {
+        console.error('Error fetching product admin:', error);
+      });
+  };
+
+  const handleEditSubmit = async () => {
+    try {
+      let formData = new FormData();
+      formData.append('id', editData.id);
+      formData.append('name', editData.name);
+      formData.append('email', editData.email);
+      formData.append('phone_number', editData.phone_number);
+      formData.append('username', editData.username);
+      // if (editImage && editImage.file) {
+      //   formData.append('image', editImage.file); // Append file directly
+      // }
+      let product_admin = await axios.patch(`http://localhost:8000/superadmin/order-admin-profile/${id}`, formData, {
+        headers: { 'Content-Type': 'application/json' }
+      });
+      console.log("Response:", product_admin);
+      alert('Form Submitted Successfully');
+    } catch (err) {
+      console.error(err);
+      alert('Failed!!!')
     }
   };
-  
 
-  const handleDelete = () => {
-    setImage(null);
+  // const handleEditFileChange = (event) => {
+  //   const file = event.target.files[0];
+  //   if (file) {
+  //     const reader = new FileReader();
+  //     reader.onload = function (e) {
+  //       setEditImage({
+  //         file: file, // Store the file object itself
+  //         url: e.target.result,
+  //         name: file.name,
+  //         size: file.size
+  //       });
+  //     };
+  //     reader.readAsDataURL(file);
+  //   } else {
+  //     setEditImage(null);
+  //   }
+  // };
+
+  const handleEditDelete = () => {
+    setEditImage(null);
   };
 
-  const formatSize = (bytes) => {
-    const megabytes = bytes / (1024 * 1024);
-    return megabytes.toFixed(2) + " MB";
-  };
+
 
   return (
     <div>
@@ -55,7 +116,7 @@ function OrderAdminUpdate() {
                {/* <!-- Top Buttons Start --> */}
              <div className="w-100 d-md-none"></div>
               <div className="col-12 col-sm-6 col-md-auto d-flex align-items-end justify-content-end mb-2 mb-sm-0 order-sm-3">
-                <a href="#" className="btn btn-outline-primary btn-icon btn-icon-start ms-0 ms-sm-1 w-100 w-md-auto">
+                <a href="#" className="btn btn-outline-primary btn-icon btn-icon-start ms-0 ms-sm-1 w-100 w-md-auto" onClick={handleEditSubmit}>
                   <span>Update</span>
                 </a>
                 <div className="dropdown d-inline-block d-lg-none">
@@ -86,7 +147,7 @@ function OrderAdminUpdate() {
                     <form>
                       <div className="mb-3">
                         <label className="form-label">Name</label>
-                        <input type="text" name='first_name' className="form-control"/>
+                        <input type="text" name='first_name' className="form-control"   value={editData.name} onChange={(e)=>setEditData({...editData,name:e.target.value})} />
                       </div>
                       {/* <div className="mb-3 w-100">
                         <label className="form-label">Gender</label>
@@ -100,19 +161,15 @@ function OrderAdminUpdate() {
                       </div> */}
                       <div className="mb-3">
                         <label className="form-label">Mobile</label>
-                        <input type="tel" name='phone_number' className="form-control" />
+                        <input type="tel" name='phone_number' className="form-control" value={editData.phone_number} onChange={handleEditOnchange} />
                       </div>
                       <div className="mb-3">
                         <label className="form-label">Email</label>
-                        <input type="email" name='email' className="form-control" />
+                        <input type="email" name='email' className="form-control" value={editData.email} onChange={handleEditOnchange}  />
                       </div>
                       <div className="mb-3">
                         <label className="form-label">Username</label>
-                        <input type="tel" name='username' className="form-control" />
-                      </div>
-                      <div className="mb-3">
-                        <label className="form-label">Password</label>
-                        <input type="text" name='password' className="form-control" />
+                        <input type="tel" name='username' className="form-control" value={editData.username} onChange={handleEditOnchange} />
                       </div>
                     </form>
                   </div>
@@ -121,8 +178,7 @@ function OrderAdminUpdate() {
               {/* <!-- Product Info End --> */}
             </div>
 
-            <div className="col-xl-4 mb-n5">
-                {/* <!-- Image Start --> */}
+            {/* <div className="col-xl-4 mb-n5">
               <div className="mb-5">
                 <h2 className="small-title">Image</h2>
                 <div className="card">
@@ -141,8 +197,7 @@ function OrderAdminUpdate() {
                   </div>
                 </div>
               </div>
-              {/* <!-- Image End --> */}
-              {/* <!-- History Start --> */}
+            
               <div className="mb-5">
                 <h2 className="small-title">History</h2>
                 <div className="card">
@@ -170,27 +225,8 @@ function OrderAdminUpdate() {
                   </div>
                 </div>
               </div>
-              {/* <!-- History End --> */}
-
-              {/* <!-- Gallery Start --> */}
-              {/* <div className="mb-5">
-                <h2 className="small-title">Gallery</h2>
-                <div className="card">
-                  <div className="card-body">
-                    <form className="mb-3">
-                      <div className="dropzone dropzone-columns row g-2 row-cols-1 row-cols-md-4 row-cols-xl-2 border-0 p-0" id="dropzoneProductGallery"></div>
-                    </form>
-                    <div className="text-center">
-                      <button type="button" className="btn btn-foreground hover-outline btn-icon btn-icon-start mt-2" id="dropzoneProductGalleryButton">
-                        <i data-acorn-icon="plus"></i>
-                        <span>Add Files</span>
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div> */}
-              {/* <!-- Gallery End --> */}
-            </div>
+            
+            </div> */}
           </div>
         </div>
       </main>

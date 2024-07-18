@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 function ProductAdminAdd() {
+const navigate=useNavigate()
+
   const[userData, setuserData] = useState({
      name: "",
     password: "",
@@ -35,6 +38,8 @@ function ProductAdminAdd() {
       });
       console.log("Response:", product_admin);
       alert('Form Submitted Successfully');
+      navigate('/productadmin')
+
     } catch (err) {
       console.error(err);
       alert('Failed!!!')

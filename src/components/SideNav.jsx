@@ -154,11 +154,11 @@ function SideNav() {
                       <span className="label">Order Admin</span>
                     </Link>
                   </li>
-                  {/* <li>
+                   <li>
                     <Link to="/salesadmin">
                       <span className="label">Sales Admin</span>
                     </Link>
-                  </li> */}
+                  </li> 
                 </ul>
               </li>
               <li>
@@ -174,7 +174,7 @@ function SideNav() {
                   </li>
                   <li>
                     <Link to="/subcategories">
-                      <span className="label">Sub Category</span>
+                      <span className="label">Size</span>
                     </Link>
                   </li>
                   <li>

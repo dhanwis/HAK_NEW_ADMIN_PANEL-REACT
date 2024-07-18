@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 function ProductAdmin() {
+  
   const [users, setUsers] = useState([]);
+
 
   useEffect(() => {
       axios.get('http://127.0.0.1:8000/auth/admin/productadminview/')
@@ -27,6 +29,8 @@ console.log(userId)
         console.error('Error deleting user:', error);
       });
   };
+
+
 
   return (
     <div>

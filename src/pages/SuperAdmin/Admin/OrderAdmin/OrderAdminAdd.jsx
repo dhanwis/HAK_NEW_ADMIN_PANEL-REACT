@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 function OrderAdminAdd() {
+  const navigate=useNavigate()
   const[userData, setuserData] = useState({
     name: "",
     password: "",
@@ -35,6 +37,7 @@ function OrderAdminAdd() {
       });
       console.log("Response:", order_admin);
       alert('Form Submitted Successfully');
+      navigate('/orderadmin')
     } catch (err) {
       console.error(err);
       alert('Failed!!!')

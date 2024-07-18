@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 function SalesAdminAdd() {
+ const navigate=useNavigate()
   const[userData, setuserData] = useState({
     name: "",
     password: "",
@@ -24,6 +26,7 @@ function SalesAdminAdd() {
       let product_admin = await axios.post('http://127.0.0.1:8000/superadmin/create/salesadmin/', userData, {method: {"Content-Type": "application/json"}});
       console.log(product_admin);
       alert('Form Submitted Successfully');
+      navigate('/salesadmin')
     }catch(err) {
       console.error(err);
     }
@@ -126,7 +129,7 @@ function SalesAdminAdd() {
             </div>
 
             <div className="col-xl-4 mb-n5">
-                {/* <!-- Image Start --> */}
+{/*                
               <div className="mb-5">
                 <h2 className="small-title">Image</h2>
                 <div className="card">
@@ -136,28 +139,8 @@ function SalesAdminAdd() {
                     </form>
                   </div>
                 </div>
-              </div>
-              {/* <!-- Image End --> */}
-
-              {/* <!-- Gallery Start --> */}
-              {/* <div className="mb-5">
-                <h2 className="small-title">Gallery</h2>
-                <div className="card">
-                  <div className="card-body">
-                    <form className="mb-3">
-                      <div className="dropzone dropzone-columns row g-2 row-cols-1 row-cols-md-4 row-cols-xl-2 border-0 p-0" id="dropzoneProductGallery"></div>
-                    </form>
-                    <div className="text-center">
-                      <button type="button" className="btn btn-foreground hover-outline btn-icon btn-icon-start mt-2" id="dropzoneProductGalleryButton">
-                        <i data-acorn-icon="plus"></i>
-                        <span>Add Files</span>
-                      </button>
-                    </div>
-                  </div>
-                </div>
               </div> */}
-              {/* <!-- Gallery End --> */}
-            </div>
+                         </div>
           </div>
         </div>
       </main>

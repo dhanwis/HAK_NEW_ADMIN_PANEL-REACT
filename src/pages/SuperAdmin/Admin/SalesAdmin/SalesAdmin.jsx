@@ -1,6 +1,37 @@
-import React from 'react'
+import axios from 'axios';
+import React, { useEffect, useState } from 'react'
 
 function SalesAdmin() {
+
+  const [users, setUsers] = useState([]);
+
+
+  useEffect(() => {
+      axios.get('http://127.0.0.1:8000/auth/admin/salesadmin/')
+          .then(response => {
+            console.log(response.data)
+              setUsers(response.data);
+          })
+          .catch(error => {
+              console.error('Error fetching admins:', error);
+          });
+  }, []);
+
+  console.log("salesadmin:",users);
+
+  const deleteUser = (userId) => {
+console.log(userId)
+    axios.delete(`http://127.0.0.1:8000/superadmin/sales-admin-profile/${userId}`)
+      .then(response => {
+        // Filter out the deleted user from the state
+        setUsers(users.filter(user => user.id !== userId));
+        alert('User deleted success');
+      })
+      .catch(error => {
+        console.error('Error deleting user:', error);
+      });
+  };
+
   return (
     <div>
        <main>
@@ -102,7 +133,7 @@ function SalesAdmin() {
                             <div className="text-muted text-small cursor-pointer" data-sort="name">NAME</div>
                           </div>
                           <div className="col-lg-4 d-flex flex-column pe-1 justify-content-center">
-                            <div className="text-muted text-small cursor-pointer" data-sort="email">ADDRESS</div>
+                            <div className="text-muted text-small cursor-pointer" data-sort="email">EMAIL</div>
                           </div>
                           <div className="col-lg-2 d-flex flex-column pe-1 justify-content-center">
                             <div className="text-muted text-small cursor-pointer" data-sort="group">MOBILE</div>
@@ -115,90 +146,42 @@ function SalesAdmin() {
 
                 {/* <!-- Items Container Start --> */}
 
-                <div className="card mb-5">
+              {
+              users && users.length>0?(
+              users.map((item)=>(
+              <div className="card mb-5">
                   <div className="row g-0 h-100 sh-lg-9 position-relative">
                     <a href="/salesadmin-view" className="col-auto position-relative">
-                      <img src="img/profile/profile-3.webp" alt="product" className="card-img card-img-horizontal sw-11 h-100" />
+                      {/* <img src="img/profile/profile-3.webp" alt="product" className="card-img card-img-horizontal sw-11 h-100" /> */}
                     </a>
                     <div className="col py-4 py-lg-0">
                       <div className="ps-5 pe-4 h-100">
                         <div className="row g-0 h-100 align-content-center">
                           <a href="/salesadmin-view" className="col-11 col-lg-4 d-flex flex-column mb-lg-0 mb-3 pe-3 d-flex order-1 h-lg-100 justify-content-center">
-                            ASWIN K P
+                         {item.name}
                           </a>
                           <div className="col-12 col-lg-4 d-flex flex-column pe-1 mb-2 mb-lg-0 justify-content-center order-3">
-                            <div className="lh-1 text-alternate">MAYYIL, KANNUR, KERALA 670014</div>
+                            <div className="lh-1 text-alternate">{item.email}</div>
                           </div>
                           <div className="col-12 col-lg-2 d-flex flex-column pe-1 mb-2 mb-lg-0 align-items-start justify-content-center order-5">
-                            <div className="lh-1 text-alternate">9534241376</div>
+                            <div className="lh-1 text-alternate">{item.phone_number}</div>
                           </div>
                           <div className="col-12 col-lg-1 d-flex flex-column pe-1 mb-2 mb-lg-0 align-items-start justify-content-center order-5">
-                            <a href="/salesadmin-update" className="col-11 col-lg-1 d-flex flex-column mb-lg-0 mb-3 pe-3 d-flex order-1 h-lg-100 justify-content-center"><i className='fa-solid fa-pen'/></a>
+                            <a href={`/salesadmin-update/${item.id}`} className="col-11 col-lg-1 d-flex flex-column mb-lg-0 mb-3 pe-3 d-flex order-1 h-lg-100 justify-content-center"><i className='fa-solid fa-pen'/></a>
                           </div>
                           <div className="col-12 col-lg-1 d-flex flex-column pe-1 mb-2 mb-lg-0 align-items-start justify-content-center order-5">
-                            <a href="#" className="col-11 col-lg-1 d-flex flex-column mb-lg-0 mb-3 pe-3 d-flex order-1 h-lg-100 justify-content-center"><i className='fa-solid fa-trash'/></a>
+                            <a onClick={()=>deleteUser(item.id)} className="col-11 col-lg-1 d-flex flex-column mb-lg-0 mb-3 pe-3 d-flex order-1 h-lg-100 justify-content-center"><i className='fa-solid fa-trash'/></a>
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
-                <div className="card mb-5">
-                  <div className="row g-0 h-100 sh-lg-9 position-relative">
-                    <a href="/salesadmin-view" className="col-auto position-relative">
-                      <img src="img/profile/profile-2.webp" alt="product" className="card-img card-img-horizontal sw-11 h-100" />
-                    </a>
-                    <div className="col py-4 py-lg-0">
-                      <div className="ps-5 pe-4 h-100">
-                        <div className="row g-0 h-100 align-content-center">
-                          <a href="/salesadmin-view" className="col-11 col-lg-4 d-flex flex-column mb-lg-0 mb-3 pe-3 d-flex order-1 h-lg-100 justify-content-center">
-                            SAMYUKTH M
-                          </a>
-                          <div className="col-12 col-lg-4 d-flex flex-column pe-1 mb-2 mb-lg-0 justify-content-center order-3">
-                            <div className="lh-1 text-alternate">KANNUR, KERALA 670014</div>
-                          </div>
-                          <div className="col-12 col-lg-2 d-flex flex-column pe-1 mb-2 mb-lg-0 align-items-start justify-content-center order-5">
-                            <div className="lh-1 text-alternate">9534342116</div>
-                          </div>
-                          <div className="col-12 col-lg-1 d-flex flex-column pe-1 mb-2 mb-lg-0 align-items-start justify-content-center order-5">
-                            <a href="/salesadmin-update" className="col-11 col-lg-1 d-flex flex-column mb-lg-0 mb-3 pe-3 d-flex order-1 h-lg-100 justify-content-center"><i className='fa-solid fa-pen'/></a>
-                          </div>
-                          <div className="col-12 col-lg-1 d-flex flex-column pe-1 mb-2 mb-lg-0 align-items-start justify-content-center order-5">
-                            <a href="#" className="col-11 col-lg-1 d-flex flex-column mb-lg-0 mb-3 pe-3 d-flex order-1 h-lg-100 justify-content-center"><i className='fa-solid fa-trash'/></a>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="card mb-2">
-                  <div className="row g-0 h-100 sh-lg-9 position-relative">
-                    <a href="/salesadmin-view" className="col-auto position-relative">
-                      <img src="img/profile/profile-1.webp" alt="product" className="card-img card-img-horizontal sw-11 h-100" />
-                    </a>
-                    <div className="col py-4 py-lg-0">
-                      <div className="ps-5 pe-4 h-100">
-                        <div className="row g-0 h-100 align-content-center">
-                          <a href="/salesadmin-view" className="col-11 col-lg-4 d-flex flex-column mb-lg-0 mb-3 pe-3 d-flex order-1 h-lg-100 justify-content-center">
-                            VIVEK T V
-                          </a>
-                          <div className="col-12 col-lg-4 d-flex flex-column pe-1 mb-2 mb-lg-0 justify-content-center order-3">
-                            <div className="lh-1 text-alternate">PALLIKKUNNU, KANNUR, KERALA 670014</div>
-                          </div>
-                          <div className="col-12 col-lg-2 d-flex flex-column pe-1 mb-2 mb-lg-0 align-items-start justify-content-center order-5">
-                            <div className="lh-1 text-alternate">9942741376</div>
-                          </div>
-                          <div className="col-12 col-lg-1 d-flex flex-column pe-1 mb-2 mb-lg-0 align-items-start justify-content-center order-5">
-                            <a href="/salesadmin-update" className="col-11 col-lg-1 d-flex flex-column mb-lg-0 mb-3 pe-3 d-flex order-1 h-lg-100 justify-content-center"><i className='fa-solid fa-pen'/></a>
-                          </div>
-                          <div className="col-12 col-lg-1 d-flex flex-column pe-1 mb-2 mb-lg-0 align-items-start justify-content-center order-5">
-                            <a href="#" className="col-11 col-lg-1 d-flex flex-column mb-lg-0 mb-3 pe-3 d-flex order-1 h-lg-100 justify-content-center"><i className='fa-solid fa-trash'/></a>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                ))
+              )
+                :null
+                }
+               
                          
                 
                 {/* <!-- Items Container Start --> */}

@@ -9,7 +9,7 @@ function OrderAdminView() {
   console.log(id)
 
   useEffect(() => {
-      axios.get(`http://localhost:8000/auth/order-admins-edit/${id}`)
+      axios.get(`http://localhost:8000/superadmin/order-admin-profile/${id}/`)
           .then(response => {
             console.log(response.data)
               setUser(response.data);
