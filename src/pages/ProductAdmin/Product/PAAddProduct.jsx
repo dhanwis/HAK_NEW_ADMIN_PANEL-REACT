@@ -52,7 +52,6 @@ console.log(ProductData);
   useEffect(() => {
     axios.get('http://127.0.0.1:8000/productadmin/categories/')
       .then(response => {
-        console.log("data:", response.data)
         setCategoryData(response.data);
       })
       .catch(error => {
@@ -223,7 +222,60 @@ console.log(ProductData);
   };
 
 
+// to assign color to product
+ const [assigProduct,setassignProduct]=useState({
+  product:"",
+  images:"",
+  name:"",
+ })
+ console.log(assigProduct);
 
+ const handleProductCategoryChange = (event) => {
+  const selectedCategory = event.target.value;
+  setProductData((prevData) => ({
+    ...prevData,
+    category: selectedCategory,
+   
+  }));
+  
+
+
+};
+
+// to get product data
+  const [getProducts,setgetProducts]=useState([])
+
+  useEffect(()=>{
+    axios.get('http://127.0.0.1:8000/productadmin/products/')
+    .then(Res=>{
+      
+      setgetProducts(Res.data)
+
+    })
+    .catch(error => {
+      console.error('Error fetching data:', error);
+    });
+}, []);   
+
+
+// to get product image
+const [productImage,setProductimage]=useState([])
+
+useEffect(()=>{
+  axios.get('http://127.0.0.1:8000/productadmin/color-images/')
+  .then(response=>{
+    console.log("this is response",response);
+    setProductimage(response.data)
+    
+  })
+  .catch(error=>{
+console.error('Error fetching data:', error);
+  })
+
+  },[])
+
+
+ 
 
   return (
     <div>
@@ -370,6 +422,69 @@ console.log(ProductData);
                 </div>
               </div>
             </div>
+
+            <div className="row">
+              <h1>Adding Color To Product</h1>
+            <div className="col-xl-8">
+              {/* <!-- Product Info Start --> */}
+              <div className="mb-5">
+                <div className="card">
+                  <div className="card-body">
+                    <form>
+                      <div className="mb-3 w-100">
+                        <label className="form-label">Product</label>
+                        <select
+                          className="form-select"
+                          value={assigProduct.product}
+                          onChange={handleCategoryChange}
+                        >
+                          <option value="">Select Product</option>
+
+
+                          {getProducts && getProducts.map(item => (
+          <option key={item.id} value={item.id}>{item.name}</option>
+        ))}
+                        </select>
+                      </div>
+
+                      <div className="mb-3 w-100">
+                        <label className="form-label">Select Product Image</label>
+                        <select
+                          className="form-select"
+                          value={ProductData.category}
+                          onChange={handleProductCategoryChange}
+                        >
+                          <option value="">Category</option>
+
+
+                          {CategoryData && CategoryData.map(item => (
+          <option key={item.id} value={item.id}>{item.name}</option>
+        ))}
+                        </select>
+                      </div>
+                      <div className="mb-3">
+                        <label className="form-label">Product Name</label>
+                        <input type="text" className="form-control" value={ProductData.name} onChange={(e) => setProductData({ ...ProductData, name: e.target.value })} />
+                      </div>
+                     
+                      <a href="#" className="btn btn-outline-primary btn-icon btn-icon-start ms-0 ms-sm-1 w-100 w-md-auto" onClick={handleSubmit}>
+                  <span>Submit</span>
+                </a>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            
+              
+            </div>
+           
+             
+            <div className="col-xl-4 mb-n5"></div>
+            
+          </div>
+          
+
+
             <div className="col-xl-4 mb-n5"></div>
           </div>
           {attributes.map((attribute, index) => (
