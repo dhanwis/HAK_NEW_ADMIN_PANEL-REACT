@@ -144,12 +144,12 @@ function ProductSideNav() {
                   <span className="label">Category</span>
                   </Link>
               </li>    
-              <li>
+              {/* <li>
                   <Link to="/productadmin-subcategory">
                   <i className="fa-solid fa-list icon" data-acorn-size="18"></i>
                   <span className="label">Sub Category</span>
                   </Link>
-              </li>
+              </li> */}
               <li>
                   <Link to="/productadmin-products">
                   <i className="fa-solid fa-shirt icon" data-acorn-size="18"></i>
