@@ -209,6 +209,48 @@ const [AddVariant,setAddVariant]=useState({
 console.log(AddVariant);
 
 
+const handleAddVariant=async(e)=>{
+  e.preventDefault();
+  const {product_status, product,size,color,actual_price,discount_percentage,discount_price,stock,is_featured}=AddVariant
+
+if(!product_status || !product || !size || !color || !actual_price || !stock){
+
+alert("Fill the form Completely")
+}
+else{
+
+
+  try{
+    let formdata=new FormData()
+    formdata.append("product_status",product_status)
+    formdata.append("product",product)
+    formdata.append("size",size)
+    formdata.append("color",color)
+    formdata.append("actual_price",actual_price)
+    formdata.append("discount_percentage",discount_percentage)
+    formdata.append("discount_price",discount_price)
+    formdata.append("stock",stock)
+    formdata.append("is_featured",is_featured)
+
+    const reqheaders= {
+      "Content-Type":"application/json",
+    
+    }
+    const result=await axios.post(`${BASE_URL}/productadmin/product-variants/`,formdata,reqheaders)
+    console.log(result);
+    alert("Variant added Successfully")
+  window.location.reload()
+
+  }
+  catch(err){
+   alert(err.result.data)
+
+  }
+}
+
+}
+
+
 const handleVariantProductChange = (event) => {
   const selectedCategory = event.target.value;
   setAddVariant((prevData) => ({
@@ -509,12 +551,12 @@ axios.get(`${BASE_URL}/productadmin/colors/`)
                               <input type="number" className="form-control"  min="0"  value={AddVariant.discount_percentage} onChange={(e)=>setAddVariant({...AddVariant,discount_percentage:e.target.value})} />          
                             </div>   
                           </div>
-                          <div className="">
+                          {/* <div className="">
                             <div className="mb-3">
                               <label className="form-label">Discount Price</label>
                               <input type="number" className="form-control"  min="0"  value={AddVariant.discount_price} onChange={(e)=>setAddVariant({...AddVariant,discount_price:e.target.value})} />
                             </div>
-                          </div>
+                          </div> */}
                           <div className="">
                             <div className="mb-3">
                               <label className="form-label">Stock</label>
@@ -536,7 +578,7 @@ axios.get(`${BASE_URL}/productadmin/colors/`)
       ))}
     </Form>
 
-    <a  href="#" className="btn btn-outline-primary btn-icon btn-icon-start ms-0 ms-sm-1 w-100 w-md-auto mt-3 " onClick={handleAddColor}>
+    <a  href="#" className="btn btn-outline-primary btn-icon btn-icon-start ms-0 ms-sm-1 w-100 w-md-auto mt-3 " onClick={handleAddVariant}>
                   <span>Submit</span>
                 </a>
                         </div>
