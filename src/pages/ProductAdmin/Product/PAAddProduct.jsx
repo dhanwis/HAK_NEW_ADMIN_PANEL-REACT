@@ -1,5 +1,8 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import { BASE_URL } from '../../Baseurl';
+import AddColor from './AddColor';
+import Form from 'react-bootstrap/Form';
 
 function PAAddProduct() {
 
@@ -9,10 +12,19 @@ function PAAddProduct() {
     image: ""
   })
 
-  console.log(colorData);
+  // console.log(colorData);
 
 
 const handleAddColor = async () => {
+
+const {name,image}=colorData
+if(!name){
+  alert("Please fill the form completely")
+
+}
+else{
+
+
   try {
     let formData = new FormData();
     for (let key in colorData) {
@@ -24,13 +36,14 @@ const handleAddColor = async () => {
     let category = await axios.post('http://127.0.0.1:8000/productadmin/color-images/', formData, {
       headers: { 'Content-Type': 'multipart/form-data' }
     });
-    console.log("Response:", category);
+    // console.log("Response:", category);
      alert('Color added')
     window.location.reload();
   } catch (err) {
     console.error(err);
     alert('Failed!!!')
   }
+}
 };
 
 
@@ -41,7 +54,7 @@ const handleAddColor = async () => {
     description: ""
   });
 
-console.log(ProductData);
+// console.log(ProductData);
 
 
 
@@ -76,6 +89,15 @@ console.log(ProductData);
 
   // to add product
  const handleSubmit = async () => {
+
+const {category,name,description}=ProductData
+
+  if(!category || !name || !description){
+    alert("Please fill the form completely")
+
+  }
+  else{
+
     try {
       let formData = new FormData();
       for (let key in ProductData) {
@@ -97,6 +119,7 @@ console.log(ProductData);
       console.error(err);
       alert('Failed!!!')
     }
+  }
   };
 
 
@@ -141,60 +164,7 @@ console.log(ProductData);
     setVariantImages(variantImages.filter((_, index) => index !== (id - 1))); // Remove images for deleted variant
   };
 
-  const handleInputChange = (id, field, value) => {
-    const updatedAttributes = attributes.map(attribute => {
-      if (attribute.id === id) {
-        return { ...attribute, [field]: value };
-      }
-      return attribute;
-    });
-    setAttributes(updatedAttributes);
-  };
-
-  const handleFileDrop = (e, variantIndex, boxIndex) => {
-    e.preventDefault();
-    const file = e.dataTransfer.files[0];
-    const reader = new FileReader();
-    reader.onload = () => {
-      const newVariantImages = [...variantImages];
-      newVariantImages[variantIndex][boxIndex] = {
-        url: reader.result,
-        name: file.name,
-        file: file
-      };
-      setVariantImages(newVariantImages);
-    };
-    reader.readAsDataURL(file);
-  };
-
-  const handleFileInputChange = (e, variantIndex, boxIndex) => {
-    const file = e.target.files[0];
-    const reader = new FileReader();
-
-    reader.onload = () => {
-      const newVariantImages = [...variantImages];
-      newVariantImages[variantIndex][boxIndex] = {
-        url: reader.result,
-        name: file.name,
-        file: file
-      };
-      setVariantImages(newVariantImages);
-    };
-    reader.readAsDataURL(file);
-  };
-
-
-
-  const handleDragOver = (e) => {
-    e.preventDefault();
-  };
-
-  const openFileInput = (variantIndex, boxIndex) => {
-    document.getElementById(`file-input-${variantIndex}-${boxIndex}`).click();
-  };
-
  
-
   const [image, setImage] = useState(null);
   const handleFileChange = (event) => {
     const file = event.target.files[0];
@@ -222,25 +192,54 @@ console.log(ProductData);
   };
 
 
-// to assign color to product
- const [assigProduct,setassignProduct]=useState({
-  product:"",
-  images:"",
-  name:"",
- })
- console.log(assigProduct);
 
- const handleProductCategoryChange = (event) => {
+
+const [AddVariant,setAddVariant]=useState({
+  product_status:"",
+  product:"",
+  size:"",
+  color:"",
+  actual_price:"",
+  discount_percentage:"",
+  discount_price:"",
+  stock:"",
+  is_featured:false
+
+})
+console.log(AddVariant);
+
+
+const handleVariantProductChange = (event) => {
   const selectedCategory = event.target.value;
-  setProductData((prevData) => ({
+  setAddVariant((prevData) => ({
     ...prevData,
-    category: selectedCategory,
+    product: selectedCategory,
    
   }));
   
 
 
 };
+
+const handleSizeCategorychange=(e)=>{
+  setAddVariant({...AddVariant,size:e.target.value})
+}
+
+const handleColorChange=(e)=>{
+  setAddVariant({...AddVariant,color:e.target.value})
+}
+
+const handleStatusChange=(e)=>{
+  setAddVariant({...AddVariant,product_status:e.target.value})
+}
+
+const handleCheckboxChange = (event) => {
+  setAddVariant({
+    ...AddVariant,
+    is_featured: event.target.checked 
+  });
+};
+
 
 // to get product data
   const [getProducts,setgetProducts]=useState([])
@@ -258,21 +257,36 @@ console.log(ProductData);
 }, []);   
 
 
-// to get product image
-const [productImage,setProductimage]=useState([])
+// get size
+const [getSize,setgetSize]=useState([])
 
 useEffect(()=>{
-  axios.get('http://127.0.0.1:8000/productadmin/color-images/')
-  .then(response=>{
-    console.log("this is response",response);
-    setProductimage(response.data)
-    
-  })
-  .catch(error=>{
-console.error('Error fetching data:', error);
-  })
+axios.get(`${BASE_URL}/productadmin/size/`)
+.then(response=>{
+  console.log("size data",response);
+  setgetSize(response.data)
 
-  },[])
+})
+.catch(error=>{
+
+  console.error('Error fetching data:',error);
+})
+
+},[])
+
+
+// get colors
+const [getColor,setgetColor]=useState([])
+
+useEffect(()=>{
+axios.get(`${BASE_URL}/productadmin/colors/`)
+.then(response=>{
+  console.log("color data",response);
+  setgetColor(response.data)
+
+})
+
+},[])
 
 
  
@@ -348,39 +362,8 @@ console.error('Error fetching data:', error);
                   </div>
                 </div>
               </div>
-              {/* <!-- Product Info End --> */}
-
-              {/* <!-- Product Info Start --> */}
-              {/* <div className="mb-5">
-                <h2 className="small-title">Category</h2>
-                <div className="card">
-                  <div className="card-body">
-                    <form>
-                      <div className="mb-3 w-100">
-                        <label className="form-label">Product Category</label>
-                        <select className="form-select select-single-no-search">
-                          <option label="--Category--"></option>
-                          <option value="Breadstick">SALWAR</option>
-                          <option value="Biscotti">SAREE</option>
-                          <option value="Fougasse">TOP</option>
-                        </select>
-                      </div>
-                      <div className="mb-3 w-100">
-                        <label className="form-label">Product SubCategory</label>
-                        <select className="form-select select-single-no-search">
-                          <option label="--Category--"></option>
-                          <option value="Breadstick">PLAZZO SALWAR</option>
-                          <option value="Biscotti">KANCHIPURAM SAREE</option>
-                          <option value="Fougasse">DENIM TOP</option>
-                        </select>
-                      </div>
-                    </form>
-                  </div>
-                </div>
-              </div> */}
-              {/* <!-- Product Info End --> */}
-              
-            </div>
+             
+                       </div>
            
              
             <div className="col-xl-4 mb-n5"></div>
@@ -423,69 +406,11 @@ console.error('Error fetching data:', error);
               </div>
             </div>
 
-            <div className="row">
-              <h1>Adding Color To Product</h1>
-            <div className="col-xl-8">
-              {/* <!-- Product Info Start --> */}
-              <div className="mb-5">
-                <div className="card">
-                  <div className="card-body">
-                    <form>
-                      <div className="mb-3 w-100">
-                        <label className="form-label">Product</label>
-                        <select
-                          className="form-select"
-                          value={assigProduct.product}
-                          onChange={handleCategoryChange}
-                        >
-                          <option value="">Select Product</option>
+  {/* component to add color image */}
+<AddColor/>
 
-
-                          {getProducts && getProducts.map(item => (
-          <option key={item.id} value={item.id}>{item.name}</option>
-        ))}
-                        </select>
-                      </div>
-
-                      <div className="mb-3 w-100">
-                        <label className="form-label">Select Product Image</label>
-                        <select
-                          className="form-select"
-                          value={ProductData.category}
-                          onChange={handleProductCategoryChange}
-                        >
-                          <option value="">Category</option>
-
-
-                          {CategoryData && CategoryData.map(item => (
-          <option key={item.id} value={item.id}>{item.name}</option>
-        ))}
-                        </select>
-                      </div>
-                      <div className="mb-3">
-                        <label className="form-label">Product Name</label>
-                        <input type="text" className="form-control" value={ProductData.name} onChange={(e) => setProductData({ ...ProductData, name: e.target.value })} />
-                      </div>
-                     
-                      <a href="#" className="btn btn-outline-primary btn-icon btn-icon-start ms-0 ms-sm-1 w-100 w-md-auto" onClick={handleSubmit}>
-                  <span>Submit</span>
-                </a>
-                    </form>
-                  </div>
-                </div>
-              </div>
-            
-              
-            </div>
-           
-             
-            <div className="col-xl-4 mb-n5"></div>
-            
-          </div>
-          
-
-
-            <div className="col-xl-4 mb-n5"></div>
+{/* Adding Variants */}
+       <div className="col-xl-4 mb-n5"></div>
           </div>
           {attributes.map((attribute, index) => (
             <div className="row">
@@ -505,111 +430,120 @@ console.error('Error fetching data:', error);
                       <div key={attribute.id} className="mb-3 pb-3">
                         <div className="row gx-2">
                           <div className="col ">
-                            <div className="mb-3">
-                              <label className="form-label">Size</label>
-                              <select className="form-select" value={attribute.size} onChange={(e) => handleInputChange(attribute.id, "size", e.target.value)}>
-                                <option label="--size--"></option>
-                                <option value="S">S</option>
-                                <option value="M">M</option>
-                                <option value="L">L</option>
-                                <option value="XL">XL</option>
-                                <option value="XXL">XXL</option>
-                                <option value="XXXL">XXXL</option>
-                              </select>
-                            </div>
+                          
+                      <div className="mb-3 w-100">
+                        <label className="form-label">Product</label>
+                        <select
+                          className="form-select"
+                          value={AddVariant.product}
+                          onChange={handleVariantProductChange}
+                        >
+                          <option value="">Select Product</option>
+
+
+                          {getProducts && getProducts.map(item => (
+          <option key={item.id} value={item.id}>{item.name}</option>
+        ))}
+                        </select>
+                      </div>
                           </div>
                           <div className="">
-                            <div className="mb-3">
-                              <label className="form-label">Colour</label>
-                              <div>
-                                <input type="text" className="form-control" />
-                              </div>
-                            </div>
+                         
+                      <div className="mb-3 w-100">
+                        <label className="form-label">Size</label>
+                        <select
+                          className="form-select"
+                          value={AddVariant.size}
+                          onChange={handleSizeCategorychange}
+                        >
+                          <option value="">Select Size</option>
+
+
+                          {getSize && getSize.map(item => (
+          <option key={item.id} value={item.id}>{item.name}</option>
+        ))}
+                        </select>
+                      </div>
+
+                    
+                      <div className="mb-3 w-100">
+                        <label className="form-label">Color</label>
+                        <select
+                          className="form-select"
+                          value={AddVariant.color}
+                          onChange={handleColorChange}
+                        >
+                          <option value="">Select Color</option>
+
+
+                          {getColor && getColor.map(item => (
+          <option key={item.id} value={item.id}>{item.name}</option>
+        ))}
+                        </select>
+                      </div>
+                      <div className="mb-3 w-100">
+                        <label className="form-label">Product Status</label>
+                        <select
+                          className="form-select"
+                          value={AddVariant.product_status}
+                          onChange={handleStatusChange}
+                        >
+                          <option value="">Select Status</option>
+
+
+          <option key="Sale" value="Sale">Sale</option>
+          <option key="Out of Stock" value="Out of Stock">Out of Stock</option>
+       
+                        </select>
+                      </div>
                           </div>
                           <div className="">
                             <div className="mb-3">
                               <label className="form-label">Actual Price</label>
-                              <input type="text" className="form-control" value={attribute.actualPrice} onChange={(e) => handleInputChange(attribute.id, "actualPrice", e.target.value)} />
+                              <input type="number" className="form-control" min="0"  value={AddVariant.actual_price} onChange={(e)=>setAddVariant({...AddVariant,actual_price:e.target.value})}/>
                             </div>
                           </div>
                           <div className="">
                             <div className="mb-3">
+                              <label className="form-label">Discount Percentage %</label>
+                              <input type="number" className="form-control"  min="0"  value={AddVariant.discount_percentage} onChange={(e)=>setAddVariant({...AddVariant,discount_percentage:e.target.value})} />          
+                            </div>   
+                          </div>
+                          <div className="">
+                            <div className="mb-3">
                               <label className="form-label">Discount Price</label>
-                              <input type="text" className="form-control" value={attribute.discountPrice} onChange={(e) => handleInputChange(attribute.id, "discountPrice", e.target.value)} />
+                              <input type="number" className="form-control"  min="0"  value={AddVariant.discount_price} onChange={(e)=>setAddVariant({...AddVariant,discount_price:e.target.value})} />
                             </div>
                           </div>
                           <div className="">
                             <div className="mb-3">
                               <label className="form-label">Stock</label>
-                              <input type="text" className="form-control" value={attribute.stock} onChange={(e) => handleInputChange(attribute.id, "discountPrice", e.target.value)} />
+                              <input type="number" className="form-control" min="0"  value={AddVariant.stock} onChange={(e)=>setAddVariant({...AddVariant,stock:e.target.value})}  />
                             </div>
                           </div>
-                          <div className="">
-                            <div className="mb-3">
-                              <label className="form-label">SKU (optional)</label>
-                              <input type="text" className="form-control" value={attribute.sku} onChange={(e) => handleInputChange(attribute.id, "discountPrice", e.target.value)} />
-                            </div>
-                          </div>
+
+                          <Form className='mt-3'>
+      {['checkbox'].map((type) => (
+        <div key={`default-${type}`} className="mb-3">
+          <Form.Check
+            type={type}
+            id={`default-${type}`}
+            label={`is Featured?`}
+            onChange={handleCheckboxChange} // Add onChange handler
+            checked={AddVariant.is_featured} // Bind the checkbox state to the component state
+          />
+        </div>
+      ))}
+    </Form>
+
+    <a  href="#" className="btn btn-outline-primary btn-icon btn-icon-start ms-0 ms-sm-1 w-100 w-md-auto mt-3 " onClick={handleAddColor}>
+                  <span>Submit</span>
+                </a>
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
-                {/* <!-- Attributes End --> */}
-              </div>
-              <div className="col-xl-4 mb-4 mt-7">
-                <div className="card mt-5">
-                  <div className="card-body">
-                    <div className="row">
-                      {[0, 1, 2, 3].map((boxIndex) => (
-                        <div key={boxIndex} className="col-md-6">
-                          <form>
-                            <div>
-                              {!variantImages[index][boxIndex] && (
-                                <div
-                                  style={{ cursor: "pointer" }}
-                                  className="dropzone mb-5"
-                                  onClick={() => openFileInput(index, boxIndex)}
-                                  onDrop={(e) => handleFileDrop(e, index, boxIndex)}
-                                  onDragOver={handleDragOver}
-                                >
-                                  <input
-                                    id={`file-input-${index}-${boxIndex}`}
-                                    type="file"
-                                    className="form-control d-none"
-                                    onChange={(e) => handleFileInputChange(e, index, boxIndex)}
-                                  />
-                                  <i className="fa-solid fa-upload text-primary mt-3" style={{ marginLeft: "-7px" }}></i>
-                                  <label className='form-label ms-1 mt-3' style={{ cursor: "pointer" }} onMouseOver={(e) => e.target.style.color = 'var(--primary)'} onMouseOut={(e) => e.target.style.color = ''}>Upload Image</label>
-                                </div>
-                              )}
-                              {variantImages[index][boxIndex] && (
-                                <div className="mt-3" style={{ position: 'relative' }}>
-                                  <div style={{ position: 'relative', maxWidth: '100%', maxHeight: '100%', overflow: 'hidden' }}>
-                                    <img
-                                      src={variantImages[index][boxIndex].url}
-                                      className="mb-3"
-                                      alt={variantImages[index][boxIndex].name}
-                                      style={{ width: '100%', height: 'auto' }}
-                                    />
-                                    <button
-                                      type="button"
-                                      className="btn btn-outline-danger"
-                                      onClick={() => handleDelete(index, boxIndex)}
-                                      style={{ position: 'absolute', bottom: '15px', right: '0px' }}
-                                    >
-                                      <i className="fa-solid fa-trash" />
-                                    </button>
-                                  </div>
-                                </div>
-                              )}
-                            </div>
-                          </form>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
+                </div>      
               </div>
             </div>
           ))}
