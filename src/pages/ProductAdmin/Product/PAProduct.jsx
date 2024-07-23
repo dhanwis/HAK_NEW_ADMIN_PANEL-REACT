@@ -1,6 +1,43 @@
-import React from 'react'
-
+import axios from 'axios'
+import React, { useEffect, useState } from 'react'
+import { BASE_URL } from '../../Baseurl';
 function PAProduct() {
+
+const [getProducts,setgetProducts]=useState([])
+const [getImage,setgetImage]=useState([])
+
+
+// Assuming getImage array contains image URLs or paths
+const combinedData = getProducts.map((product, index) => {
+  return {
+    ...product,
+    image: getImage[index] ? getImage[index].image : product.image // Fallback to product image if getImage doesn't have a corresponding entry
+  };
+});
+
+useEffect(()=>{
+  axios.get(`${BASE_URL}/productadmin/allproducts/`)
+  .then(Response=>{
+    console.log('hii',Response);
+    setgetProducts(Response.data)
+  })
+  .catch(Error=>{
+    console.error('Error fetching data:', Error);
+  })
+  axios.get(`${BASE_URL}/productadmin/categories/`)
+  .then(Response=>{
+    console.log('himm',Response);
+    setgetImage(Response.data)
+  })
+  .catch(Error=>{
+    console.error('Error fetching data:', Error);
+  })
+
+},[])
+console.log("succ",getImage);
+
+
+
   return (
     <div>
        <main>
@@ -113,13 +150,13 @@ function PAProduct() {
                             <div className="text-muted text-small cursor-pointer" data-sort="name">NAME</div>
                           </div>
                           <div className="col-lg-2 d-flex flex-column pe-1 justify-content-center">
-                            <div className="text-muted text-small cursor-pointer" data-sort="email">CATEGORY</div>
-                          </div>
-                          <div className="col-lg-1 d-flex flex-column pe-1 justify-content-center">
                             <div className="text-muted text-small cursor-pointer" data-sort="email">STOCK</div>
                           </div>
+                          <div className="col-lg-1 d-flex flex-column pe-1 justify-content-center">
+                            <div className="text-muted text-small cursor-pointer" data-sort="email">PRICE</div>
+                          </div>
                           <div className="col-lg-2 d-flex flex-column pe-1 justify-content-center">
-                            <div className="text-muted text-small cursor-pointer" data-sort="phone">PRICE</div>
+                            <div className="text-muted text-small cursor-pointer" data-sort="phone">DISCOUNT PRICE</div>
                           </div>
                           <div className="col-lg-2 d-flex flex-column pe-1 justify-content-center">
                             <div className="text-muted text-small cursor-pointer" data-sort="group">STATUS</div>
@@ -132,28 +169,34 @@ function PAProduct() {
 
                 {/* <!-- Items Container Start --> */}
 
+              {
+
+                combinedData && combinedData.length>0 ? (
+                  combinedData.map((item)=>(
+                
                 <div className="card mb-2">
                   <div className="row g-0 h-100 sh-lg-9 position-relative">
-                    <a href="/productadmin-view-products" className="col-auto position-relative">
-                      <img src="img/product/plazzo-salwar-suit.webp" alt="product" className="card-img card-img-horizontal sw-11 h-100 sh-lg-9 " />
+                    {/* viewing detail page */}
+                    <a  className="col-auto position-relative"> 
+                      <img src={`http://localhost:8000${item.image}`} alt="product" className="card-img card-img-horizontal sw-11 h-100 sh-lg-9 " />
                     </a>
                     <div className="col py-4 py-lg-0">
-                      <div className="ps-5 pe-4 h-100">
+        -              <div className="ps-5 pe-4 h-100">
                         <div className="row g-0 h-100 align-content-center">
                           <a href="/productadmin-view-products" className="col-11 col-lg-3 d-flex flex-column mb-lg-0 mb-3 pe-3 d-flex order-1 h-lg-100 justify-content-center">
-                            plazzo salwar
+                          {item.product.name}
                           </a>
                           <div className="col-12 col-lg-2 d-flex flex-column pe-1 mb-2 mb-lg-0 justify-content-center order-3">
-                            <div className="lh-1 text-alternate">Saree</div>
+                            <div className="lh-1 text-alternate"> {item.stock}</div>
                           </div>
                           <div className="col-12 col-lg-1 d-flex flex-column pe-1 mb-2 mb-lg-0 justify-content-center order-3">
-                            <div className="lh-1 text-alternate">10</div>
+                            <div className="lh-1 text-alternate">₹{item.actual_price}</div>
                           </div>
                           <div className="col-12 col-lg-2 d-flex flex-column pe-1 mb-2 mb-lg-0 justify-content-center order-4">
-                            <div className="lh-1 text-alternate">₹1600</div>
+                            <div className="lh-1 text-alternate">₹{item.discount_price}</div>
                           </div>
                           <div className="col-12 col-lg-2 d-flex flex-column pe-1 mb-2 mb-lg-0 align-items-start justify-content-center order-5">
-                            <span className="badge bg-outline-primary group">SALE</span>
+                            <span className="badge bg-outline-primary group">{item.product_status}</span>
                           </div>
                           <div className="col-12 col-lg-1 d-flex flex-column pe-1 mb-2 mb-lg-0 align-items-start justify-content-center order-5">
                             <a href="/productadmin-update-products" className="col-11 col-lg-1 d-flex flex-column mb-lg-0 mb-3 pe-3 d-flex order-1 h-lg-100 justify-content-center"><i className='fa-solid fa-pen'/></a>
@@ -166,143 +209,11 @@ function PAProduct() {
                     </div>
                   </div>
                </div>
-               <div className="card mb-2">
-                  <div className="row g-0 h-100 sh-lg-9 position-relative">
-                    <a href="/productadmin-view-products" className="col-auto position-relative">
-                      <img src="img/product/Punjabi-salwar-suit-4-.webp" alt="product" className="card-img card-img-horizontal sw-11 h-100 sh-lg-9 " />
-                    </a>
-                    <div className="col py-4 py-lg-0">
-                      <div className="ps-5 pe-4 h-100">
-                        <div className="row g-0 h-100 align-content-center">
-                          <a href="/productadmin-view-products" className="col-11 col-lg-3 d-flex flex-column mb-lg-0 mb-3 pe-3 d-flex order-1 h-lg-100 justify-content-center">
-                            Punjabi salwar
-                          </a>
-                          <div className="col-12 col-lg-2 d-flex flex-column pe-1 mb-2 mb-lg-0 justify-content-center order-3">
-                            <div className="lh-1 text-alternate">Salwar</div>
-                          </div>
-                          <div className="col-12 col-lg-1 d-flex flex-column pe-1 mb-2 mb-lg-0 justify-content-center order-3">
-                            <div className="lh-1 text-alternate">0</div>
-                          </div>
-                          <div className="col-12 col-lg-2 d-flex flex-column pe-1 mb-2 mb-lg-0 justify-content-center order-4">
-                            <div className="lh-1 text-alternate">₹2500</div>
-                          </div>
-                          <div className="col-12 col-lg-2 d-flex flex-column pe-1 mb-2 mb-lg-0 align-items-start justify-content-center order-5">
-                            <span className="badge bg-primary group">OUT OF STOCK</span>
-                          </div>
-                          <div className="col-12 col-lg-1 d-flex flex-column pe-1 mb-2 mb-lg-0 align-items-start justify-content-center order-5">
-                            <a href="/productadmin-update-products" className="col-11 col-lg-1 d-flex flex-column mb-lg-0 mb-3 pe-3 d-flex order-1 h-lg-100 justify-content-center"><i className='fa-solid fa-pen'/></a>
-                          </div>
-                          <div className="col-12 col-lg-1 d-flex flex-column pe-1 mb-2 mb-lg-0 align-items-start justify-content-center order-5">
-                            <a href="#" className="col-11 col-lg-1 d-flex flex-column mb-lg-0 mb-3 pe-3 d-flex order-1 h-lg-100 justify-content-center"><i className='fa-solid fa-trash'/></a>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-               </div>
-               <div className="card mb-2">
-                  <div className="row g-0 h-100 sh-lg-9 position-relative">
-                    <a href="/productadmin-view-products" className="col-auto position-relative">
-                      <img src="img/product/Salwar.webp" alt="product" className="card-img card-img-horizontal sw-11 h-100 sh-lg-9 " />
-                    </a>
-                    <div className="col py-4 py-lg-0">
-                      <div className="ps-5 pe-4 h-100">
-                        <div className="row g-0 h-100 align-content-center">
-                          <a href="/productadmin-view-products" className="col-11 col-lg-3 d-flex flex-column mb-lg-0 mb-3 pe-3 d-flex order-1 h-lg-100 justify-content-center">
-                            Anarakali salwar
-                          </a>
-                          <div className="col-12 col-lg-2 d-flex flex-column pe-1 mb-2 mb-lg-0 justify-content-center order-3">
-                            <div className="lh-1 text-alternate">Salwar</div>
-                          </div>
-                          <div className="col-12 col-lg-1 d-flex flex-column pe-1 mb-2 mb-lg-0 justify-content-center order-3">
-                            <div className="lh-1 text-alternate">14</div>
-                          </div>
-                          <div className="col-12 col-lg-2 d-flex flex-column pe-1 mb-2 mb-lg-0 justify-content-center order-4">
-                            <div className="lh-1 text-alternate">₹1400</div>
-                          </div>
-                          <div className="col-12 col-lg-2 d-flex flex-column pe-1 mb-2 mb-lg-0 align-items-start justify-content-center order-5">
-                            <span className="badge bg-outline-primary group">SALE</span>
-                          </div>
-                          <div className="col-12 col-lg-1 d-flex flex-column pe-1 mb-2 mb-lg-0 align-items-start justify-content-center order-5">
-                            <a href="/productadmin-update-products" className="col-11 col-lg-1 d-flex flex-column mb-lg-0 mb-3 pe-3 d-flex order-1 h-lg-100 justify-content-center"><i className='fa-solid fa-pen'/></a>
-                          </div>
-                          <div className="col-12 col-lg-1 d-flex flex-column pe-1 mb-2 mb-lg-0 align-items-start justify-content-center order-5">
-                            <a href="#" className="col-11 col-lg-1 d-flex flex-column mb-lg-0 mb-3 pe-3 d-flex order-1 h-lg-100 justify-content-center"><i className='fa-solid fa-trash'/></a>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-               </div>
-               <div className="card mb-2">
-                  <div className="row g-0 h-100 sh-lg-9 position-relative">
-                    <a href="/productadmin-view-products" className="col-auto position-relative">
-                      <img src="img/product/Georgette-And-Satin-Designer-Saree-In-Dark-Pink-Colour-SR1542337-A.webp" alt="product" className="card-img card-img-horizontal sw-11 h-100 sh-lg-9 " />
-                    </a>
-                    <div className="col py-4 py-lg-0">
-                      <div className="ps-5 pe-4 h-100">
-                        <div className="row g-0 h-100 align-content-center">
-                          <a href="/productadmin-view-products" className="col-11 col-lg-3 d-flex flex-column mb-lg-0 mb-3 pe-3 d-flex order-1 h-lg-100 justify-content-center">
-                            Banarasi saree
-                          </a>
-                          <div className="col-12 col-lg-2 d-flex flex-column pe-1 mb-2 mb-lg-0 justify-content-center order-3">
-                            <div className="lh-1 text-alternate">Saree</div>
-                          </div>
-                          <div className="col-12 col-lg-1 d-flex flex-column pe-1 mb-2 mb-lg-0 justify-content-center order-3">
-                            <div className="lh-1 text-alternate">15</div>
-                          </div>
-                          <div className="col-12 col-lg-2 d-flex flex-column pe-1 mb-2 mb-lg-0 justify-content-center order-4">
-                            <div className="lh-1 text-alternate">₹5000</div>
-                          </div>
-                          <div className="col-12 col-lg-2 d-flex flex-column pe-1 mb-2 mb-lg-0 align-items-start justify-content-center order-5">
-                            <span className="badge bg-outline-primary group">SALE</span>
-                          </div>
-                          <div className="col-12 col-lg-1 d-flex flex-column pe-1 mb-2 mb-lg-0 align-items-start justify-content-center order-5">
-                            <a href="/productadmin-update-products" className="col-11 col-lg-1 d-flex flex-column mb-lg-0 mb-3 pe-3 d-flex order-1 h-lg-100 justify-content-center"><i className='fa-solid fa-pen'/></a>
-                          </div>
-                          <div className="col-12 col-lg-1 d-flex flex-column pe-1 mb-2 mb-lg-0 align-items-start justify-content-center order-5">
-                            <a href="#" className="col-11 col-lg-1 d-flex flex-column mb-lg-0 mb-3 pe-3 d-flex order-1 h-lg-100 justify-content-center"><i className='fa-solid fa-trash'/></a>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-               </div>
-               <div className="card mb-2">
-                  <div className="row g-0 h-100 sh-lg-9 position-relative">
-                    <a href="/productadmin-view-products" className="col-auto position-relative">
-                      <img src="img/product/black-saree-1-dmv15522.webp" alt="product" className="card-img card-img-horizontal sw-11 h-100 sh-lg-9 " />
-                    </a>
-                    <div className="col py-4 py-lg-0">
-                      <div className="ps-5 pe-4 h-100">
-                        <div className="row g-0 h-100 align-content-center">
-                          <a href="/productadmin-view-products" className="col-11 col-lg-3 d-flex flex-column mb-lg-0 mb-3 pe-3 d-flex order-1 h-lg-100 justify-content-center">
-                            Kanjivaram saree
-                          </a>
-                          <div className="col-12 col-lg-2 d-flex flex-column pe-1 mb-2 mb-lg-0 justify-content-center order-3">
-                            <div className="lh-1 text-alternate">Saree</div>
-                          </div>
-                          <div className="col-12 col-lg-1 d-flex flex-column pe-1 mb-2 mb-lg-0 justify-content-center order-3">
-                            <div className="lh-1 text-alternate">0</div>
-                          </div>
-                          <div className="col-12 col-lg-2 d-flex flex-column pe-1 mb-2 mb-lg-0 justify-content-center order-4">
-                            <div className="lh-1 text-alternate">₹4500</div>
-                          </div>
-                          <div className="col-12 col-lg-2 d-flex flex-column pe-1 mb-2 mb-lg-0 align-items-start justify-content-center order-5">
-                            <span className="badge bg-primary group">OUT OF STOCK</span>
-                          </div>
-                          <div className="col-12 col-lg-1 d-flex flex-column pe-1 mb-2 mb-lg-0 align-items-start justify-content-center order-5">
-                            <a href="/productadmin-update-products" className="col-11 col-lg-1 d-flex flex-column mb-lg-0 mb-3 pe-3 d-flex order-1 h-lg-100 justify-content-center"><i className='fa-solid fa-pen'/></a>
-                          </div>
-                          <div className="col-12 col-lg-1 d-flex flex-column pe-1 mb-2 mb-lg-0 align-items-start justify-content-center order-5">
-                            <a href="#" className="col-11 col-lg-1 d-flex flex-column mb-lg-0 mb-3 pe-3 d-flex order-1 h-lg-100 justify-content-center"><i className='fa-solid fa-trash'/></a>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-               </div>
-               
+               ))
+              )
+              :null
+               }
+              
                 {/* <!-- Items Container Start --> */}
 
                 {/* <!-- List Items End --> */}

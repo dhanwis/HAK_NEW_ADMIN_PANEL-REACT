@@ -1,7 +1,37 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { BASE_URL } from '../../Baseurl';
 import product from '../../../images/product/Georgette-And-Satin-Designer-Saree-In-Dark-Pink-Colour-SR1542337-A.webp'
+import axios from 'axios';
+import { useParams } from 'react-router-dom';
 
 function PAViewProduct() {
+  const { id } = useParams(); 
+  const [product, setProduct] = useState(null)
+    
+    const [error, setError] = useState(null);
+
+  useEffect(() => {
+    // Fetch data when the component mounts or when the ID changes
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`${BASE_URL}/productadmin/allproducts/${id}/`);
+       
+        setProduct(response.data);
+       
+      } catch (err) {
+        setError(err);
+       
+      }
+    };
+
+    fetchData();
+  }, [id]);
+  
+
+ 
+
+
+
   const [attributes, setAttributes] = useState([
     {
       id: 1,
@@ -129,7 +159,9 @@ function PAViewProduct() {
           </div>
           {/* <!-- Title and Top Buttons End --> */}
 
-          <div className="row">
+          
+        
+       {product? ( <div className="row">
             <div className="col-xl-8">
               {/* <!-- Product Info Start --> */}
               <div className="mb-5">
@@ -139,11 +171,11 @@ function PAViewProduct() {
                     <form>
                       <div className="mb-3">
                         <label className="form-label">Product Name</label>
-                        <input type="text" className="form-control"/>
+                        <input type="text" className="form-control" value={product.product.name} />
                       </div>
                       <div className="mb-3">
                         <label className="form-label">Product Description</label>
-                        <textarea className="form-control html-editor-bubble html-editor sh-13" id="quillEditorBubble" style={{overflowY: 'scroll',padding:'10px 10px' }}>
+                        <textarea className="form-control html-editor-bubble html-editor sh-13" id="quillEditorBubble" style={{overflowY: 'scroll',padding:'10px 10px' }}  value={product.product.description} >
                         </textarea>
                       </div>
                     </form>
@@ -213,6 +245,12 @@ function PAViewProduct() {
               
             </div>
           </div>
+          ):
+          null
+          }
+          
+        
+       
           {attributes.map((attribute, index) => (
           <div className="row">
           <div className="col-xl-8">

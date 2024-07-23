@@ -1,6 +1,12 @@
+import axios from 'axios';
 import React, { useState } from 'react'
 
 function PAUpdateProduct() {
+
+
+
+
+
   const [attributes, setAttributes] = useState([
     {
       id: 1,
@@ -97,6 +103,111 @@ function PAUpdateProduct() {
   };
 
 
+
+   // -----------------------Product-edit---------------------
+   const [editProduct, setEditProduct] = useState({
+    name:"",
+    description:"",
+    // name:"",
+    // image:"",
+    // actual_price:"",
+    // discount_percentage:"",
+    // stock:"",
+    
+
+
+  });
+  console.log('hii',editProduct);
+
+  const handleEditOnchange = (x) => {
+    const { name, value } = x.target;
+    setEditProduct({
+      ...editProduct,
+      [name]: value
+    });
+  };
+
+
+  const handleEditCategory = (id) => {
+    axios.get(`http://127.0.0.1:8000/productadmin/products/${id}/`)
+      .then(response => {
+        setEditProduct({
+          name: response.data.name,
+          description: response.data.description
+        });
+      })
+      .catch(error => {
+        console.error('Error fetching category:', error);
+      });
+  };    
+
+  const handleEditSubmit = async () => {
+    try {
+      let formData = new FormData();
+      formData.append('id', editProduct.id);
+      formData.append('name', editProduct.name);
+      if (editImage.file) {
+        formData.append('image', editImage.file); // Append file directly
+      }
+      let category = await axios.patch(`http://127.0.0.1:8000/productadmin/categories/${editProduct.id}/`, formData, {
+        headers: { 'Content-Type': 'multipart/form-data' }
+      });
+      console.log("Response:", category);
+      window.location.reload();
+    } catch (err) {
+      console.error(err);
+      alert('Failed!!!')
+    }
+  };
+
+
+
+
+
+  const [image, setImage] = useState(null);
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        setImage({
+          file: file, // Store the file object itself
+          url: e.target.result,
+          name: file.name,
+          size: file.size
+        });
+      };
+      reader.readAsDataURL(file);
+    } else {
+      setImage(null);
+    }
+  };
+ 
+  // State to manage the image during edit
+  const [editImage, setEditImage] = useState(null);
+  const handleEditFileChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        setEditImage({
+          file: file, // Store the file object itself
+          url: e.target.result,
+          name: file.name,
+          size: file.size
+        });
+      };
+      reader.readAsDataURL(file);
+    } else {
+      setEditImage(null);
+    }
+  };
+  const handleEditDelete = () => {
+    setEditImage(null);
+  };
+
+
+
   return (
     <div>
        <main>
@@ -119,26 +230,12 @@ function PAUpdateProduct() {
               {/* <!-- Top Buttons Start --> */}
              <div className="w-100 d-md-none"></div>
               <div className="col-12 col-sm-6 d-flex align-items-end justify-content-end mb-2 mb-sm-0 order-sm-3">
-                <a href="#" className="btn btn-outline-primary btn-icon btn-icon-start ms-0 ms-sm-1 w-100 w-md-auto">
-                  <span>Update</span>
-                </a>
-                {/* <div className="dropdown d-inline-block d-lg-none">
-                  <button
-                    type="button"
-                    className="btn btn-outline-primary btn-icon btn-icon-only ms-1"
-                    data-bs-toggle="dropdown"
-                    data-bs-auto-close="outside"
-                    aria-haspopup="true"
-                    aria-expanded="false"
-                  >
-                    <i data-acorn-icon="sort"></i>
-                  </button>
-                </div> */}
+               
+               
               </div>
-              {/* <!-- Top Buttons End --> */}
+             
             </div>
           </div>
-          {/* <!-- Title and Top Buttons End --> */}
 
           <div className="row">
             <div className="col-xl-8">
@@ -156,7 +253,12 @@ function PAUpdateProduct() {
                         <label className="form-label">Product Description</label>
                         <textarea className="form-control html-editor-bubble html-editor sh-13" id="quillEditorBubble" style={{overflowY: 'scroll',padding:'10px 10px' }}>
                         </textarea>
+
+                       
                       </div>
+                      <a href="#" className="btn btn-outline-primary btn-icon btn-icon-start ms-0 ms-sm-1 w-100 w-md-auto">
+                  <span>Update</span>
+                </a>
                     </form>
                   </div>
                 </div>
@@ -164,7 +266,7 @@ function PAUpdateProduct() {
               {/* <!-- Product Info End --> */}
 
               {/* <!-- Product Info Start --> */}
-              <div className="mb-5">
+              {/* <div className="mb-5">
                 <h2 className="small-title">Category</h2>
                 <div className="card">
                   <div className="card-body">
@@ -190,7 +292,7 @@ function PAUpdateProduct() {
                     </form>
                   </div>
                 </div>
-              </div>
+              </div> */}
               {/* <!-- Product Info End --> */}
 
               {/* <!-- Inventory Start --> */}
@@ -293,7 +395,7 @@ function PAUpdateProduct() {
               {/* <!-- Gallery End --> */}
 
               {/* <!-- History Start --> */}
-              <div className="mb-5">
+              {/* <div className="mb-5">
                 <h2 className="small-title">History</h2>
                 <div className="card">
                   <div className="card-body mb-n3">
@@ -315,7 +417,7 @@ function PAUpdateProduct() {
                     </div>
                   </div>
                 </div>
-              </div>
+              </div> */}
               {/* <!-- History End --> */}
 
               
@@ -339,18 +441,7 @@ function PAUpdateProduct() {
                       <div key={attribute.id} className="mb-3 pb-3">
                         <div className="row gx-2">
                           <div className="col ">
-                            <div className="mb-3">
-                              <label className="form-label">Size</label>
-                              <select className="form-select" value={attribute.size} onChange={(e) => handleInputChange(attribute.id, "size", e.target.value)}>
-                                <option label="--size--"></option>
-                                <option value="S">S</option>
-                                <option value="M">M</option>
-                                <option value="L">L</option>
-                                <option value="XL">XL</option>
-                                <option value="XXL">XXL</option>
-                                <option value="XXXL">XXXL</option>
-                              </select>
-                            </div>
+                          
                           </div>
                           <div className="">
                             <div className="mb-3">
@@ -374,13 +465,13 @@ function PAUpdateProduct() {
                           </div>
                           <div className="">
                             <div className="mb-3">
-                              <label className="form-label">Stock</label>
+                              <label className="form-label">Discount Percentage</label>
                               <input type="text" className="form-control" value={attribute.stock} onChange={(e) => handleInputChange(attribute.id, "discountPrice", e.target.value)} />
                             </div>
                           </div>
                           <div className="">
                             <div className="mb-3">
-                              <label className="form-label">SKU (optional)</label>
+                              <label className="form-label">stock</label>
                               <input type="text" className="form-control" value={attribute.sku} onChange={(e) => handleInputChange(attribute.id, "discountPrice", e.target.value)} />
                             </div>
                           </div>
