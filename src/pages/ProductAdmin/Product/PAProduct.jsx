@@ -1,46 +1,65 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { BASE_URL } from '../../Baseurl';
+import { useParams } from 'react-router-dom';
 function PAProduct() {
 
-const [getProducts,setgetProducts]=useState([])
-const [getImage,setgetImage]=useState([])
+  const [getProducts, setgetProducts] = useState([])
+  const [getImage, setgetImage] = useState([])
 
 
-// Assuming getImage array contains image URLs or paths
-const combinedData = getProducts.map((product, index) => {
-  return {
-    ...product,
-    image: getImage[index] ? getImage[index].image : product.image // Fallback to product image if getImage doesn't have a corresponding entry
-  };
-});
 
-useEffect(()=>{
-  axios.get(`${BASE_URL}/productadmin/allproducts/`)
-  .then(Response=>{
-    console.log('hii',Response);
-    setgetProducts(Response.data)
-  })
-  .catch(Error=>{
-    console.error('Error fetching data:', Error);
-  })
-  axios.get(`${BASE_URL}/productadmin/categories/`)
-  .then(Response=>{
-    console.log('himm',Response);
-    setgetImage(Response.data)
-  })
-  .catch(Error=>{
-    console.error('Error fetching data:', Error);
-  })
 
-},[])
-console.log("succ",getImage);
+  // Assuming getImage array contains image URLs or paths
+  const combinedData = getProducts.map((product, index) => {
+    return {
+      ...product,
+      image: getImage[index] ? getImage[index].image : product.image // Fallback to product image if getImage doesn't have a corresponding entry
+    };
+  });
+  console.log("combine:",combinedData);
+
+  useEffect(() => {
+    axios.get(`${BASE_URL}/productadmin/allproducts/`)
+      .then(Response => {
+        console.log('hii', Response);
+        setgetProducts(Response.data)
+      })
+      .catch(Error => {
+        console.error('Error fetching data:', Error);
+      })
+    axios.get(`${BASE_URL}/productadmin/color-images/`)
+      .then(Response => {
+        console.log('himm', Response);
+        setgetImage(Response.data)
+      })
+      .catch(Error => {
+        console.error('Error fetching data:', Error);
+      })
+
+  }, [])
+  console.log("success", getImage);
+
+  const { id } = useParams()
+  console.log('id',id);   
+
+
+  const handleProductDelete=(productid)=>{
+
+    axios.delete(`${BASE_URL}/productadmin/product-variants/${productid}`)
+    .then(response=>{
+setgetProducts(getProducts.filter(getProducts=>getProducts.id !==productid))
+alert("Product delete success")
+
+
+    })
+  }
 
 
 
   return (
     <div>
-       <main>
+      <main>
         <div className="container">
           {/* <!-- Title and Top Buttons Start --> */}
           <div className="page-title-container">
@@ -57,7 +76,7 @@ console.log("succ",getImage);
               </div>
               {/* <!-- Title End --> */}
 
-                {/* <!-- Top Buttons Start --> */}
+              {/* <!-- Top Buttons Start --> */}
               <div className="w-100 d-md-none"></div>
               <div className="col-12 col-sm-6 col-md-auto d-flex align-items-end justify-content-end mb-2 mb-sm-0 order-sm-3">
                 <a href="/productadmin-add-products" className="btn btn-outline-primary btn-icon btn-icon-start ms-0 ms-sm-1 w-100 w-md-auto">
@@ -169,51 +188,51 @@ console.log("succ",getImage);
 
                 {/* <!-- Items Container Start --> */}
 
-              {
+                {
 
-                combinedData && combinedData.length>0 ? (
-                  combinedData.map((item)=>(
-                
-                <div className="card mb-2">
-                  <div className="row g-0 h-100 sh-lg-9 position-relative">
-                    {/* viewing detail page */}
-                    <a  className="col-auto position-relative"> 
-                      <img src={`http://localhost:8000${item.image}`} alt="product" className="card-img card-img-horizontal sw-11 h-100 sh-lg-9 " />
-                    </a>
-                    <div className="col py-4 py-lg-0">
-        -              <div className="ps-5 pe-4 h-100">
-                        <div className="row g-0 h-100 align-content-center">
-                          <a href="/productadmin-view-products" className="col-11 col-lg-3 d-flex flex-column mb-lg-0 mb-3 pe-3 d-flex order-1 h-lg-100 justify-content-center">
-                          {item.product.name}
+                  combinedData && combinedData.length > 0 ? (
+                    combinedData.map((item) => (
+
+                      <div className="card mb-2">
+                        <div className="row g-0 h-100 sh-lg-9 position-relative">
+                          {/* viewing detail page */}
+                          <a className="col-auto position-relative">
+                            <img src={`http://localhost:8000${item.image}`} alt="product" className="card-img card-img-horizontal sw-11 h-100 sh-lg-9 " />
                           </a>
-                          <div className="col-12 col-lg-2 d-flex flex-column pe-1 mb-2 mb-lg-0 justify-content-center order-3">
-                            <div className="lh-1 text-alternate"> {item.stock}</div>
-                          </div>
-                          <div className="col-12 col-lg-1 d-flex flex-column pe-1 mb-2 mb-lg-0 justify-content-center order-3">
-                            <div className="lh-1 text-alternate">₹{item.actual_price}</div>
-                          </div>
-                          <div className="col-12 col-lg-2 d-flex flex-column pe-1 mb-2 mb-lg-0 justify-content-center order-4">
-                            <div className="lh-1 text-alternate">₹{item.discount_price}</div>
-                          </div>
-                          <div className="col-12 col-lg-2 d-flex flex-column pe-1 mb-2 mb-lg-0 align-items-start justify-content-center order-5">
-                            <span className="badge bg-outline-primary group">{item.product_status}</span>
-                          </div>
-                          <div className="col-12 col-lg-1 d-flex flex-column pe-1 mb-2 mb-lg-0 align-items-start justify-content-center order-5">
-                            <a href="/productadmin-update-products" className="col-11 col-lg-1 d-flex flex-column mb-lg-0 mb-3 pe-3 d-flex order-1 h-lg-100 justify-content-center"><i className='fa-solid fa-pen'/></a>
-                          </div>
-                          <div className="col-12 col-lg-1 d-flex flex-column pe-1 mb-2 mb-lg-0 align-items-start justify-content-center order-5">
-                            <a href="#" className="col-11 col-lg-1 d-flex flex-column mb-lg-0 mb-3 pe-3 d-flex order-1 h-lg-100 justify-content-center"><i className='fa-solid fa-trash'/></a>
+                          <div className="col py-4 py-lg-0">
+                            -              <div className="ps-5 pe-4 h-100">
+                              <div className="row g-0 h-100 align-content-center">
+                                <a href="/productadmin-view-products" className="col-11 col-lg-3 d-flex flex-column mb-lg-0 mb-3 pe-3 d-flex order-1 h-lg-100 justify-content-center">
+                                  {item.product.name}
+                                </a>
+                                <div className="col-12 col-lg-2 d-flex flex-column pe-1 mb-2 mb-lg-0 justify-content-center order-3">
+                                  <div className="lh-1 text-alternate"> {item.stock}</div>
+                                </div>
+                                <div className="col-12 col-lg-1 d-flex flex-column pe-1 mb-2 mb-lg-0 justify-content-center order-3">
+                                  <div className="lh-1 text-alternate">₹{item.actual_price}</div>
+                                </div>
+                                <div className="col-12 col-lg-2 d-flex flex-column pe-1 mb-2 mb-lg-0 justify-content-center order-4">
+                                  <div className="lh-1 text-alternate">₹{item.discount_price}</div>
+                                </div>
+                                <div className="col-12 col-lg-2 d-flex flex-column pe-1 mb-2 mb-lg-0 align-items-start justify-content-center order-5">
+                                  <span className="badge bg-outline-primary group">{item.product_status}</span>
+                                </div>
+                                <div className="col-12 col-lg-1 d-flex flex-column pe-1 mb-2 mb-lg-0 align-items-start justify-content-center order-5">
+                                  <a href={`/productadmin-update-products/${item.product.id}`} className="col-11 col-lg-1 d-flex flex-column mb-lg-0 mb-3 pe-3 d-flex order-1 h-lg-100 justify-content-center"><i className='fa-solid fa-pen' /></a>
+                                </div>
+                                <div className="col-12 col-lg-1 d-flex flex-column pe-1 mb-2 mb-lg-0 align-items-start justify-content-center order-5">
+                                  <a href="#" className="col-11 col-lg-1 d-flex flex-column mb-lg-0 mb-3 pe-3 d-flex order-1 h-lg-100 justify-content-center"><i className='fa-solid fa-trash' /></a>
+                                </div>
+                              </div>
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                  </div>
-               </div>
-               ))
-              )
-              :null
-               }
-              
+                    ))
+                  )
+                    : null
+                }
+
                 {/* <!-- Items Container Start --> */}
 
                 {/* <!-- List Items End --> */}

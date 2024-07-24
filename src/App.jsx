@@ -144,7 +144,7 @@ function App() {
           <Route path="/productadmin-products" element={<><ProductSideNav/><PAProduct/><Search /><Footer /></>}/>
           <Route path="/productadmin-add-products" element={<><ProductSideNav/><PAAddProduct/><Search /><Footer /></>}/>
           <Route path="/productadmin-view-products/:id" element={<><ProductSideNav/><PAViewProduct/><Search /><Footer /></>}/>
-          <Route path="/productadmin-update-products" element={<><ProductSideNav/><PAUpdateProduct/><Search /><Footer /></>}/>
+          <Route path="/productadmin-update-products/:id" element={<><ProductSideNav/><PAUpdateProduct/><Search /><Footer /></>}/>
         {/* -------------------------PRODUCT-ADMIN-END--------------------------- */}
 
 

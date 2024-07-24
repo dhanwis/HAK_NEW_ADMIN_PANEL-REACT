@@ -3,16 +3,19 @@ import React, { useEffect, useState } from 'react';
 import { BASE_URL } from '../../Baseurl';
 import AddColor from './AddColor';
 import Form from 'react-bootstrap/Form';
+import logo from "./image.png";
 
+ 
 function PAAddProduct() {
 
+  
 //  to add color image
   const [colorData, setcolorData] = useState({
     name: "",
     image: ""
   })
 
-  // console.log(colorData);
+  // console.log('now',colorData);
 
 
 const handleAddColor = async () => {
@@ -29,8 +32,10 @@ else{
     let formData = new FormData();
     for (let key in colorData) {
       formData.append(key, colorData[key]);
+  
     }
     if (image) {
+      console.log("rrr",image);
       formData.append('image', image.file); 
     }
     let category = await axios.post('http://127.0.0.1:8000/productadmin/color-images/', formData, {
@@ -165,32 +170,17 @@ const {category,name,description}=ProductData
   };
 
  
-  const [image, setImage] = useState(null);
-  const handleFileChange = (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = function (e) {
-        setImage({
-          file: file, // Store the file object itself
-          url: e.target.result,
-          name: file.name,
-          size: file.size
-        });
-      };
-      reader.readAsDataURL(file);
-    } else {
-      setImage(null);
-    }
-  };
-  const handleDelete = () => {
-    setImage(null);
-  };
-  const formatSize = (bytes) => {
-    const megabytes = bytes / (1024 * 1024);
-    return megabytes.toFixed(2) + " MB";
-  };
 
+
+  const [preview, setPreview] = useState("");
+
+  useEffect(() => {
+    if (colorData.image) {
+      setPreview(URL.createObjectURL(colorData.image));
+    } else {
+      setPreview("");
+    }
+  }, [colorData.image]);
 
 
 
@@ -422,23 +412,19 @@ axios.get(`${BASE_URL}/productadmin/colors/`)
                 <div className="card">
                   <div className="card-body">
                     <form>
-                  
+                   <center>
+                <label htmlFor="imag">
+                  <input id='imag' type="file" style={{ display: 'none' }} onChange={(e) => setcolorData({ ...colorData, image: e.target.files[0] })} />
+                  <img src={preview ? preview : logo} alt="" width={'160px'} height={'160px'} />
+                </label>
+              </center>
                       <div className="mb-3">
+
                      
                      <label className="form-label">Product Color Name</label>
                      <input type="text" className="form-control" value={colorData.name} onChange={(e) => setcolorData({ ...colorData, name: e.target.value })} />
                    </div>
-                   <div className="mb-3">
-                            {!image && <input type="file" name="image" className="form-control" onChange={handleFileChange} />}
-                            {image && (
-                              <div className="mt-3">
-                                <center><img src={image.url} className="mb-3" alt={image.name} style={{ maxWidth: '100%', maxHeight: '200px' }} />
-                                  <p>Name: {image.name}</p>
-                                  <p>Size: {formatSize(image.size)}</p>
-                                  <button type="button" className="btn btn-danger" onClick={handleDelete}><i className='fa-solid fa-trash' /></button></center>
-                              </div>
-                            )}
-                          </div>
+                  
                     </form>
                     <a  href="#" className="btn btn-outline-primary btn-icon btn-icon-start ms-0 ms-sm-1 w-100 w-md-auto" onClick={handleAddColor}>
                   <span>Submit</span>
@@ -551,12 +537,7 @@ axios.get(`${BASE_URL}/productadmin/colors/`)
                               <input type="number" className="form-control"  min="0"  value={AddVariant.discount_percentage} onChange={(e)=>setAddVariant({...AddVariant,discount_percentage:e.target.value})} />          
                             </div>   
                           </div>
-                          {/* <div className="">
-                            <div className="mb-3">
-                              <label className="form-label">Discount Price</label>
-                              <input type="number" className="form-control"  min="0"  value={AddVariant.discount_price} onChange={(e)=>setAddVariant({...AddVariant,discount_price:e.target.value})} />
-                            </div>
-                          </div> */}
+                         
                           <div className="">
                             <div className="mb-3">
                               <label className="form-label">Stock</label>
