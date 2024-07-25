@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
+
 
 function OrderAdminAdd() {
   const navigate=useNavigate()
@@ -36,7 +38,16 @@ function OrderAdminAdd() {
         headers: { 'Content-Type': 'application/json' }
       });
       console.log("Response:", order_admin);
-      alert('Form Submitted Successfully');
+      Swal.fire({
+        icon:'success',
+        title: 'Added Successfully',
+        showClass: {
+          popup: 'animate__animated animate__fadeInDown'
+        },
+        hideClass: {
+          popup: 'animate__animated animate__fadeOutUp'
+        }
+      })
       navigate('/orderadmin')
     } catch (err) {
       console.error(err);

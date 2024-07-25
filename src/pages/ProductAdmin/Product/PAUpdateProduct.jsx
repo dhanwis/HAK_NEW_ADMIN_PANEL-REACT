@@ -2,6 +2,8 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { BASE_URL } from '../../Baseurl';
 import { useParams } from 'react-router-dom';
+import Swal from 'sweetalert2';
+
 
 function PAUpdateProduct() {
 
@@ -155,7 +157,16 @@ function PAUpdateProduct() {
       let category = await axios.patch(`${BASE_URL}/productadmin/products/${editProduct.id}/`, formData, {
         headers: { 'Content-Type': 'application/json' }
       });
-      alert('Updated Successfully')
+      Swal.fire({
+        icon:'success',
+        title: 'Updated Successfully',
+        showClass: {
+          popup: 'animate__animated animate__fadeInDown'
+        },
+        hideClass: {
+          popup: 'animate__animated animate__fadeOutUp'
+        }
+      })
       window.location.reload();
     } catch (err) {
       console.error(err);

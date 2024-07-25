@@ -144,18 +144,19 @@ function ProductSideNav() {
                   <span className="label">Category</span>
                   </Link>
               </li>    
-              {/* <li>
-                  <Link to="/productadmin-subcategory">
+              <li>
+                  <Link to="/productadmin-size">
                   <i className="fa-solid fa-list icon" data-acorn-size="18"></i>
-                  <span className="label">Sub Category</span>
+                  <span className="label">Size</span>
                   </Link>
-              </li> */}
+              </li>
               <li>
                   <Link to="/productadmin-products">
                   <i className="fa-solid fa-shirt icon" data-acorn-size="18"></i>
                   <span className="label">Product</span>
                   </Link>
               </li>
+
               <li>
                   <Link to="/productadmin-discount">
                   <i className="fa-solid fa-tag icon" data-acorn-size="18"></i>

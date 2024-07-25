@@ -2,6 +2,8 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { BASE_URL } from '../../Baseurl';
 import { useParams } from 'react-router-dom';
+import Swal from 'sweetalert2';
+
 function PAProduct() {
 
   const [getProducts, setgetProducts] = useState([])
@@ -44,15 +46,35 @@ function PAProduct() {
   console.log('id',id);   
 
 
-  const handleProductDelete=(productid)=>{
-
-    axios.delete(`${BASE_URL}/productadmin/product-variants/${productid}`)
-    .then(response=>{
-setgetProducts(getProducts.filter(getProducts=>getProducts.id !==productid))
-alert("Product delete success")
-
-
-    })
+  const handleProductDelete = (productid) => {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios.delete(`${BASE_URL}/productadmin/product-variants/${productid}/`)
+          .then(response => {
+            setgetProducts(getProducts.filter(getProducts => getProducts.id !== productid));
+            Swal.fire(
+              'Deleted!',
+              'Your product has been deleted.',
+              'success'
+            );
+          })
+          .catch(error => {
+            Swal.fire(
+              'Error!',
+              'There was a problem deleting your product.',
+              'error'
+            );
+          });
+      }
+    });
   }
 
 
@@ -221,8 +243,10 @@ alert("Product delete success")
                                   <a href={`/productadmin-update-products/${item.product.id}`} className="col-11 col-lg-1 d-flex flex-column mb-lg-0 mb-3 pe-3 d-flex order-1 h-lg-100 justify-content-center"><i className='fa-solid fa-pen' /></a>
                                 </div>
                                 <div className="col-12 col-lg-1 d-flex flex-column pe-1 mb-2 mb-lg-0 align-items-start justify-content-center order-5">
-                                  <a href="#" className="col-11 col-lg-1 d-flex flex-column mb-lg-0 mb-3 pe-3 d-flex order-1 h-lg-100 justify-content-center"><i className='fa-solid fa-trash' /></a>
-                                </div>
+  <a onClick={() => handleProductDelete(item.id)} href="#" className="col-11 col-lg-1 d-flex flex-column mb-lg-0 mb-3 pe-3 d-flex order-1 h-lg-100 justify-content-center">
+    <i className='fa-solid fa-trash' />
+  </a>
+</div>
                               </div>
                             </div>
                           </div>

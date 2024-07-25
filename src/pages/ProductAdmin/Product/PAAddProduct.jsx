@@ -4,6 +4,7 @@ import { BASE_URL } from '../../Baseurl';
 import AddColor from './AddColor';
 import Form from 'react-bootstrap/Form';
 import logo from "./image.png";
+import './ImageUpload.css';
 
  
 function PAAddProduct() {
@@ -320,7 +321,17 @@ axios.get(`${BASE_URL}/productadmin/colors/`)
 
 },[])
 
-
+const handleImageChange = (e) => {
+  const file = e.target.files[0];
+  if (file) {
+    setcolorData({ ...colorData, image: file });
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setPreview(reader.result);
+    };
+    reader.readAsDataURL(file);
+  }
+};
  
 
   return (
@@ -413,10 +424,22 @@ axios.get(`${BASE_URL}/productadmin/colors/`)
                   <div className="card-body">
                     <form>
                    <center>
-                <label htmlFor="imag">
-                  <input id='imag' type="file" style={{ display: 'none' }} onChange={(e) => setcolorData({ ...colorData, image: e.target.files[0] })} />
-                  <img src={preview ? preview : logo} alt="" width={'160px'} height={'160px'} />
-                </label>
+                   <div className="image-upload-container">
+      <label htmlFor="imageUpload" className="upload-button">
+        Choose File
+        <input
+          id="imageUpload"
+          type="file"
+          onChange={handleImageChange}
+          style={{ display: 'none' }}
+        />
+      </label>
+      {preview && (
+        <div className="image-preview-container">
+          <img src={preview} alt="Selected" className="image-preview" />
+        </div>
+      )}
+    </div>
               </center>
                       <div className="mb-3">
 

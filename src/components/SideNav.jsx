@@ -172,11 +172,11 @@ function SideNav() {
                       <span className="label">Category</span>
                     </Link>
                   </li>
-                  <li>
+                  {/* <li>
                     <Link to="/subcategories">
                       <span className="label">Size</span>
                     </Link>
-                  </li>
+                  </li> */}
                   <li>
                     <Link to="/products">
                       <span className="label">Product</span>

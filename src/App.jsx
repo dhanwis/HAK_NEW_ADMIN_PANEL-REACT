@@ -110,7 +110,7 @@ function App() {
           <Route path="/salesadmin-view" element={<><SideNav /><SalesAdminView /><Search /><Footer /></>} />
           <Route path="/products" element={<><SideNav /><Product /><Search /><Footer /></>} />
           <Route path="/categories" element={<><SideNav /><Category /><Search /><Footer /></>} />
-          <Route path="/subcategories" element={<><SideNav/><SubCategory/><Search/><Footer/></>} />
+        
           <Route path="/discount" element={<><SideNav /><Discount /><Search /><Footer /></>} />
           <Route path="/addproduct" element={<><SideNav /><AddProduct /><Search /><Footer /></>} />
           <Route path="/viewproduct" element={<><SideNav /><ViewProduct /><Search /><Footer /></>} />
@@ -140,8 +140,7 @@ function App() {
           <Route path="/productadmin-view-discount" element={<><ProductSideNav/><PAViewDiscount/><Search /><Footer /></>}/>
           <Route path="/productadmin-update-discount" element={<><ProductSideNav/><PAUpdateDiscount/><Search /><Footer /></>}/>
           <Route path="/productadmin-category" element={<><ProductSideNav/><PACategory/><Search /><Footer /></>}/>  
-          <Route path="/productadmin-subcategory" element={<><ProductSideNav/><PASubCategory/><Search /><Footer /></>}/>         
-          <Route path="/productadmin-products" element={<><ProductSideNav/><PAProduct/><Search /><Footer /></>}/>
+          <Route path="/productadmin-size" element={<><ProductSideNav/><SubCategory/><Search/><Footer/></>} />          <Route path="/productadmin-products" element={<><ProductSideNav/><PAProduct/><Search /><Footer /></>}/>
           <Route path="/productadmin-add-products" element={<><ProductSideNav/><PAAddProduct/><Search /><Footer /></>}/>
           <Route path="/productadmin-view-products/:id" element={<><ProductSideNav/><PAViewProduct/><Search /><Footer /></>}/>
           <Route path="/productadmin-update-products/:id" element={<><ProductSideNav/><PAUpdateProduct/><Search /><Footer /></>}/>
