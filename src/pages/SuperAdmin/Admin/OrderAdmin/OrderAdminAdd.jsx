@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
+import { BASE_URL } from '../../../Baseurl';
 
 
 function OrderAdminAdd() {
@@ -34,7 +35,7 @@ function OrderAdminAdd() {
       // if (image) {
       //   formData.append('image', image.file); // Append file directly
       // }
-      let order_admin = await axios.post('http://127.0.0.1:8000/superadmin/create/orderadmin/', formData, {
+      let order_admin = await axios.post(`${BASE_URL}/superadmin/create/orderadmin/`, formData, {
         headers: { 'Content-Type': 'application/json' }
       });
       console.log("Response:", order_admin);
@@ -102,7 +103,7 @@ function OrderAdminAdd() {
                     <span className="text-medium align-middle">Back</span>
                   </a>
                   <h1 className="mb-0 pb-0 display-4" id="title">Order Admin Add</h1>
-                </div>
+                </div>   
               </div>
               {/* <!-- Title End --> */}
 

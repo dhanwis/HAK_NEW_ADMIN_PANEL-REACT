@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { BASE_URL } from '../../Baseurl';
 
 function PASubCategory() {
 
@@ -75,7 +76,7 @@ function PASubCategory() {
       if (image) {
         formData.append('image', image.file); // Append file directly
       }
-      let subcategory = await axios.post('http://127.0.0.1:8000/auth/subcategory/', formData, {
+      let subcategory = await axios.post(`${BASE_URL}/auth/subcategory/`, formData, {
         headers: { 'Content-Type': 'multipart/form-data' }
       });
       console.log("Response:", subcategory);
@@ -171,7 +172,7 @@ function PASubCategory() {
       if (editImage.file) {
         formData.append('image', editImage.file); // Append file directly
       }
-      let subcategory = await axios.patch(`http://127.0.0.1:8000/auth/subcategory-edit/${editSubCategory.id}`, formData, {
+      let subcategory = await axios.patch(`${BASE_URL}/auth/subcategory-edit/${editSubCategory.id}`, formData, {
         headers: { 'Content-Type': 'multipart/form-data' }
       });
       console.log("Response:", subcategory);

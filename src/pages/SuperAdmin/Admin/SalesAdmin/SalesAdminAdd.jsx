@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { BASE_URL } from '../../../Baseurl';
 
 function SalesAdminAdd() {
  const navigate=useNavigate()
@@ -23,7 +24,7 @@ function SalesAdminAdd() {
 
   const handleSubmit = async () => {
     try{
-      let product_admin = await axios.post('http://127.0.0.1:8000/superadmin/create/salesadmin/', userData, {method: {"Content-Type": "application/json"}});
+      let product_admin = await axios.post(`${BASE_URL}/superadmin/create/salesadmin/`, userData, {method: {"Content-Type": "application/json"}});
       console.log(product_admin);
       alert('Form Submitted Successfully');
       navigate('/salesadmin')

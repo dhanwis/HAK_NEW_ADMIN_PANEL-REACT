@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
+import { BASE_URL } from '../../../Baseurl';
 
 function SalesAdmin() {
 
@@ -7,7 +8,7 @@ function SalesAdmin() {
 
 
   useEffect(() => {
-      axios.get('http://127.0.0.1:8000/auth/admin/salesadmin/')
+      axios.get(`${BASE_URL}/auth/admin/salesadmin/`)
           .then(response => {
             console.log(response.data)
               setUsers(response.data);
@@ -21,7 +22,7 @@ function SalesAdmin() {
 
   const deleteUser = (userId) => {
 console.log(userId)
-    axios.delete(`http://127.0.0.1:8000/superadmin/sales-admin-profile/${userId}`)
+    axios.delete(`${BASE_URL}/superadmin/sales-admin-profile/${userId}`)
       .then(response => {
         // Filter out the deleted user from the state
         setUsers(users.filter(user => user.id !== userId));

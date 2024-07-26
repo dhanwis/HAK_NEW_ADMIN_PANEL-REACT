@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './login.css';
 import logo from './dilhak.png';
 import axios from 'axios';
+import { BASE_URL } from '../../pages/Baseurl';
 
 
 //makes changes here from sreehari + shamal
@@ -36,66 +37,56 @@ function AdminLogin() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     setIsSubmitting(true);
-
+  
+    let usernameError = '';
+    let passwordError = '';
+  
     if (username.trim() === '') {
-      usernameError = 'Username is Required';
+      usernameError = 'Username is required';
     }
     if (password.trim() === '') {
-      passwordError = 'Password is Required';
-    }
-    else if (password.length < 8) {
+      passwordError = 'Password is required';
+    } else if (password.length < 8) {
       passwordError = 'Password must have more than 8 characters';
     }
+  
     setNameError(usernameError);
     setPasswordError(passwordError);
+  
     if (usernameError || passwordError) {
       setIsSubmitting(false);
       return;
     }
-    //alert('Form Submitted Successfully');
+  
     try {
-      let a = await axios.post('http://127.0.0.1:8000/auth/admin/login/', { username: username, password: password });
-
-      console.log('aaa', a)
-      if (a.status === 200) {
-        console.log('abcd', a.data)
-        const user = a.data.user;
-        console.log(user);
-
-
-
-        sessionStorage.setItem('token',a.data.access)
-
+      const response = await axios.post(`${BASE_URL}/auth/admin/login/`, { username, password });
+  
+      if (response.status === 200) {
+        const user = response.data.user;
+        sessionStorage.setItem('token', response.data.access);
+  
         if (user.product_admin) {
-          // alert("Productadmin login success");
           window.location.href = '/productadmin-dashboard';
-        }
-        else if (user.order_admin) {
-          // alert("Orderadmin login success");
+        } else if (user.order_admin) {
           window.location.href = '/orderadmin-dashboard';
         } else if (user.sales_admin) {
           window.location.href = '/salesadmin-dashboard';
-        }
-        else {
-          // alert("Superadmin login success");
+        } else {
           window.location.href = '/admin-dashboard';
         }
       }
-      else{
-        alert(a.response.data)
+    } catch (error) {
+      if (error.response && error.response.status === 401) {
+        alert('Invalid username or password');
+      } else {
+        alert(error.response ? error.response.data : 'An error occurred');
       }
-    }
-    catch (error) {
-      alert(error.response.data);
       console.log(error.response);
-    }
-    finally {
+    } finally {
       setIsSubmitting(false); // Set isSubmitting back to false when submission is done
     }
-    //console.log(a);
-    // setName('');
-    // setPassword('');
   };
+  
 
 
   return (

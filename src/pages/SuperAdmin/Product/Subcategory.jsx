@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Table from 'react-bootstrap/Table';
+import { BASE_URL } from '../../Baseurl';
 
 
 function SubCategory() {
@@ -8,7 +9,7 @@ function SubCategory() {
   // ---------------------Size-Add and display---------------------
   const [categories, setCategories] = useState([]);
   useEffect(() => {
-    axios.get('http://127.0.0.1:8000/productadmin/size/')
+    axios.get(`${BASE_URL}/productadmin/size/`)
         .then(response => {
           console.log(response.data)
             setCategories(response.data);
@@ -36,7 +37,7 @@ function SubCategory() {
         formData.append(key, NewsizeData[key]);
       }
      
-      let subcategory = await axios.post('http://127.0.0.1:8000/productadmin/size/', formData, {
+      let subcategory = await axios.post(`${BASE_URL}/productadmin/size/`, formData, {
         headers: { 'Content-Type': 'application/json' }
       });
       console.log("Response:", subcategory);

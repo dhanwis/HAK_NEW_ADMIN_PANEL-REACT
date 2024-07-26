@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { BASE_URL } from '../../../Baseurl';
 
 function ProductAdminAdd() {
 const navigate=useNavigate()
@@ -33,7 +34,7 @@ const navigate=useNavigate()
       //   formData.append('image', image.file); // Append file directly
       // }
 
-      let product_admin = await axios.post('http://127.0.0.1:8000/superadmin/create/productadmin/', formData, {
+      let product_admin = await axios.post(`${BASE_URL}/superadmin/create/productadmin/`, formData, {
         headers: { 'Content-Type': 'application/json' }
       });
       console.log("Response:", product_admin);

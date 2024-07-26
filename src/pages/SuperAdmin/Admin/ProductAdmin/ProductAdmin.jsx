@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { BASE_URL } from '../../../Baseurl';
 
 function ProductAdmin() {
   
@@ -7,7 +8,7 @@ function ProductAdmin() {
 
 
   useEffect(() => {
-      axios.get('http://127.0.0.1:8000/auth/admin/productadminview/')
+      axios.get(`${BASE_URL}/auth/admin/productadminview/`)
           .then(response => {
             console.log(response.data)
               setUsers(response.data);
@@ -19,7 +20,7 @@ function ProductAdmin() {
 
   const deleteUser = (userId) => {
 console.log(userId)
-    axios.delete(`http://127.0.0.1:8000/superadmin/product-admin-profile/${userId}/`)
+    axios.delete(`${BASE_URL}/superadmin/product-admin-profile/${userId}/`)
       .then(response => {
         // Filter out the deleted user from the state
         setUsers(users.filter(user => user.id !== userId));

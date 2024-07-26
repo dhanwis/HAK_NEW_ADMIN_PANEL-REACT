@@ -39,7 +39,7 @@ else{
       console.log("rrr",image);
       formData.append('image', image.file); 
     }
-    let category = await axios.post('http://127.0.0.1:8000/productadmin/color-images/', formData, {
+    let category = await axios.post(`${BASE_URL}/productadmin/color-images/`, formData, {
       headers: { 'Content-Type': 'multipart/form-data' }
     });
     // console.log("Response:", category);
@@ -69,7 +69,7 @@ else{
 
   // to get category data
   useEffect(() => {
-    axios.get('http://127.0.0.1:8000/productadmin/categories/')
+    axios.get(`${BASE_URL}/productadmin/categories/`)
       .then(response => {
         setCategoryData(response.data);
       })
@@ -110,7 +110,7 @@ const {category,name,description}=ProductData
         formData.append(key, ProductData[key]);
       }
 
-      let Response = await axios.post('http://127.0.0.1:8000/productadmin/products/', formData, {
+      let Response = await axios.post(`${BASE_URL}/productadmin/products/`, formData, {
         headers: { 'Content-Type': 'application/json' }
       });
       console.log("Response:", Response);
@@ -278,7 +278,7 @@ const handleCheckboxChange = (event) => {
   const [getProducts,setgetProducts]=useState([])
 
   useEffect(()=>{
-    axios.get('http://127.0.0.1:8000/productadmin/products/')
+    axios.get(`${BASE_URL}/productadmin/products/`)
     .then(Res=>{
       
       setgetProducts(Res.data)

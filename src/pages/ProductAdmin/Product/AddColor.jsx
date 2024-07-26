@@ -76,7 +76,7 @@ function AddColor() {
     const [getProducts,setgetProducts]=useState([])
   
     useEffect(()=>{
-      axios.get('http://127.0.0.1:8000/productadmin/products/')
+      axios.get(`${BASE_URL}/productadmin/products/`)
       .then(Res=>{
         
         setgetProducts(Res.data)
@@ -92,7 +92,7 @@ function AddColor() {
   const [productImage,setProductimage]=useState([])
   
   useEffect(()=>{
-    axios.get('http://127.0.0.1:8000/productadmin/color-images/')
+    axios.get(`${BASE_URL}/productadmin/color-images/`)
     .then(response=>{
       // console.log("this is response",response);
       setProductimage(response.data)

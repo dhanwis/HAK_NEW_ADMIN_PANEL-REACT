@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import { BASE_URL } from '../../Baseurl';
 
 function PACategory() {
 
   // --------------------Category-list-view----------------
   const [categorys, setCategorys] = useState([]);
   useEffect(() => {
-    axios.get('http://127.0.0.1:8000/productadmin/categories/')
+    axios.get(`${BASE_URL}/productadmin/categories/`)
       .then(response => {
         console.log('first ', response.data)
         setCategorys(response.data);
@@ -21,7 +22,7 @@ function PACategory() {
   const [viewCategory, setViewCategory] = useState([]);
   const { id } = useParams();
   const handleViewCategory = (categoryId) => {
-    axios.get(`http://127.0.0.1:8000/productadmin/categories/${categoryId}`)
+    axios.get(`${BASE_URL}/productadmin/categories/${categoryId}`)
       .then(response => {
         console.log(response.data);
         setViewCategory(response.data);
@@ -56,7 +57,7 @@ function PACategory() {
       if (image) {
         formData.append('image', image.file); // Append file directly
       }
-      let category = await axios.post('http://127.0.0.1:8000/productadmin/categories/', formData, {
+      let category = await axios.post(`${BASE_URL}/productadmin/categories/`, formData, {
         headers: { 'Content-Type': 'multipart/form-data' }
       });
       console.log("Response:", category);
@@ -88,7 +89,7 @@ function PACategory() {
   // console.log(token);
 
   const handleEditCategory = (id) => {
-    axios.get(`http://127.0.0.1:8000/productadmin/categories/${id}/`)
+    axios.get(`${BASE_URL}/productadmin/categories/${id}/`)
       .then(response => {
         setEditCategory({
           id: response.data.id,
@@ -96,7 +97,7 @@ function PACategory() {
           image: response.data.image
         });
         setEditImage({
-          url: `http://localhost:8000${response.data.image}`,
+          url: `${BASE_URL}${response.data.image}`,
           file: null
         });
       })
@@ -113,7 +114,7 @@ function PACategory() {
       if (editImage.file) {
         formData.append('image', editImage.file); // Append file directly
       }
-      let category = await axios.patch(`http://127.0.0.1:8000/productadmin/categories/${editCategory.id}/`, formData, {
+      let category = await axios.patch(`${BASE_URL}/productadmin/categories/${editCategory.id}/`, formData, {
         headers: { 'Content-Type': 'multipart/form-data' }
       });
       console.log("Response:", category);
@@ -127,7 +128,7 @@ function PACategory() {
 
   // -----------------------Category-delete-------------------
   const deleteCategory = (categoryId) => {
-    axios.delete(`http://127.0.0.1:8000/productadmin/categories/${categoryId}/`)
+    axios.delete(`${BASE_URL}/productadmin/categories/${categoryId}/`)
       .then(response => {
         // Filter out the deleted category from the state
         setCategorys(categorys.filter(category => category.id !== categoryId));
@@ -304,7 +305,7 @@ function PACategory() {
                   <div key={category.id} className="card mb-2">
                     <div className="row g-0 h-100 sh-lg-9 position-relative">
                       <a href="#" className="col-auto position-relative" data-bs-toggle="modal" data-bs-target="#categoryViewModal" onClick={() => handleViewCategory(category.id)}>
-                        <img src={`http://localhost:8000${category.image}`} className="card-img card-img-horizontal sw-11 h-100 sh-lg-9" />
+                        <img src={`${BASE_URL}${category.image}`} className="card-img card-img-horizontal sw-11 h-100 sh-lg-9" />
                       </a>
                       <div className="col py-4 py-lg-0">
                         <div className="ps-5 pe-4 h-100">

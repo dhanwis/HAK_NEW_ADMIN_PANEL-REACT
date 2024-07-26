@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import { BASE_URL } from '../../Baseurl';
 
 function Category() {
 
   // --------------------Category-list-view----------------
   const [categorys, setCategorys] = useState([]);
   useEffect(() => {
-      axios.get('http://127.0.0.1:8000/productadmin/categories/')
+      axios.get(`${BASE_URL}/productadmin/categories/`)
           .then(response => {
             console.log('resp',response.data)
               setCategorys(response.data);
@@ -54,7 +55,7 @@ function Category() {
       if (iimage) {
         formData.append('image', iimage.file); // Append file directly
       }
-      let category = await axios.post('http://127.0.0.1:8000/productadmin/categories/', formData, {
+      let category = await axios.post(`${BASE_URL}/productadmin/categories/`, formData, {
         headers: { 'Content-Type': 'multipart/form-data' }
       });
       console.log("Response:", category);
@@ -107,7 +108,7 @@ function Category() {
       if (editImage.file) {
         formData.append('image', editImage.file); // Append file directly
       }
-      let category = await axios.patch(`http://127.0.0.1:8000/auth/category-edit/${editCategory.id}`, formData, {
+      let category = await axios.patch(`${BASE_URL}/auth/category-edit/${editCategory.id}`, formData, {
         headers: { 'Content-Type': 'multipart/form-data' }
       });
       console.log("Response:", category);
@@ -121,7 +122,7 @@ function Category() {
 
   // -----------------------Category-delete-------------------
   const deleteCategory = (categoryId) => {
-    axios.delete(`http://127.0.0.1:8000/productadmin/categories/${categoryId}`)
+    axios.delete(`${BASE_URL}/productadmin/categories/${categoryId}`)
       .then(response => {
         // Filter out the deleted category from the state
         setCategorys(categorys.filter(category => category.id !== categoryId));
