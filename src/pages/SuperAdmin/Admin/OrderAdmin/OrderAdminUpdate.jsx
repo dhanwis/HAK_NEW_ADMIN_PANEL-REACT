@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { BASE_URL } from '../../../Baseurl';
 
 function OrderAdminUpdate() {
 
@@ -28,7 +29,7 @@ function OrderAdminUpdate() {
   };
 
   const handleEditData = (userId) => {
-    axios.get(`http://localhost:8000/superadmin/order-admin-profile/${userId}`)
+    axios.get(`${BASE_URL}/superadmin/order-admin-profile/${userId}`)
       .then(response => {
         setEditData({
           id: response.data.id,
@@ -59,7 +60,7 @@ function OrderAdminUpdate() {
       // if (editImage && editImage.file) {
       //   formData.append('image', editImage.file); // Append file directly
       // }
-      let product_admin = await axios.patch(`http://localhost:8000/superadmin/order-admin-profile/${id}`, formData, {
+      let product_admin = await axios.patch(`${BASE_URL}/superadmin/order-admin-profile/${id}`, formData, {
         headers: { 'Content-Type': 'application/json' }
       });
       console.log("Response:", product_admin);

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import { BASE_URL } from '../../../Baseurl';
 
 function OrderAdminView() {
 
@@ -9,7 +10,7 @@ function OrderAdminView() {
   console.log(id)
 
   useEffect(() => {
-      axios.get(`http://localhost:8000/superadmin/order-admin-profile/${id}/`)
+      axios.get(`${BASE_URL}/superadmin/order-admin-profile/${id}/`)
           .then(response => {
             console.log(response.data)
               setUser(response.data);
@@ -111,7 +112,7 @@ function OrderAdminView() {
                 <div className="card">
                   <div className="card-body">
                     {/* <form> */}
-                      <div className="dropzone dropzone-columns row g-2 row-cols-1 row-cols-md-1 border-0 p-0" ><img src={`http://localhost:8000${user.image}`} alt="user"/></div>
+                      <div className="dropzone dropzone-columns row g-2 row-cols-1 row-cols-md-1 border-0 p-0" ><img src={`${BASE_URL}${user.image}`} alt="user"/></div>
                     {/* </form> */}
                   </div>
                 </div>

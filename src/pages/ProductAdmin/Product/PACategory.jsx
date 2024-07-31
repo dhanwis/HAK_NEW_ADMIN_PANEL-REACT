@@ -132,7 +132,7 @@ function PACategory() {
       .then(response => {
         // Filter out the deleted category from the state
         setCategorys(categorys.filter(category => category.id !== categoryId));
-        alert('Category deleted success');
+        alert('Category deleted success'); 
       })
       .catch(error => {
         console.error('Error deleting category:', error);
@@ -343,7 +343,7 @@ function PACategory() {
                           <h2 className="small-title">Image</h2>
                           <div className="card">
                             <div className="card-body">
-                              <div className="dropzone dropzone-columns row g-2 row-cols-1 row-cols-md-1 border-0 p-0" ><img src={`http://localhost:8000${viewCategory.image}`} alt="user" /></div>
+                              <div className="dropzone dropzone-columns row g-2 row-cols-1 row-cols-md-1 border-0 p-0" ><img src={`${BASE_URL}${viewCategory.image}`} alt="user" /></div>
                             </div>
                           </div>
                         </div>

@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { BASE_URL } from '../../../Baseurl';
 
 function OrderAdmin() {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-      axios.get('http://localhost:8000/auth/admin/orderadmin/')
+      axios.get(`${BASE_URL}/auth/admin/orderadmin/`)
           .then(response => {
             console.log(response.data)
               setUsers(response.data);
@@ -16,7 +17,7 @@ function OrderAdmin() {
   }, []);
 
   const deleteUser = (userId) => {
-    axios.delete(`http://localhost:8000/superadmin/order-admin-profile/${userId}`)
+    axios.delete(`${BASE_URL}/superadmin/order-admin-profile/${userId}`)
       .then(response => {
         // Filter out the deleted user from the state
         setUsers(users.filter(user => user.id !== userId));
