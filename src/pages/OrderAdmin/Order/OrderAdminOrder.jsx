@@ -1,6 +1,68 @@
-import React from 'react'
+import axios from 'axios';
+import React, { useEffect, useState } from 'react'
+import { BASE_URL } from '../../Baseurl';
+import Table from 'react-bootstrap/Table';
+import Select from 'react-select';
 
 function OrderAdminOrder() {
+
+
+
+  const [ViewOrder,setViewOrder]=useState([])
+
+ 
+
+  useEffect(()=>{
+  
+  axios.get(`${BASE_URL}/superadmin/all-order/`)
+  .then(response=>{
+    console.log("re",response);
+    setViewOrder(response.data)
+  })
+  .catch(error=>{
+    console.error("Error in fetching data",error);
+  })       
+  
+  
+  },[])
+
+  const options = [
+    { value: 'Order Pending', label: 'Order Pending' },
+    { value: 'Order Confirmed', label: 'Order Confirmed' },
+    { value: 'Order Shipped', label: 'Order Shipped' },
+    { value: 'Order Delivered', label: 'Order Delivered' },
+  ];
+
+
+
+  // to update status
+const [UpdateStatus,setUpdateStatus]=useState({
+
+  order_status:""
+
+})
+
+const handleEditStatus=async()=>{
+const {order_status}=UpdateStatus
+  
+  try{
+let formdata=new FormData()
+formdata.append("order_status",order_status)
+
+const response=axios.patch(`${BASE_URL}/superadmin/order-status-change/`,formdata, {headers: { 'Content-Type': 'application/json' }})
+console.log(response);
+
+
+  }
+  catch(error){
+    console.log("something went wrong",error);
+
+  }
+
+}
+
+
+
   return (
     <div>
       <main>
@@ -31,7 +93,7 @@ function OrderAdminOrder() {
                     aria-expanded="false"
                   ></button>
                   <div className="dropdown-menu dropdown-menu-end">
-                    <a className="dropdown-item" href="#">Status: Pending</a>
+                    <a className="dropdown-item" href="#">Status: Pendind</a>
                     <a className="dropdown-item" href="#">Status: Shipped</a>
                     <a className="dropdown-item active" href="#">Status: Delivered</a>
                   </div>
@@ -108,159 +170,52 @@ function OrderAdminOrder() {
           {/* <!-- Controls End --> */}
 
           {/* <!-- Order List Start --> */}
-          <div className="row">
-            <div className="col-12 mb-5">
-              <div className="card mb-2 bg-transparent no-shadow d-none d-md-block">
-                <div className="card-body pt-0 pb-0 sh-3">
-                  <div className="row g-0 h-100 align-content-center">
-                    <div className="col-md-2 d-flex align-items-center mb-2 mb-md-0 text-muted text-medium">ID</div>
-                    <div className="col-md-3 d-flex align-items-center text-muted text-medium">NAME</div>
-                    <div className="col-md-2 d-flex align-items-center text-muted text-medium">PRICE</div>
-                    <div className="col-md-2 d-flex align-items-center text-muted text-medium">DATE</div>
-                    <div className="col-md-2 d-flex align-items-center text-muted text-medium">STATUS</div>
-                  </div>
-                </div>
-              </div>
-              <div id="checkboxTable">
-                <div className="card mb-2">
-                  <div className="card-body pt-0 pb-0 sh-21 sh-md-8">
-                    <div className="row g-0 h-100 align-content-center">
-                      <div className="col-11 col-md-2 d-flex flex-column justify-content-center mb-2 mb-md-0 order-1 order-md-1 h-md-100 position-relative">
-                        <div className="text-muted text-small d-md-none">Id</div>
-                        <a href="/orderadmin-view-order" className="text-truncate h-100 d-flex align-items-center">1239</a>
-                      </div>
-                      <div className="col-6 col-md-3 d-flex flex-column justify-content-center mb-2 mb-md-0 order-3 order-md-2">
-                        <div className="text-muted text-small d-md-none">Name</div>
-                        <div className="text-alternate">Joisse Kaycee</div>
-                      </div>
-                      <div className="col-6 col-md-2 d-flex flex-column justify-content-center mb-2 mb-md-0 order-4 order-md-3">
-                        <div className="text-muted text-small d-md-none">Price</div>
-                        <div className="text-alternate">
-                          <span>
-                            <span className="text-small">$</span>
-                            321.75
-                          </span>
-                        </div>
-                      </div>
-                      <div className="col-6 col-md-2 d-flex flex-column justify-content-center mb-2 mb-md-0 order-5 order-md-4">
-                        <div className="text-muted text-small d-md-none">Date</div>
-                        <div className="text-alternate">13.09.2020</div>
-                      </div>
-                      <div className="col-6 col-md-2 d-flex flex-column justify-content-center mb-2 mb-md-0 order-last order-md-5">
-                        <div className="text-muted text-small d-md-none">Status</div>
-                        <div className="text-alternate">
-                          <span className="badge rounded-pill bg-outline-primary">CONFIRMED</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="card mb-2">
-                  <div className="card-body pt-0 pb-0 sh-21 sh-md-8">
-                    <div className="row g-0 h-100 align-content-center">
-                      <div className="col-11 col-md-2 d-flex flex-column justify-content-center mb-2 mb-md-0 order-1 order-md-1 h-md-100 position-relative">
-                        <div className="text-muted text-small d-md-none">Id</div>
-                        <a href="/orderadmin-view-order" className="text-truncate h-100 d-flex align-items-center">1251</a>
-                      </div>
-                      <div className="col-6 col-md-3 d-flex flex-column justify-content-center mb-2 mb-md-0 order-3 order-md-2">
-                        <div className="text-muted text-small d-md-none">Name</div>
-                        <div className="text-alternate">Esperanza Lodge</div>
-                      </div>
-                      <div className="col-6 col-md-2 d-flex flex-column justify-content-center mb-2 mb-md-0 order-4 order-md-3">
-                        <div className="text-muted text-small d-md-none">Price</div>
-                        <div className="text-alternate">
-                          <span>
-                            <span className="text-small">$</span>
-                            59.00
-                          </span>
-                        </div>
-                      </div>
-                      <div className="col-6 col-md-2 d-flex flex-column justify-content-center mb-2 mb-md-0 order-5 order-md-4">
-                        <div className="text-muted text-small d-md-none">Date</div>
-                        <div className="text-alternate">14.09.2020</div>
-                      </div>
-                      <div className="col-6 col-md-2 d-flex flex-column justify-content-center mb-2 mb-md-0 order-last order-md-5">
-                        <div className="text-muted text-small d-md-none">Status</div>
-                        <div className="text-alternate">
-                          <span className="badge rounded-pill bg-outline-primary">CONFIRMED</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="card mb-2">
-                  <div className="card-body pt-0 pb-0 sh-21 sh-md-8">
-                    <div className="row g-0 h-100 align-content-center">
-                      <div className="col-11 col-md-2 d-flex flex-column justify-content-center mb-2 mb-md-0 order-1 order-md-1 h-md-100 position-relative">
-                        <div className="text-muted text-small d-md-none">Id</div>
-                        <a href="/orderadmin-view-order" className="text-truncate h-100 d-flex align-items-center">1397</a>
-                      </div>
-                      <div className="col-6 col-md-3 d-flex flex-column justify-content-center mb-2 mb-md-0 order-3 order-md-2">
-                        <div className="text-muted text-small d-md-none">Name</div>
-                        <div className="text-alternate">Blaine Cottrell</div>
-                      </div>
-                      <div className="col-6 col-md-2 d-flex flex-column justify-content-center mb-2 mb-md-0 order-4 order-md-3">
-                        <div className="text-muted text-small d-md-none">Price</div>
-                        <div className="text-alternate">
-                          <span>
-                            <span className="text-small">$</span>
-                            128.25
-                          </span>
-                        </div>
-                      </div>
-                      <div className="col-6 col-md-2 d-flex flex-column justify-content-center mb-2 mb-md-0 order-5 order-md-4">
-                        <div className="text-muted text-small d-md-none">Date</div>
-                        <div className="text-alternate">17.09.2020</div>
-                      </div>
-                      <div className="col-6 col-md-2 d-flex flex-column justify-content-center mb-2 mb-md-0 order-last order-md-5">
-                        <div className="text-muted text-small d-md-none">Status</div>
-                        <div className="text-alternate">
-                          <span className="badge rounded-pill bg-outline-primary">CONFIRMED</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="card mb-2">
-                  <div className="card-body pt-0 pb-0 sh-21 sh-md-8">
-                    <div className="row g-0 h-100 align-content-center">
-                      <div className="col-11 col-md-2 d-flex flex-column justify-content-center mb-2 mb-md-0 order-1 order-md-1 h-md-100 position-relative">
-                        <div className="text-muted text-small d-md-none">Id</div>
-                        <a href="/orderadmin-view-order" className="text-truncate h-100 d-flex align-items-center">1397</a>
-                      </div>
-                      <div className="col-6 col-md-3 d-flex flex-column justify-content-center mb-2 mb-md-0 order-3 order-md-2">
-                        <div className="text-muted text-small d-md-none">Name</div>
-                        <div className="text-alternate">Blaine Cottrell</div>
-                      </div>
-                      <div className="col-6 col-md-2 d-flex flex-column justify-content-center mb-2 mb-md-0 order-4 order-md-3">
-                        <div className="text-muted text-small d-md-none">Price</div>
-                        <div className="text-alternate">
-                          <span>
-                            <span className="text-small">$</span>
-                            128.25
-                          </span>
-                        </div>
-                      </div>
-                      <div className="col-6 col-md-2 d-flex flex-column justify-content-center mb-2 mb-md-0 order-5 order-md-4">
-                        <div className="text-muted text-small d-md-none">Date</div>
-                        <div className="text-alternate">17.09.2020</div>
-                      </div>
-                      <div className="col-6 col-md-2 d-flex flex-column justify-content-center mb-2 mb-md-0 order-last order-md-5">
-                        <div className="text-muted text-small d-md-none">Status</div>
-                        <div className="text-alternate">
-                          <span className="badge rounded-pill bg-outline-primary">CONFIRMED</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+
+
+
+          <Table striped bordered hover>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>MOBILE</th>
+          <th>PRODUCT NAME</th>
+          <th>QUANTITY</th>
+          <th>PRICE</th>
+          <th>STATUS</th>
+        </tr>
+      </thead>
+      <tbody>
+      {ViewOrder &&  ViewOrder.length>0? (
+      ViewOrder.map((item)=>(
+      <tr>
+          <td>{item.id}</td>
+          <td>{item.first_name}</td>
+          <td>{item.mobile_no}</td>
+          <td>{item.ordered_items.product_name}</td>
+          <td>{item.ordered_items.quantity}</td>
+          <td>{item.ordered_items.total}</td>
+          <td>  <Select
+                  options={options}
+                  defaultValue={options.find(option => option.value === item.order_status)}
+                  //  onChange={(selectedOption) => handleStatusChange(selectedOption, item.id)}
+                  placeholder="Select an option"
+                /></td>
+         
+        </tr>
+        ))
+      )
+        :null
+      }
+       
+      </tbody>
+    </Table>
+    
+         
           {/* <!-- Order List End --> */}
 
           {/* <!-- Pagination Start --> */}
-          <div className="d-flex justify-content-center">
+          {/* <div className="d-flex justify-content-center">
             <nav>
               <ul className="pagination">
                 <li className="page-item disabled">
@@ -278,7 +233,7 @@ function OrderAdminOrder() {
                 </li>
               </ul>
             </nav>
-          </div>
+          </div> */}
           {/* <!-- Pagination End --> */}
 
           

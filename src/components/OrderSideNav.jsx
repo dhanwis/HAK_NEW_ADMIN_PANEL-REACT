@@ -21,7 +21,7 @@ function OrderSideNav() {
           <div className="user-container d-flex">
             <Link to="#" className="d-flex user position-relative" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <img className="profile" alt="profile" src="img/profile/profile-1.webp" />
-              <div className="name">Zayn Hartley</div>
+              <div className="name"></div>
             </Link>
             <div className="dropdown-menu dropdown-menu-end user-menu wide">
               <div className="row mb-3 ms-0 me-0">

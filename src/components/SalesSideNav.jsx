@@ -20,10 +20,10 @@ function SalesSideNav() {
 
           {/* <!-- User Menu Start --> */}
           <div className="user-container d-flex">
-            <Link to="#" className="d-flex user position-relative" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {/* <Link to="#" className="d-flex user position-relative" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <img className="profile" alt="profile" src="img/profile/profile-1.webp" />
               <div className="name">Zayn Hartley</div>
-            </Link>
+            </Link> */}
             <div className="dropdown-menu dropdown-menu-end user-menu wide">
               <div className="row mb-3 ms-0 me-0">
                 <div className="col-12 ps-1 mb-2">

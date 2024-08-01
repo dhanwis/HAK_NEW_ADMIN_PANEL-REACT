@@ -117,7 +117,7 @@ function PACategory() {
       let category = await axios.patch(`${BASE_URL}/productadmin/categories/${editCategory.id}/`, formData, {
         headers: { 'Content-Type': 'multipart/form-data' }
       });
-      console.log("Response:", category);
+      console.log("Response:", category);  
       window.location.reload();
     } catch (err) {
       console.error(err);
