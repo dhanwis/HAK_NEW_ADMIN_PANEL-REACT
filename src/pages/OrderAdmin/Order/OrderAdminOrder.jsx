@@ -8,23 +8,23 @@ function OrderAdminOrder() {
 
 
 
-  const [ViewOrder,setViewOrder]=useState([])
+  const [ViewOrder, setViewOrder] = useState([]);
+  const [orderId, setOrderId] = useState();
+  const [UpdateStatus, setUpdateStatus] = useState({
+    order_status: ""
+  });
+  console.log(UpdateStatus);
 
- 
-
-  useEffect(()=>{
-  
-  axios.get(`${BASE_URL}/superadmin/all-order/`)
-  .then(response=>{
-    console.log("re",response);
-    setViewOrder(response.data)
-  })
-  .catch(error=>{
-    console.error("Error in fetching data",error);
-  })       
-  
-  
-  },[])
+  useEffect(() => {
+    axios.get(`${BASE_URL}/superadmin/all-order/`)
+      .then(response => {
+        console.log("re", response);
+        setViewOrder(response.data);
+      })
+      .catch(error => {
+        console.error("Error in fetching data", error);
+      });
+  }, []);
 
   const options = [
     { value: 'Order Pending', label: 'Order Pending' },
@@ -33,34 +33,20 @@ function OrderAdminOrder() {
     { value: 'Order Delivered', label: 'Order Delivered' },
   ];
 
+  const handleEditStatus = async () => {
+    const { order_status } = UpdateStatus;
 
+    try {
+      let formdata = new FormData();
+      formdata.append("order_status", order_status);
 
-  // to update status
-const [UpdateStatus,setUpdateStatus]=useState({
-
-  order_status:""
-
-})
-
-const handleEditStatus=async()=>{
-const {order_status}=UpdateStatus
-  
-  try{
-let formdata=new FormData()
-formdata.append("order_status",order_status)
-
-const response=axios.patch(`${BASE_URL}/superadmin/order-status-change/`,formdata, {headers: { 'Content-Type': 'application/json' }})
-console.log(response);
-
-
-  }
-  catch(error){
-    console.log("something went wrong",error);
-
-  }
-
-}
-
+      const response = await axios.patch(`${BASE_URL}/superadmin/order-status-change/${orderId}/`, formdata, { headers: { 'Content-Type': 'application/json' } });
+      console.log(response);
+    }
+    catch (error) {
+      console.log("something went wrong", error);
+    }
+  };
 
 
   return (
@@ -196,11 +182,15 @@ console.log(response);
           <td>{item.ordered_items.quantity}</td>
           <td>{item.ordered_items.total}</td>
           <td>  <Select
-                  options={options}
-                  defaultValue={options.find(option => option.value === item.order_status)}
-                  //  onChange={(selectedOption) => handleStatusChange(selectedOption, item.id)}
-                  placeholder="Select an option"
-                /></td>
+                options={options}
+                defaultValue={options.find(option => option.value === item.order_status)}
+                onChange={(e) => {
+                  setUpdateStatus({ ...UpdateStatus, order_status: e.target.value });
+                  setOrderId(item.id);
+                  handleEditStatus();
+                }}
+                placeholder="Select an option"
+              /></td>
          
         </tr>
         ))
