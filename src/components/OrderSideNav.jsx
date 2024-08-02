@@ -20,7 +20,8 @@ function OrderSideNav() {
           {/* <!-- User Menu Start --> */}
           <div className="user-container d-flex">
             <Link to="#" className="d-flex user position-relative" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <img className="profile" alt="profile" src="img/profile/profile-1.webp" />
+              {/* <img className="profile" alt="profile" src="img/profile/profile-1.webp" /> */}
+              <div className="name text-white">Order Admin</div>
               <div className="name"></div>
             </Link>
             <div className="dropdown-menu dropdown-menu-end user-menu wide">
@@ -195,12 +196,12 @@ function OrderSideNav() {
                     </Link>
               </li>
 
-              <li>
+              {/* <li>
                 <Link to="/orderadmin-shipping">
                 <i className="fa-solid fa-shopping-cart icon" data-acorn-size="18"/>
                   <span className="label">Shipping</span>
                 </Link>
-              </li>
+              </li> */}
 
                 {/* <li>
                   <Link to="/orderadmin-customer">
@@ -209,12 +210,12 @@ function OrderSideNav() {
                   </Link>
                 </li> */}
                
-              <li>
+              {/* <li>
                 <Link to="/orderadmin-settings">
                   <i className="fa-solid fa-gear icon" data-acorn-size="18"></i>
                   <span className="label">Settings</span>
                 </Link>
-              </li>
+              </li> */}
 
 
             </ul>

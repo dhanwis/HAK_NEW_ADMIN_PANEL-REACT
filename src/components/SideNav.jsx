@@ -11,19 +11,19 @@ function SideNav() {
           {/* <!-- Logo Start --> */}
           <div className="logo position-relative">
             <a href="/">
-              {/* <!-- Logo can be added directly --> */}
+             
              <img src={logo} alt="logo" style={{ marginLeft: "-30px"}}/> 
 
-              {/* <!-- Or added via css to provide different ones for different color themes --> */}
-              {/* <div className="img"></div> */}
+           
             </a>
           </div>
           {/* <!-- Logo End --> */}
 
           {/* <!-- User Menu Start --> */}
-          <div className="user-container d-flex">
+         
+          {/* <div className="user-container d-flex">
             <a href="#" className="d-flex user position-relative" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <img className="profile" alt="profile" src={profile} />
+              
               <div className="name">Super Admin</div>
             </a>
             <div className="dropdown-menu dropdown-menu-end user-menu wide">
@@ -66,8 +66,10 @@ function SideNav() {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
           {/* <!-- User Menu End --> */}
+          <div className="name text-white">Super Admin</div>
+
 
           {/* <!-- Icons Menu Start --> */}
           <ul className="list-unstyled list-inline text-center menu-icons">
@@ -161,7 +163,7 @@ function SideNav() {
                   </li> 
                 </ul>
               </li>
-              <li>
+              {/* <li>
                 <Link to="#products" data-href="Products.html">
                   <i className="fa-solid fa-shirt icon" data-acorn-size="18"></i>
                   <span className="label">Products</span>
@@ -172,11 +174,7 @@ function SideNav() {
                       <span className="label">Category</span>
                     </Link>
                   </li>
-                  {/* <li>
-                    <Link to="/subcategories">
-                      <span className="label">Size</span>
-                    </Link>
-                  </li> */}
+                 
                   <li>
                     <Link to="/products">
                       <span className="label">Product</span>
@@ -188,8 +186,8 @@ function SideNav() {
                     </Link>
                   </li>
                 </ul>
-              </li>
-              <li>
+              </li> */}
+              {/* <li>
                 <Link to="#orders" data-href="Orders.html">
                   <i  className="fa-solid fa-shopping-bag icon" data-acorn-size="18"></i>
                   <span className="label">Orders</span>
@@ -206,7 +204,7 @@ function SideNav() {
                     </Link>
                   </li>
                 </ul>
-              </li>
+              </li> */}
               {/* <li>
                 <Link to="#sales">
                   <i className="fa-solid fa-chart-simple icon" data-acorn-size="18"></i>
@@ -225,7 +223,7 @@ function SideNav() {
                   </li>
                 </ul>
               </li> */}
-              <li>
+              {/* <li>
                 <Link to="#customers" data-href="#">
                   <i  className="fa-solid fa-user icon" data-acorn-size="18"></i>
                   <span className="label">Customers</span>
@@ -248,7 +246,7 @@ function SideNav() {
                   <i className="fa-solid fa-gear icon" data-acorn-size="18"></i>
                   <span className="label">Settings</span>
                 </Link>
-              </li>
+              </li> */}
             </ul>
           </div>
           {/* <!-- Menu End --> */}

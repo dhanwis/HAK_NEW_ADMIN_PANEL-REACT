@@ -239,41 +239,7 @@ handleEditVariant(anotherid)
             </div>
           </div>
 
-          <div className="row">
-            <div className="col-xl-8">
-              {/* <!-- Product Info Start --> */}
-              <div className="mb-5">
-                <h2 className="small-title">Description</h2>
-                <div className="card">
-                  <div className="card-body">
-                    <form>
-                      <div className="mb-3">
-                        <label className="form-label">Product Name</label>
-                        <input type="text" className="form-control" value={editProduct.name} onChange={(e)=>setEditProduct({...editProduct,name:e.target.value})}  />
-                      </div>
-                      <div className="mb-3">
-                        <label className="form-label">Product Description</label>
-                        <textarea className="form-control html-editor-bubble html-editor sh-13" id="quillEditorBubble" style={{overflowY: 'scroll',padding:'10px 10px' }} value={editProduct.description}  onChange={(e)=>setEditProduct({...editProduct,description:e.target.value})}>
-                        </textarea>
-
-                       
-                      </div>
-                      <a href="#" className="btn btn-outline-primary btn-icon btn-icon-start ms-0 ms-sm-1 w-100 w-md-auto" onClick={handleEditSubmit}>
-                  <span>Update</span>
-                </a>
-                    </form>
-                  </div>
-                </div>
-              </div>
-            
-            </div>
-
-            <div className="col-xl-4 mb-n5">
-             
-
-              
-            </div>
-          </div>
+        
         
           <div className="row">
           <div className="col-xl-8">
@@ -321,19 +287,7 @@ handleEditVariant(anotherid)
               {/* <!-- Attributes End --> */}
           </div>
           
-          <div className="col-xl-4 mb-4 mt-7">
-          <div className="card mt-5">
-            <div className="card-body">
-              <div className="row">
-             
-                    <div className="col-md-6">
-                     {/* image hereeeee */}
-                    </div>
-                
-              </div>
-            </div>
-          </div>
-        </div>
+          
         </div>
         
         </div>

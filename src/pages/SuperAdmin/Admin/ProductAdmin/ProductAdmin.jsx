@@ -159,7 +159,7 @@ console.log(userId)
                     <div className="col py-4 py-lg-0">
                       <div className="ps-5 pe-4 h-100">
                         <div className="row g-0 h-100 align-content-center">
-                          <a href={`/productadmin-view/${user.id}`} className="col-12 col-lg-3 d-flex flex-column pe-1 mb-2 mb-lg-0 align-items-start justify-content-center">
+                          <a  className="col-12 col-lg-3 d-flex flex-column pe-1 mb-2 mb-lg-0 align-items-start justify-content-center">
                           {user.name}
                           </a>
                           {/* <div className="col-12 col-lg-3 d-flex flex-column pe-1 mb-2 mb-lg-0 align-items-start justify-content-center">

@@ -82,6 +82,7 @@ import SalesAdminProfileUpdate from './pages/SalesAdmin/Profile/SalesAdminProfil
 import AdminLogin from './components/Login/AdminLogin'
 import SubCategory from "./pages/SuperAdmin/Product/SubCategory";
 import Review from "./pages/SuperAdmin/Customer/Review";
+import PAvariantEdit from "./pages/ProductAdmin/Product/PAvariantEdit";
 
 
 function App() {
@@ -144,6 +145,7 @@ function App() {
           <Route path="/productadmin-add-products" element={<><ProductSideNav/><PAAddProduct/><Search /><Footer /></>}/>
           <Route path="/productadmin-view-products/:id" element={<><ProductSideNav/><PAViewProduct/><Search /><Footer /></>}/>
           <Route path="/productadmin-update-products/:id" element={<><ProductSideNav/><PAUpdateProduct/><Search /><Footer /></>}/>
+          <Route path="/productadmin-update-variants/:id" element={<><ProductSideNav/><PAvariantEdit/><Search /><Footer /></>}/>
         {/* -------------------------PRODUCT-ADMIN-END--------------------------- */}
 
 

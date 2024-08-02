@@ -158,7 +158,7 @@ console.log(userId)
                     <div className="col py-4 py-lg-0">
                       <div className="ps-5 pe-4 h-100">
                         <div className="row g-0 h-100 align-content-center">
-                          <a href="/salesadmin-view" className="col-11 col-lg-4 d-flex flex-column mb-lg-0 mb-3 pe-3 d-flex order-1 h-lg-100 justify-content-center">
+                          <a  className="col-11 col-lg-4 d-flex flex-column mb-lg-0 mb-3 pe-3 d-flex order-1 h-lg-100 justify-content-center">
                          {item.name}
                           </a>
                           <div className="col-12 col-lg-4 d-flex flex-column pe-1 mb-2 mb-lg-0 justify-content-center order-3">

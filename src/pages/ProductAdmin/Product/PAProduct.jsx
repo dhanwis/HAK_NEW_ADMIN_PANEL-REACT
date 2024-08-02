@@ -219,7 +219,7 @@ function PAProduct() {
                         <div className="row g-0 h-100 sh-lg-9 position-relative">
                           {/* viewing detail page */}
                           <a className="col-auto position-relative">
-                            <img src={`${BASE_URL}${item.image}`} alt="product" className="card-img card-img-horizontal sw-11 h-100 sh-lg-9 " />
+                            <img src={`${BASE_URL}${item.color.image_url}`} alt="product" className="card-img card-img-horizontal sw-11 h-100 sh-lg-9 " />
                           </a>
                           <div className="col py-4 py-lg-0">
                             -              <div className="ps-5 pe-4 h-100">
@@ -240,8 +240,17 @@ function PAProduct() {
                                   <span className="badge bg-outline-primary group">{item.product_status}</span>
                                 </div>
                                 <div className="col-12 col-lg-1 d-flex flex-column pe-1 mb-2 mb-lg-0 align-items-start justify-content-center order-5">
-                                  <a href={`/productadmin-update-products/${item.product.id}`} className="col-11 col-lg-1 d-flex flex-column mb-lg-0 mb-3 pe-3 d-flex order-1 h-lg-100 justify-content-center"><i className='fa-solid fa-pen' /></a>
-                                </div>
+  <div className="dropdown">
+    <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+      <i className='fa-solid fa-pen' />
+    </button>
+    <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+      <li><a className="dropdown-item" href={`/productadmin-update-products/${item.product.id}`}>Edit Product</a></li>
+      <li><a className="dropdown-item" href={`/productadmin-update-variants/${item.product.id}`}>Edit Variant</a></li>
+    </ul>
+  </div>
+</div>
+                                
                                 <div className="col-12 col-lg-1 d-flex flex-column pe-1 mb-2 mb-lg-0 align-items-start justify-content-center order-5">
   <a onClick={() => handleProductDelete(item.id)} href="#" className="col-11 col-lg-1 d-flex flex-column mb-lg-0 mb-3 pe-3 d-flex order-1 h-lg-100 justify-content-center">
     <i className='fa-solid fa-trash' />

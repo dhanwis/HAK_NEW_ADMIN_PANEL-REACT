@@ -21,10 +21,10 @@ function ProductSideNav() {
           {/* <!-- Logo End --> */}
 
           {/* <!-- User Menu Start --> */}
-          <div className="user-container d-flex">
+          {/* <div className="user-container d-flex">
             <a href="#" className="d-flex user position-relative" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <img className="profile" alt="profile" src={profile} />
-              <div className="name">Product Admin</div>
+             
             </a>
             <div className="dropdown-menu dropdown-menu-end user-menu wide">
               <div className="row mb-3 ms-0 me-0">
@@ -66,7 +66,9 @@ function ProductSideNav() {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
+
+<div className="name text-white">Product Admin</div>
           {/* <!-- User Menu End --> */}
 
           {/* <!-- Icons Menu Start --> */}
@@ -157,7 +159,7 @@ function ProductSideNav() {
                   </Link>
               </li>
 
-              <li>
+              {/* <li>
                   <Link to="/productadmin-discount">
                   <i className="fa-solid fa-tag icon" data-acorn-size="18"></i>
                   <span className="label">Offers</span>
@@ -168,7 +170,7 @@ function ProductSideNav() {
                   <i className="fa-solid fa-gear icon" data-acorn-size="18"></i>
                   <span className="label">Settings</span>
                 </Link>
-              </li>
+              </li> */}
             </ul>
           </div>
           {/* <!-- Menu End --> */}
