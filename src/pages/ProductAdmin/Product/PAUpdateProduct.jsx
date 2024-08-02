@@ -275,66 +275,7 @@ handleEditVariant(anotherid)
             </div>
           </div>
         
-          <div className="row">
-          <div className="col-xl-8">
-            {/* <!-- Attributes Start --> */}
-            <div className="mb-5">
-                <div className='row mt-4' >
-                <h2 className=" col-4 small-title mt-2">Product Variant</h2>
-              
-                  </div>
-                <div className="card mb-5 mt-3">
-                  <div className="card-body">
-                      <div className="mb-3 pb-3">
-                        <div className="row gx-2">
-                          <div className="col ">
-                          
-                          </div>
-                       
-                          <div className="">
-                            <div className="mb-3">
-                              <label className="form-label">Actual Price</label>
-                              <input type="text" className="form-control"  />
-                            </div>
-                          </div>
-                         
-                          <div className="">
-                            <div className="mb-3">
-                              <label className="form-label">Discount Percentage</label>
-                              <input type="text" className="form-control" />
-                            </div>
-                          </div>
-                          <div className="">
-                            <div className="mb-3">
-                              <label className="form-label">stock</label>
-                              <input type="text" className="form-control"  />
-                            </div>
-                          </div>
-                          <a href="#" className="btn btn-outline-primary btn-icon btn-icon-start ms-0 ms-sm-1 w-100 w-md-auto" onClick={handleEditSubmit}>
-                  <span>Update</span>
-                </a>
-                        </div>
-                      </div>
-                  </div>
-                </div>
-              </div>
-              {/* <!-- Attributes End --> */}
-          </div>
-          
-          <div className="col-xl-4 mb-4 mt-7">
-          <div className="card mt-5">
-            <div className="card-body">
-              <div className="row">
-             
-                    <div className="col-md-6">
-                     {/* image hereeeee */}
-                    </div>
-                
-              </div>
-            </div>
-          </div>
-        </div>
-        </div>
+        
         
         </div>
      
