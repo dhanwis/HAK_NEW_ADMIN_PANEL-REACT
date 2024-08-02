@@ -33,13 +33,11 @@ function OrderAdminOrder() {
     { value: 'Order Delivered', label: 'Order Delivered' },
   ];
 
-  const handleEditStatus = async () => {
-    const { order_status } = UpdateStatus;
-
+  const handleEditStatus = async (orderId, order_status) => {
     try {
       let formdata = new FormData();
       formdata.append("order_status", order_status);
-
+  
       const response = await axios.patch(`${BASE_URL}/superadmin/order-status-change/${orderId}/`, formdata, { headers: { 'Content-Type': 'application/json' } });
       console.log(response);
     }
@@ -181,16 +179,19 @@ function OrderAdminOrder() {
           <td>{item.ordered_items.product_name}</td>
           <td>{item.ordered_items.quantity}</td>
           <td>{item.ordered_items.total}</td>
-          <td>  <Select
-                options={options}
-                defaultValue={options.find(option => option.value === item.order_status)}
-                onChange={(e) => {
-                  setUpdateStatus({ ...UpdateStatus, order_status: e.target.value });
-                  setOrderId(item.id);
-                  handleEditStatus();
-                }}
-                placeholder="Select an option"
-              /></td>
+          <td>
+  <Select
+    options={options}
+    defaultValue={options.find(option => option.value === item.order_status)}
+    onChange={(selectedOption) => {
+      setUpdateStatus({ ...UpdateStatus, order_status: selectedOption.value });
+      setOrderId(item.id);
+      handleEditStatus(item.id, selectedOption.value);
+    }}
+    placeholder="Select an option"
+  />
+</td>
+
          
         </tr>
         ))
